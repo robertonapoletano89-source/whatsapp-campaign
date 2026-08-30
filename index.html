@@ -3,31 +3,1022 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WhatsApp Campaign V12</title>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js">
-if($('logoutBtn'))$('logoutBtn').onclick=logoutApp;
-</script>
+<title>SendFlow</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6f7f9;color:#171a1f}.app{display:flex;min-height:100vh}
-.sidebar{width:245px;background:#111315;color:#fff;padding:24px 13px;display:flex;flex-direction:column}.brand{font-weight:800;font-size:22px;padding:0 16px 28px}.brand b{color:#ff7600}.brand small{display:block;color:#ff7600;font-size:12px;letter-spacing:1.5px;margin-top:3px}
-.nav button{width:100%;border:0;background:none;color:#ddd;text-align:left;padding:14px 16px;border-radius:9px;font-size:15px;cursor:pointer;margin-bottom:3px}.nav button.active,.nav button:hover{background:#ff7600;color:#fff}.plan{margin-top:auto;border:1px solid #393c40;background:#1b1d1f;border-radius:12px;padding:16px}.plan small{color:#aaa}.plan strong{font-size:25px;display:block;margin:8px 0}.plan button{width:100%;border:0;background:#ff7600;color:white;border-radius:8px;padding:10px;font-weight:700}
-main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.top h1{margin:0;font-size:28px}.top p{color:#697180;margin:6px 0}.primary,.send{background:#ff7600;color:#fff;border:0;border-radius:8px;padding:12px 18px;font-weight:700;cursor:pointer}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.stat,.card{background:#fff;border:1px solid #e5e8ec;border-radius:12px;box-shadow:0 2px 7px #00000008}.stat{padding:18px}.stat small{color:#737b87}.stat strong{display:block;font-size:27px;margin:7px 0}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{padding:20px}.card h2{font-size:18px;margin:0 0 5px}.muted{font-size:13px;color:#747d89}.drop{border:2px dashed #d6dbe1;border-radius:10px;padding:27px;text-align:center;margin-top:15px}.drop .icon{font-size:32px;color:#ff7600}.drop label{display:inline-block;margin-top:10px}.tabletools{display:flex;gap:10px;align-items:center;margin:18px 0 10px}.search{flex:1;padding:11px 12px;border:1px solid #d8dde3;border-radius:8px;font:inherit}.table-wrap{border:1px solid #e1e5e9;border-radius:9px;overflow:auto;max-height:410px}.table-wrap table{border-collapse:collapse;width:100%;font-size:13px}.table-wrap th,.table-wrap td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}.table-wrap th{background:#fafafa;position:sticky;top:0}.message{width:100%;height:170px;resize:vertical;border:1px solid #d8dde3;border-radius:9px;padding:14px;font:inherit}.vars{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.var{border:0;background:#fff1e6;color:#e96900;border-radius:6px;padding:7px 9px;cursor:pointer}.preview{white-space:pre-wrap;background:#f7f8fa;border:1px solid #e2e5e9;border-radius:9px;padding:15px;margin-top:14px;min-height:110px}.actions{display:flex;gap:9px;margin-top:12px}.secondary{background:#fff;border:1px solid #d5dae0;border-radius:8px;padding:10px 14px;cursor:pointer}.send{flex:1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modalbox{background:#fff;width:min(600px,96vw);max-height:90vh;overflow:auto;border-radius:14px;padding:22px}.modalbox h2{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid input{padding:10px;border:1px solid #d8dde3;border-radius:7px;font:inherit}.modalfoot{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}.toast{position:fixed;right:20px;bottom:20px;background:#17191c;color:white;padding:12px 16px;border-radius:9px;display:none;z-index:50}
+.sidebar{width:245px;background:linear-gradient(180deg,#071426,#0b1730 58%,#111a36);color:#fff;padding:24px 13px;display:flex;flex-direction:column}.brand{font-weight:800;font-size:22px;padding:0 16px 28px}.brand b{color:#5267ff}.brand small{display:block;color:#5267ff;font-size:12px;letter-spacing:1.5px;margin-top:3px}
+.nav button{width:100%;border:0;background:none;color:#ddd;text-align:left;padding:14px 16px;border-radius:9px;font-size:15px;cursor:pointer;margin-bottom:3px}.nav button.active,.nav button:hover{background:#5267ff;color:#fff}.plan{margin-top:auto;border:1px solid #393c40;background:#1b1d1f;border-radius:12px;padding:16px}.plan small{color:#aaa}.plan strong{font-size:25px;display:block;margin:8px 0}.plan button{width:100%;border:0;background:#5267ff;color:white;border-radius:8px;padding:10px;font-weight:700}
+main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.top h1{margin:0;font-size:28px}.top p{color:#697180;margin:6px 0}.primary,.send{background:#5267ff;color:#fff;border:0;border-radius:8px;padding:12px 18px;font-weight:700;cursor:pointer}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.stat,.card{background:#fff;border:1px solid #e5e8ec;border-radius:12px;box-shadow:0 2px 7px #00000008}.stat{padding:18px}.stat small{color:#737b87}.stat strong{display:block;font-size:27px;margin:7px 0}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{padding:20px}.card h2{font-size:18px;margin:0 0 5px}.muted{font-size:13px;color:#747d89}.drop{border:2px dashed #d6dbe1;border-radius:10px;padding:27px;text-align:center;margin-top:15px}.drop .icon{font-size:32px;color:#5267ff}.drop label{display:inline-block;margin-top:10px}.tabletools{display:flex;gap:10px;align-items:center;margin:18px 0 10px}.search{flex:1;padding:11px 12px;border:1px solid #d8dde3;border-radius:8px;font:inherit}.table-wrap{border:1px solid #e1e5e9;border-radius:9px;overflow:auto;max-height:410px}.table-wrap table{border-collapse:collapse;width:100%;font-size:13px}.table-wrap th,.table-wrap td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}.table-wrap th{background:#fafafa;position:sticky;top:0}.message{width:100%;height:170px;resize:vertical;border:1px solid #d8dde3;border-radius:9px;padding:14px;font:inherit}.vars{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.var{border:0;background:#eef1ff;color:#4456e6;border-radius:6px;padding:7px 9px;cursor:pointer}.preview{white-space:pre-wrap;background:#f7f8fa;border:1px solid #e2e5e9;border-radius:9px;padding:15px;margin-top:14px;min-height:110px}.actions{display:flex;gap:9px;margin-top:12px}.secondary{background:#fff;border:1px solid #d5dae0;border-radius:8px;padding:10px 14px;cursor:pointer}.send{flex:1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modalbox{background:#fff;width:min(600px,96vw);max-height:90vh;overflow:auto;border-radius:14px;padding:22px}.modalbox h2{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid input{padding:10px;border:1px solid #d8dde3;border-radius:7px;font:inherit}.modalfoot{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}.toast{position:fixed;right:20px;bottom:20px;background:#17191c;color:white;padding:12px 16px;border-radius:9px;display:none;z-index:50}
 .dup-summary{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}.dup-chip{background:#f6f7f9;border:1px solid #e2e5e9;border-radius:999px;padding:7px 10px;font-size:13px}.dup-list{border:1px solid #e2e5e9;border-radius:10px;overflow:auto;max-height:360px}.dup-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef0f2}.dup-row:last-child{border-bottom:0}.dup-name{font-weight:700}.dup-phone{font-size:13px;color:#747d89;margin-top:3px}.dup-action{display:flex;align-items:center;gap:8px}.dup-action label{font-size:13px;font-weight:700;cursor:pointer}.dup-note{background:#fff7ed;border:1px solid #fed7aa;border-radius:9px;padding:11px 12px;font-size:13px;color:#7c2d12;margin-top:12px}
 @media(max-width:650px){.dup-row{grid-template-columns:1fr}.dup-action{justify-content:flex-start}}
 
 
-.accountbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.accountmail{font-size:13px;color:#697180;background:#fff;border:1px solid #e5e8ec;border-radius:999px;padding:8px 11px}.danger{background:#fff;border:1px solid #efcaca;color:#b42318;border-radius:8px;padding:10px 14px;cursor:pointer}.statuspill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.statuspill.active{background:#fff3e8;color:#c85f00}.statuspill.done{background:#ecfdf3;color:#027a48}.campaignrow{display:grid;grid-template-columns:minmax(0,1.4fr) auto auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #eee}.campaignrow:last-child{border-bottom:0}.campaignmeta{font-size:12px;color:#747d89;margin-top:4px}.campaignactions{display:flex;gap:7px;flex-wrap:wrap}.mini{padding:7px 10px;font-size:12px}.progressline{height:7px;background:#eceff2;border-radius:99px;overflow:hidden;margin-top:8px}.progressline>div{height:100%;background:#ff7600}.contact-actions{display:flex;gap:6px}.empty{padding:24px;text-align:center;color:#747d89}.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.sectionhead .muted{margin-top:4px}
+.accountbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.accountmail{font-size:13px;color:#697180;background:#fff;border:1px solid #e5e8ec;border-radius:999px;padding:8px 11px}.danger{background:#fff;border:1px solid #efcaca;color:#b42318;border-radius:8px;padding:10px 14px;cursor:pointer}.statuspill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.statuspill.active{background:#f1f2ff;color:#3948c7}.statuspill.done{background:#ecfdf3;color:#027a48}.campaignrow{display:grid;grid-template-columns:minmax(0,1.4fr) auto auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #eee}.campaignrow:last-child{border-bottom:0}.campaignmeta{font-size:12px;color:#747d89;margin-top:4px}.campaignactions{display:flex;gap:7px;flex-wrap:wrap}.mini{padding:7px 10px;font-size:12px}.progressline{height:7px;background:#eceff2;border-radius:99px;overflow:hidden;margin-top:8px}.progressline>div{height:100%;background:#5267ff}.contact-actions{display:flex;gap:6px}.empty{padding:24px;text-align:center;color:#747d89}.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.sectionhead .muted{margin-top:4px}
+
+.channelbar{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 4px}.channelbtn{display:flex;align-items:center;gap:8px;border:1px solid #d8dde3;background:#fff;border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer}.channelbtn.active{border-color:#5267ff;background:#f1f3ff;color:#3f50d8}.channelbtn.locked{opacity:.55;cursor:not-allowed}.channel-dot{width:9px;height:9px;border-radius:50%;background:#9aa2ad}.channelbtn.active .channel-dot{background:#5267ff}.channel-note{font-size:12px;color:#747d89;margin-top:8px}.brandline{display:flex;align-items:center;gap:10px}.brandmark{width:38px;height:38px;border-radius:10px;background:#5267ff;color:#fff;display:grid;place-items:center;font-weight:900}.futurebadge{font-size:10px;background:#f1f3f5;color:#697180;border-radius:999px;padding:3px 6px}
+
+.brand b{color:#7c6cff!important}.primary,.send{background:linear-gradient(90deg,#5267ff,#734cff)}.nav button.active,.nav button:hover{background:linear-gradient(90deg,#4058e8,#7048e8)}.channelbtn.active{border-color:#5267ff;background:#f0f2ff;color:#3948c7}.channelbtn.active .channel-dot{background:#5267ff}.drop .icon{color:#5267ff}
+
+.sfpage{display:none}.sfpage.active{display:block}.sf-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:20px}.sf-head h1{margin:0;font-size:28px}.sf-head p{margin:6px 0 0;color:#747d89}.sf-logo-img{width:23px;height:23px;display:block}.sf-menu-channel{display:flex!important;align-items:center;gap:9px}.sf-menu-channel img{width:21px;height:21px}.sf-menu-mail svg{width:21px;height:21px}.sf-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 16%,#263a93 0,#101a4b 34%,#071426 72%);border-radius:16px;padding:28px 32px;color:#fff;min-height:185px}.sf-hero h2{font-size:36px;margin:5px 0 8px}.sf-hero p{color:#c9d5e7;max-width:470px}.sf-hero .hero-s{position:absolute;right:10%;top:28px;font-size:92px;font-weight:900;font-style:italic;background:linear-gradient(145deg,#16d7ff,#5267ff,#8b45ff);-webkit-background-clip:text;background-clip:text;color:transparent}.sf-channel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}.sf-channel-card{background:#fff;border:1px solid #e3e7ef;border-radius:14px;padding:20px;text-align:center}.sf-channel-logo{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px}.sf-channel-logo img{width:39px;height:39px}.sf-channel-logo.whatsapp{background:#e9fbf0}.sf-channel-logo.telegram{background:#eaf7fd}.sf-channel-logo.email{background:#edf3ff}.sf-channel-logo.email svg{width:38px;height:38px}.sf-channel-card h3{margin:5px 0 6px;font-size:18px}.sf-badge{display:inline-block;margin-top:9px;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800}.sf-badge.on{background:#ecfdf3;color:#087a3d}.sf-badge.soon{background:#eef0ff;color:#4456e6}.sf-page-card{background:#fff;border:1px solid #e3e7ef;border-radius:14px;padding:20px}.sf-empty{padding:28px;text-align:center;color:#747d89}.sf-page-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.sf-channel-header{display:flex;align-items:center;gap:13px;margin-bottom:18px}.sf-channel-header img{width:42px;height:42px}.sf-channel-header svg{width:42px;height:42px}.sf-coming-box{max-width:640px;margin:50px auto;text-align:center}.sf-coming-box .biglogo{width:82px;height:82px;margin:0 auto 16px;display:grid;place-items:center;border-radius:24px;background:#f4f6fb}.sf-coming-box .biglogo img{width:52px;height:52px}.sf-coming-box .biglogo svg{width:52px;height:52px}.navgroup{font-size:10px;color:#70809a;font-weight:800;letter-spacing:1px;padding:13px 16px 6px;text-transform:uppercase}
+@media(max-width:850px){.sf-channel-grid,.sf-page-grid{grid-template-columns:1fr}.sf-hero .hero-s{display:none}}
+
+:root{--sf-accent:#5267ff;--sf-accent2:#7a4cff;--sf-accent-soft:#eef1ff}
+body{background:linear-gradient(180deg,#f6f8fc 0%,#f3f5fa 100%)}
+.sidebar{box-shadow:16px 0 40px #0a17301c}
+.brand{padding-bottom:22px!important}
+.nav button{border-radius:11px;margin:3px 8px;width:calc(100% - 16px);transition:.2s ease}
+.nav button.active{background:linear-gradient(90deg,var(--sf-accent),var(--sf-accent2));box-shadow:0 8px 18px #5267ff2b}
+.nav button:hover{transform:translateX(2px)}
+.sfpage{animation:sfFade .18s ease}
+@keyframes sfFade{from{opacity:.45;transform:translateY(3px)}to{opacity:1;transform:none}}
+.sf-head{padding:3px 2px}.sf-head h1{font-size:30px;letter-spacing:-.8px}.sf-head p{font-size:14px}
+.sf-hero{min-height:215px;padding:34px 36px;border:1px solid #ffffff0f;box-shadow:0 18px 48px #07142624}
+.sf-hero:after{content:"";position:absolute;width:310px;height:310px;border:1px solid #ffffff14;border-radius:50%;right:-60px;bottom:-190px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff05}
+.sf-hero h2{font-size:42px;letter-spacing:-1.7px}
+.sf-channel-card,.sf-page-card,.stat,.card{box-shadow:0 8px 26px #0b17300a}
+.sf-channel-card{transition:.2s ease}.sf-channel-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px #0b173012}
+.sf-channel-logo{width:68px;height:68px}
+.sf-channel-logo img{width:42px;height:42px}
+.sf-channel-logo.email svg{width:42px;height:42px}
+.primary,.send{background:linear-gradient(90deg,var(--sf-accent),var(--sf-accent2))!important;border:0;box-shadow:0 8px 20px #5267ff25}
+.primary:hover,.send:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.secondary{border-color:#dfe4ee!important}
+.sf-kicker{font-size:11px;font-weight:850;letter-spacing:1.1px;color:#8290a7;text-transform:uppercase;margin-bottom:5px}
+.sf-brand-preview{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid #e3e8f1;border-radius:14px;background:#f8faff;margin:15px 0}
+.sf-brand-preview img{width:52px;height:52px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid #e4e7ee;padding:6px}
+.sf-brand-preview .fallback{width:52px;height:52px;border-radius:14px;background:linear-gradient(145deg,var(--sf-accent),var(--sf-accent2));display:grid;place-items:center;color:#fff;font-size:28px;font-weight:900;font-style:italic}
+.sf-settings-form{display:grid;gap:14px}.sf-settings-form label{font-size:12px;font-weight:800;color:#596273}
+.sf-settings-form input[type="text"],.sf-settings-form input[type="url"],.sf-settings-form input[type="color"]{width:100%;margin-top:6px}
+.sf-settings-form input[type="color"]{height:44px;padding:4px;border:1px solid #dfe4ec;border-radius:9px;background:#fff}
+.sf-settings-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:5px}
+.sf-logo-upload{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
+.sf-logo-upload input[type="file"]{display:none}
+.sf-upload-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid #dfe4ec;border-radius:9px;background:#fff;cursor:pointer;font-weight:750;font-size:13px}
+.sf-upload-btn:hover{background:#f7f9fc}
+.sf-file-name{font-size:12px;color:#7a8494}
+
+.sf-brand-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #dfe4ee;background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;color:#637084}
+.sf-brand-pill span{width:10px;height:10px;border-radius:50%;background:var(--sf-accent)}
+.sf-top-brand{display:flex;align-items:center;gap:10px}.sf-top-brand img{height:31px;max-width:120px;object-fit:contain}.sf-top-brand strong{font-size:14px}
+.sf-dashboard-bottom{display:grid;grid-template-columns:1.4fr .8fr;gap:16px;margin-top:18px}
+.sf-activity{display:grid;gap:9px}.sf-activity-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #edf0f4}.sf-activity-row:last-child{border:0}
+.sf-quick{display:grid;gap:9px}.sf-quick button{text-align:left}
+@media(max-width:900px){.sf-dashboard-bottom{grid-template-columns:1fr}}
+
+/* V20 compact Azienda & Team */
+#sf-team{padding-bottom:8px}
+#sf-team .sf-head{margin-bottom:12px}
+.sf-team-top{display:grid;grid-template-columns:.92fr 1.25fr .95fr;gap:14px;align-items:stretch}
+.sf-team-top .sf-page-card{margin:0;padding:18px}
+.sf-team-top h2{font-size:20px}
+.sf-team-top input,.sf-team-top select{min-height:40px}
+.sf-team-member{display:grid;grid-template-columns:minmax(0,1.5fr) .65fr .55fr;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #edf0f4}
+.sf-team-member:last-child{border:0}
+.sf-team-badge{display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:999px;background:#fff0f6;color:#ed337c;font-size:11px;font-weight:850}
+.sf-team-ok{display:inline-flex;align-items:center;gap:5px;color:#22a35a;font-size:12px;font-weight:800}
+.sf-team-brand{margin-top:14px;padding:16px 18px!important;display:grid;grid-template-columns:.85fr 1.15fr;gap:18px;align-items:center}
+.sf-team-brand-preview{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e5e9f1;border-radius:13px;background:#f8faff;min-height:72px}
+.sf-team-brand-preview img{width:58px;height:58px;object-fit:contain;border-radius:10px;background:#fff}
+.sf-team-note{margin-top:10px;padding:10px 12px;border:1px solid #dce6ff;background:#f7f9ff;border-radius:10px;color:#55709f;font-size:12px}
+@media(min-width:1050px) and (min-height:700px){
+ #sf-team .sf-head h1{font-size:27px}
+ #sf-team .sf-head p{margin-top:3px}
+}
+@media(max-width:1100px){.sf-team-top{grid-template-columns:1fr 1fr}.sf-team-invite{grid-column:1/-1}.sf-team-brand{grid-template-columns:1fr}}
+@media(max-width:760px){.sf-team-top{grid-template-columns:1fr}.sf-team-invite{grid-column:auto}.sf-team-brand{grid-template-columns:1fr}}
+
+
+
+/* V22 — proporzioni desktop corrette */
+body{margin:0!important;background:#0b1018!important}
+.app{width:min(1420px,calc(100vw - 48px))!important;max-width:1420px!important;min-height:calc(100vh - 32px)!important;margin:16px auto!important;border-radius:24px!important;overflow:hidden!important;display:grid!important;grid-template-columns:220px minmax(0,1fr)!important;background:#f5f7fb!important;box-shadow:0 24px 70px #0005!important}
+.sidebar{position:sticky!important;top:0!important;left:auto!important;width:220px!important;height:calc(100vh - 32px)!important;min-height:680px!important;box-sizing:border-box!important;overflow-y:auto!important}
+main{margin-left:0!important;width:100%!important;min-width:0!important;min-height:calc(100vh - 32px)!important;padding:22px!important;overflow-x:hidden!important;box-sizing:border-box!important}
+.sfpage{width:100%!important;max-width:none!important;margin:0!important;min-width:0!important}
+.sfpage.active{display:block!important}
+.sf-head{width:100%!important;box-sizing:border-box!important}
+.sf-page-grid,.sf-team-top{width:100%!important;min-width:0!important}
+.sf-team-top{grid-template-columns:minmax(240px,.9fr) minmax(320px,1.25fr) minmax(270px,.95fr)!important}
+.sf-team-top>*{min-width:0!important}
+.sf-team-brand{width:100%!important;box-sizing:border-box!important;grid-template-columns:minmax(260px,.8fr) minmax(360px,1.2fr)!important}
+.sf-page-card,.card{min-width:0!important;box-sizing:border-box!important}
+input,select,textarea{max-width:100%!important;box-sizing:border-box!important}
+table{max-width:100%!important}
+#sf-team{min-height:auto!important}
+#sf-team .sf-head{margin-bottom:14px!important}
+#sf-team .sf-team-top .sf-page-card{min-height:228px!important}
+.sf-team-note{margin-bottom:0!important}
+
+/* On wide monitors do not let cards stretch absurdly */
+@media(min-width:1500px){
+ .app{width:1380px!important}
+}
+@media(max-width:1200px){
+ .app{width:calc(100vw - 24px)!important;margin:12px auto!important;grid-template-columns:205px minmax(0,1fr)!important}
+ .sidebar{width:205px!important;height:calc(100vh - 24px)!important}
+ .sf-team-top{grid-template-columns:1fr 1fr!important}
+ .sf-team-invite{grid-column:1/-1!important}
+ .sf-team-brand{grid-template-columns:1fr!important}
+}
+@media(max-width:820px){
+ .app{display:block!important;width:100%!important;margin:0!important;border-radius:0!important}
+ .sidebar{position:relative!important;width:100%!important;height:auto!important;min-height:auto!important}
+ main{width:100%!important;padding:15px!important}
+ .sf-team-top{grid-template-columns:1fr!important}
+ .sf-team-invite{grid-column:auto!important}
+}
+
+/* V21 — layout globale + tema aziendale */
+:root{
+ --sf-accent:#111111;
+ --sf-accent2:#2b2b2b;
+ --sf-shell:#0b1018;
+ --sf-sidebar:#0c1422;
+ --sf-page:#f5f7fb;
+ --sf-card:#ffffff;
+ --sf-text:#171b24;
+ --sf-muted:#6d7788;
+}
+html,body{min-height:100%;overflow-x:hidden}
+body{background:var(--sf-shell)!important;color:var(--sf-text)}
+.app{min-height:100vh;align-items:stretch}
+.sidebar{position:fixed!important;left:0;top:0;bottom:0;height:100vh!important;overflow-y:auto;background:linear-gradient(180deg,#0b1526 0%,#09111d 100%)!important;z-index:30}
+main{margin-left:220px!important;width:calc(100% - 220px)!important;min-height:100vh;background:var(--sf-page)!important;padding:22px 24px 34px!important;box-sizing:border-box}
+.sfpage{display:none!important;width:100%;max-width:1480px;margin:0 auto!important;padding:0!important;box-sizing:border-box}
+.sfpage.active{display:block!important}
+.sf-head{margin:0 0 18px!important;min-height:auto!important}
+.sf-page-card,.card{background:var(--sf-card)!important}
+.primary,.send{background:linear-gradient(90deg,var(--sf-accent),var(--sf-accent2))!important}
+.nav button.active,.sf-nav.active{background:linear-gradient(90deg,var(--sf-accent),var(--sf-accent2))!important}
+.sf-brand-pill span{background:var(--sf-accent)!important}
+.sf-team-badge{color:var(--sf-accent)!important;background:color-mix(in srgb,var(--sf-accent) 10%,white)!important}
+#sendBar{background:var(--sf-accent)!important}
+
+/* each screen starts at top of content area; no hidden page stacked above it */
+.sfpage > .sf-head:first-child{padding-top:2px}
+#sf-dashboard,#sf-contacts,#sf-campaigns,#sf-whatsapp,#sf-email,#sf-telegram,#sf-saved,#sf-stats,#sf-settings,#sf-team{min-height:calc(100vh - 56px)}
+
+/* compact functional cards */
+#sf-contacts .card,#sf-whatsapp .card,#sf-campaigns .sf-page-card,#sf-saved .sf-page-card,#sf-settings .sf-page-card{margin-top:0}
+textarea{max-height:180px}
+.preview{max-height:180px;overflow:auto}
+
+/* Company theme preview */
+.sf-theme-preview{margin-top:12px;border-radius:13px;overflow:hidden;border:1px solid #dfe4ee;background:#fff}
+.sf-theme-preview-top{height:11px;background:var(--sf-accent)}
+.sf-theme-preview-body{display:grid;grid-template-columns:70px 1fr;min-height:92px}
+.sf-theme-preview-side{background:#0b1018;padding:12px 8px}
+.sf-theme-preview-side i{display:block;height:6px;border-radius:5px;background:#ffffff38;margin-bottom:8px}
+.sf-theme-preview-main{padding:13px;background:#f6f7fa}
+.sf-theme-preview-main b{font-size:12px}
+.sf-theme-preview-btn{margin-top:10px;width:86px;height:22px;border-radius:6px;background:var(--sf-accent)}
+
+/* settings branding: keep it visible and centered */
+#sf-settings .sf-page-grid{align-items:start}
+#sf-settings .sf-page-card{min-height:0}
+
+/* responsive */
+@media(max-width:950px){
+ .sidebar{position:relative!important;width:100%!important;height:auto!important;min-height:auto!important}
+ main{margin-left:0!important;width:100%!important;padding:16px!important}
+ .app{display:block!important}
+ .sfpage{max-width:none}
+}
+
 @media(max-width:950px){.sidebar{width:205px}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{display:none}main{padding:18px}.stats{grid-template-columns:1fr 1fr}.top h1{font-size:23px}.top .primary{padding:9px 12px}.formgrid{grid-template-columns:1fr}}
+
+
+
+
+/* V25 — personalizzazione colore aziendale */
+:root{
+ --sf-accent:#111111;
+ --sf-accent2:#2b2b2b;
+ --sf-shell:#090909;
+ --sf-sidebar:#101010;
+}
+.sidebar{background:linear-gradient(180deg,#101010 0%,#080808 100%)!important}
+.primary,.send,.nav button.active,.sf-nav.active{
+ background:linear-gradient(90deg,var(--sf-accent),var(--sf-accent2))!important;
+}
+.sf-brand-pill span,#sendBar,.sf-theme-preview-top,.sf-theme-preview-btn{
+ background:var(--sf-accent)!important;
+}
+.sf-team-badge{
+ color:var(--sf-accent)!important;
+ background:#f1f1f1!important;
+}
+
+/* V24 — WhatsApp composer structurally inside its page */
+#sf-whatsapp{display:none!important}
+#sf-whatsapp.active{display:block!important}
+#sf-whatsapp>.card,#sf-whatsapp>.sf-page-card{
+ position:relative!important;
+ top:auto!important;
+ left:auto!important;
+ transform:none!important;
+ margin:0 0 16px!important;
+ width:100%!important;
+ max-width:none!important;
+}
+#sf-whatsapp .composer,#sf-whatsapp .channel-grid,#sf-whatsapp textarea,#sf-whatsapp .preview{
+ position:relative!important;
+ top:auto!important;
+}
+
+/* V23 — pages structurally centered inside MAIN */
+main{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:stretch!important;
+ justify-content:flex-start!important;
+}
+main>.sfpage{
+ flex:0 0 auto!important;
+ width:100%!important;
+ max-width:1180px!important;
+ margin:0 auto!important;
+}
+main>.sfpage.active{
+ display:block!important;
+}
+main>.sfpage:not(.active){
+ display:none!important;
+}
+#sf-team,#sf-settings,#sf-contacts,#sf-campaigns,#sf-whatsapp,#sf-dashboard,#sf-email,#sf-telegram,#sf-saved,#sf-stats{
+ position:relative!important;
+ top:auto!important;
+ left:auto!important;
+ right:auto!important;
+ bottom:auto!important;
+ transform:none!important;
+}
+
+/* V22 final overrides */
+@media(min-width:821px){
+ .app{display:grid!important;grid-template-columns:220px minmax(0,1fr)!important}
+ .sidebar{position:sticky!important;left:auto!important;top:0!important;width:220px!important}
+ main{margin-left:0!important;width:100%!important}
+}
+
+/* V29 — Super Admin SaaS */
+.sf-superadmin-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid #dfe3ea;background:#111;color:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:850}
+.sf-admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.sf-admin-stats .sf-page-card{padding:17px 19px}
+.sf-admin-stats strong{display:block;font-size:30px;line-height:1;margin:8px 0 5px}
+.sf-admin-grid{display:grid;grid-template-columns:minmax(270px,.72fr) minmax(0,1.6fr);gap:14px;align-items:start}
+.sf-admin-label{display:block;margin-top:12px;font-size:12px;font-weight:850;color:#596273}
+.sf-admin-label input,.sf-admin-label select{width:100%;margin-top:6px;min-height:42px}
+.sf-admin-hint{margin-top:12px;padding:10px 12px;border:1px solid #e4e7ed;border-radius:11px;background:#f8f9fb;color:#667085;font-size:12px;line-height:1.45}
+.sf-company-list{margin-top:12px;display:grid;gap:9px}
+.sf-company-row{display:grid;grid-template-columns:minmax(170px,1.2fr) .65fr .65fr minmax(180px,1fr);gap:10px;align-items:center;padding:12px;border:1px solid #e5e8ee;border-radius:13px;background:#fff}
+.sf-company-row:hover{border-color:#cfd4dd}
+.sf-company-name{font-weight:900;font-size:14px}
+.sf-company-meta{font-size:11px;color:#7b8495;margin-top:3px}
+.sf-company-badge{display:inline-flex;align-items:center;justify-content:center;width:max-content;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:850;text-transform:capitalize;background:#f1f3f6;color:#343944}
+.sf-company-badge.active{background:#eaf8ef;color:#168142}
+.sf-company-badge.suspended,.sf-company-badge.disabled{background:#fff0f0;color:#c43535}
+.sf-company-actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.sf-company-actions button{padding:7px 9px;font-size:11px}
+.sf-company-inline{display:flex;gap:6px;align-items:center}
+.sf-company-inline input{min-width:0;width:100%;padding:8px 9px}
+@media(max-width:980px){.sf-admin-grid{grid-template-columns:1fr}.sf-company-row{grid-template-columns:1fr 1fr}.sf-company-actions{grid-column:1/-1;justify-content:flex-start}}
+@media(max-width:650px){.sf-admin-stats{grid-template-columns:1fr}.sf-company-row{grid-template-columns:1fr}}
+
+
+/* V30 — messaggi applicazione centrali */
+.sf-message-modal{z-index:99999!important;background:#090d14a8!important;backdrop-filter:blur(5px)}
+.sf-message-box{width:min(430px,92vw)!important;text-align:center!important;padding:28px 26px 22px!important;border-radius:20px!important;box-shadow:0 28px 80px #0006!important}
+.sf-message-icon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:0 auto 13px;background:#111;color:#fff;font-weight:950;font-size:20px}
+.sf-message-box h2{margin:0 0 9px;font-size:22px}
+.sf-message-text{color:#616b7c;font-size:14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.sf-message-box .modalfoot{margin-top:20px!important}
+.sf-message-box .modalfoot button{min-width:110px}
+
+
+/* V31 — gestione singola azienda */
+.sf-managed-member{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px;border:1px solid #e5e8ee;border-radius:12px;background:#fff}
+.sf-managed-member button{padding:7px 9px;font-size:11px}
+@media(max-width:650px){.sf-managed-member{grid-template-columns:1fr}.sf-managed-member .sf-team-badge{justify-self:start}}
+
+
+/* V32 — Piani e limiti */
+.sf-plan-mini{margin-top:12px;padding:11px 12px;border-radius:12px;background:#111;color:#fff;font-size:11px;line-height:1.65}
+.sf-plan-mini b{display:block;font-size:12px;margin-bottom:3px}
+.sf-plan-mini div{color:#c9ced7}
+.sf-plan-company-card{margin-top:14px;display:grid;grid-template-columns:.65fr 1.35fr;gap:22px;align-items:center}
+.sf-plan-usage{display:grid;grid-template-columns:100px repeat(3,1fr);gap:12px;align-items:center}
+.sf-plan-name{display:grid;place-items:center;min-height:72px;border-radius:14px;background:#111;color:#fff;font-size:16px;font-weight:900}
+.sf-usage-item>div:first-child{display:flex;justify-content:space-between;gap:8px;font-size:11px}
+.sf-usage-item span{color:#788294}
+.sf-usage-track{height:7px;background:#edf0f4;border-radius:999px;overflow:hidden;margin-top:7px}
+.sf-usage-track i{display:block;height:100%;background:var(--sf-accent);border-radius:999px}
+@media(max-width:900px){.sf-plan-company-card{grid-template-columns:1fr}.sf-plan-usage{grid-template-columns:1fr}.sf-plan-name{min-height:50px}}
+
+
+/* V33 — amministrazione commerciale */
+.sf-commercial-card{margin-top:14px}
+.sf-commercial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.sf-commercial-grid textarea{width:100%;margin-top:6px;resize:vertical;min-height:82px}
+.sf-commercial-notes{grid-column:1/-1}
+@media(max-width:800px){.sf-commercial-grid{grid-template-columns:1fr}.sf-commercial-notes{grid-column:auto}}
+
+
+/* V34 — dashboard commerciale Super Admin */
+.sf-commercial-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.sf-commercial-stat{padding:15px;border:1px solid #e6e8ec;border-radius:15px;background:#fff}.sf-commercial-stat span{display:block;color:#788294;font-size:11px}.sf-commercial-stat b{font-size:26px}
+.sf-plan-breakdown{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 14px;padding:11px 13px;background:#f6f7f9;border-radius:12px;font-size:11px}.sf-plan-breakdown span{padding:5px 8px;background:#fff;border-radius:8px}
+.sf-company-billing{display:flex;flex-direction:column;gap:4px}.sf-company-billing small{color:#788294;font-size:10px}
+.sf-billing-badge{width:max-content;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800;background:#eee}.sf-billing-badge.ok{background:#e7f7ee;color:#177245}.sf-billing-badge.trial{background:#f2f0ff;color:#5741a5}.sf-billing-badge.bad{background:#fff0ed;color:#b43d28}.sf-billing-badge.off{background:#eceff2;color:#66707c}
+@media(max-width:900px){.sf-commercial-dashboard{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.sf-commercial-dashboard{grid-template-columns:1fr}}
+
+
+/* V34 DEFINITIVE */
+.sf-commercial-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0 10px}
+.sf-commercial-stat{padding:15px;border:1px solid #e6e8ec;border-radius:15px;background:#fff}
+.sf-commercial-stat span{display:block;color:#788294;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.sf-commercial-stat b{display:block;font-size:28px;line-height:1;margin:8px 0 6px}.sf-commercial-stat small{color:#8c94a1;font-size:10px}
+.sf-plan-breakdown{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px;background:#f6f7f9;border-radius:12px;font-size:10px}
+.sf-plan-breakdown span{padding:5px 8px;background:#fff;border:1px solid #eceef2;border-radius:8px}
+@media(max-width:900px){.sf-commercial-dashboard{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.sf-commercial-dashboard{grid-template-columns:1fr}}
+
+
+/* V35 — scadenze e rinnovi */
+.sf-renewal-toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 12px}
+.sf-renewal-filters{display:flex;gap:6px;flex-wrap:wrap}
+.sf-renewal-filters button{padding:7px 10px;font-size:10px}
+.sf-renewal-filters button.active{background:#111;color:#fff;border-color:#111}
+.sf-renewal-select{width:auto;min-width:135px;padding:8px 10px;border:1px solid #e1e4e9;border-radius:10px;background:#fff;font-size:10px}
+.sf-company-row.sf-renewal-expiring{box-shadow:inset 3px 0 0 #d7a100}
+.sf-company-row.sf-renewal-expired,.sf-company-row.sf-renewal-past_due{box-shadow:inset 3px 0 0 #c84b3c}
+@media(max-width:700px){.sf-renewal-toolbar{align-items:flex-start;flex-direction:column}.sf-renewal-select{width:100%}}
+
+
+/* V36 — gestione utenti aziendali */
+.sf-managed-team-card{min-width:0}
+.sf-managed-team-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sf-managed-team-tools{display:grid;gap:8px;margin:14px 0}
+.sf-managed-team-tools input{width:100%}
+.sf-managed-add-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.sf-managed-team-help{font-size:10px}
+.sf-managed-member{
+ display:grid !important;
+ grid-template-columns:minmax(210px,1.4fr) minmax(100px,.6fr) minmax(115px,.7fr) minmax(190px,1fr);
+ gap:12px;align-items:center;padding:12px !important;
+}
+.sf-managed-user{display:flex;align-items:center;gap:10px;min-width:0}
+.sf-managed-user b{display:block;overflow:hidden;text-overflow:ellipsis}
+.sf-managed-avatar{width:34px;height:34px;border-radius:10px;background:#111;color:#fff;display:grid;place-items:center;font-weight:900;flex:0 0 auto}
+.sf-managed-role,.sf-managed-status{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.sf-managed-role small,.sf-managed-status small{font-size:9px;color:#9299a6;text-transform:uppercase;font-weight:800;letter-spacing:.05em}
+.sf-user-active{font-size:10px;font-weight:800;color:#177245;background:#e7f7ee;border-radius:999px;padding:5px 8px}
+.sf-managed-actions{display:flex;justify-content:flex-end;gap:6px;align-items:center;flex-wrap:wrap}
+.sf-managed-actions button{font-size:10px;padding:7px 9px;white-space:nowrap}
+@media(max-width:1100px){.sf-managed-member{grid-template-columns:1.4fr .7fr .7fr}.sf-managed-actions{grid-column:1/-1;justify-content:flex-start}}
+@media(max-width:700px){.sf-managed-add-row{grid-template-columns:1fr}.sf-managed-member{grid-template-columns:1fr}.sf-managed-actions{grid-column:auto}}
+
+
+/* V37 — workspace suspension */
+.sf-workspace-blocked[hidden]{display:none!important}
+.sf-workspace-blocked{position:fixed;inset:0;z-index:99999;background:rgba(8,9,10,.82);backdrop-filter:blur(14px);display:grid;place-items:center;padding:24px}
+.sf-workspace-blocked-card{width:min(460px,100%);background:#fff;border-radius:24px;padding:32px;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+.sf-blocked-icon{width:54px;height:54px;margin:0 auto 16px;border-radius:16px;background:#111;color:#fff;display:grid;place-items:center;font-size:28px;font-weight:900}
+.sf-workspace-blocked-card h1{font-size:26px;margin:7px 0 9px}
+.sf-workspace-blocked-card p{color:#697383;line-height:1.55;font-size:13px}
+.sf-blocked-company{margin:18px 0;padding:12px;border-radius:12px;background:#f5f6f8;font-weight:900}
+.sf-workspace-blocked-card button{width:100%}
+body.sf-workspace-locked{overflow:hidden}
+
+
+/* V38 — trial automatico */
+.sf-trial-status-card{margin-top:14px;padding:14px;border:1px solid #e5e8ed;border-radius:14px;background:#fafbfc;display:flex;justify-content:space-between;gap:14px;align-items:center}
+.sf-trial-status-card h3{margin:2px 0 4px;font-size:16px}
+/* V39 — piani commerciali */
+.sf-price-mini{margin-top:10px}
+.sf-plan-price-preview{margin:8px 0 14px;padding:11px 12px;border:1px solid #e5e8ed;border-radius:12px;background:#fafbfc;display:flex;justify-content:space-between;align-items:center}
+.sf-plan-price-preview span{font-size:12px;color:#687386;font-weight:700}
+.sf-plan-price-preview strong{font-size:15px}
+
+/* V40 — upgrade / downgrade */
+.sf-plan-change-card{margin-top:16px}
+.sf-plan-change-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.sf-plan-change-info{margin-top:12px;padding:12px 14px;border:1px solid #e5e8ed;border-radius:12px;background:#fafbfc;color:#5f6b7a;font-size:13px}
+
+/* V41 — storico abbonamento */
+.sf-plan-history-card{margin-top:16px}
+.sf-plan-history-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+.sf-plan-history-list{display:flex;flex-direction:column;gap:8px}
+.sf-plan-history-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #e5e8ed;border-radius:13px;background:#fff}
+.sf-plan-history-icon{width:34px;height:34px;border-radius:10px;background:#111;color:#fff;display:grid;place-items:center;font-weight:900}
+.sf-plan-history-main{flex:1;min-width:0}
+.sf-plan-history-title{font-size:14px}
+.sf-plan-history-badge{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#f0f2f5}
+.sf-ph-applied{background:#e9f8ef}
+.sf-ph-scheduled{background:#fff4d9}
+.sf-ph-cancelled{background:#f1f2f4;color:#777}
+@media(max-width:700px){.sf-plan-history-head{align-items:flex-start;flex-direction:column}.sf-plan-history-row{align-items:flex-start}.sf-plan-history-badge{margin-left:auto}}
+
+/* V42 — pagamenti & fatturazione */
+.sf-payments-card{margin-top:16px}
+.sf-payments-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+.sf-payment-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.sf-payment-summary>div{border:1px solid #e5e8ed;border-radius:12px;padding:12px;background:#fafbfc}
+.sf-payment-summary span{display:block;font-size:11px;color:#687386;font-weight:700;margin-bottom:5px}
+.sf-payment-summary strong{font-size:17px}
+.sf-payments-list{display:flex;flex-direction:column;gap:8px}
+.sf-payment-row{display:flex;align-items:center;gap:10px;border:1px solid #e5e8ed;border-radius:13px;padding:12px 14px}
+.sf-payment-main{flex:1;min-width:0}.sf-payment-title{font-size:14px}
+.sf-payment-badge{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#f1f2f4}
+.sf-pay-paid{background:#e9f8ef}.sf-pay-pending{background:#fff4d9}.sf-pay-overdue{background:#fdecec}.sf-pay-cancelled{color:#777}
+@media(max-width:700px){.sf-payments-head{align-items:flex-start;flex-direction:column}.sf-payment-summary{grid-template-columns:1fr}.sf-payment-row{align-items:flex-start;flex-wrap:wrap}}
+
+/* V43 — insoluti automatici */
+.sf-payment-kpi strong{font-size:22px}
+.sf-payment-kpi-overdue{border-color:#f0c7c7!important;background:#fffafa!important}
+.sf-payments-card .sf-pay-overdue{background:#fde8e8;color:#a32222}
+
+/* V44 — Super Admin Control Center */
+.sf-admin-executive{margin-bottom:18px}
+.sf-exec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+.sf-exec-head h1{font-size:30px;margin:3px 0}
+.sf-exec-date{font-size:12px;font-weight:800;color:#687386;padding:8px 10px;border:1px solid #e5e8ed;border-radius:10px;background:#fff}
+.sf-exec-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.sf-exec-kpis>div{background:#111;color:#fff;border-radius:14px;padding:14px;min-height:92px}
+.sf-exec-kpis span,.sf-exec-kpis small{display:block;color:#aeb5bf;font-size:11px;font-weight:700}
+.sf-exec-kpis strong{display:block;font-size:21px;margin:8px 0 4px}
+.sf-company-inline-report{display:grid;grid-template-columns:repeat(5,minmax(90px,1fr));gap:7px;margin:10px 0;padding:10px;background:#f7f8fa;border-radius:11px}
+.sf-company-inline-report div{min-width:0}
+.sf-company-inline-report span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#7a8492;font-weight:800}
+.sf-company-inline-report b{display:block;margin-top:3px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-danger-text{color:#b42318}
+body.sf-superadmin-mode .sf-company-identity-card,body.sf-superadmin-mode #sfPlanUsage{display:none!important}
+@media(max-width:1100px){.sf-exec-kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.sf-exec-kpis{grid-template-columns:1fr 1fr}.sf-company-inline-report{grid-template-columns:1fr 1fr}.sf-exec-head{flex-direction:column}}
+
+/* V44.1 — Super Admin layout fix */
+body.sf-superadmin-mode .nav .sf-nav{display:none!important}
+body.sf-superadmin-mode .nav #sfSuperAdminNav,
+body.sf-superadmin-mode .nav #sfPlansAdminNav{display:flex!important}
+body.sf-superadmin-mode .nav .navgroup{display:none!important}
+body.sf-superadmin-mode .nav .navgroup.sf-superadmin-only{display:block!important}
+body.sf-superadmin-mode .sidebar .plan,
+body.sf-superadmin-mode .sidebar .plan-card,
+body.sf-superadmin-mode .sidebar .upgrade-card,
+body.sf-superadmin-mode .sidebar [class*="plan-widget"]{display:none!important}
+
+#sf-superadmin>.sf-head,
+#sf-superadmin>.sf-admin-stats{display:none!important}
+#sf-superadmin .sf-admin-grid{grid-template-columns:minmax(260px,320px) minmax(0,1fr)!important;gap:18px!important}
+#sf-superadmin .sf-admin-list-card{min-width:0}
+
+#sf-superadmin .sf-company-row{
+ display:grid!important;
+ grid-template-columns:minmax(220px,1.4fr) 110px 90px minmax(150px,.9fr)!important;
+ grid-template-areas:
+  "identity status plan billing"
+  "report report report report"
+  "actions actions actions actions"!important;
+ gap:12px 14px!important;
+ align-items:center!important;
+ padding:16px!important;
+}
+#sf-superadmin .sf-company-identity{grid-area:identity;min-width:0}
+#sf-superadmin .sf-company-status-col{grid-area:status}
+#sf-superadmin .sf-company-plan-col{grid-area:plan}
+#sf-superadmin .sf-company-billing{grid-area:billing}
+#sf-superadmin .sf-company-inline-report{
+ grid-area:report!important;
+ display:grid!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ gap:10px!important;
+ margin:2px 0 0!important;
+ padding:12px 14px!important;
+ background:#f7f8fa!important;
+ border:1px solid #edf0f4!important;
+ border-radius:12px!important;
+}
+#sf-superadmin .sf-company-inline-report>div{padding-right:8px;border-right:1px solid #e6e9ee}
+#sf-superadmin .sf-company-inline-report>div:last-child{border-right:0}
+#sf-superadmin .sf-company-actions{
+ grid-area:actions!important;
+ display:flex!important;
+ gap:8px!important;
+ align-items:center!important;
+ justify-content:flex-start!important;
+ flex-wrap:wrap!important;
+ margin-top:0!important;
+}
+#sf-superadmin .sf-company-actions button{margin:0!important;min-width:auto!important}
+#sf-superadmin .sf-company-name{font-size:16px!important;font-weight:900!important}
+#sf-superadmin .sf-company-meta{font-size:10px!important;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#sf-superadmin .sf-commercial-dashboard{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#sf-superadmin .sf-exec-kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#sf-superadmin .sf-exec-kpis>div{min-height:96px}
+
+@media(max-width:1100px){
+ #sf-superadmin .sf-admin-grid{grid-template-columns:1fr!important}
+ #sf-superadmin .sf-company-row{
+   grid-template-columns:1fr 100px 90px!important;
+   grid-template-areas:"identity status plan" "billing billing billing" "report report report" "actions actions actions"!important
+ }
+ #sf-superadmin .sf-company-inline-report{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(max-width:720px){
+ #sf-superadmin .sf-exec-kpis,
+ #sf-superadmin .sf-commercial-dashboard{grid-template-columns:1fr 1fr!important}
+ #sf-superadmin .sf-company-row{display:block!important}
+ #sf-superadmin .sf-company-row>*{margin-bottom:10px}
+ #sf-superadmin .sf-company-inline-report{grid-template-columns:1fr 1fr!important}
+}
+
+/* V44.2 — SUPER ADMIN ISOLATION DEFINITIVA */
+body.sf-superadmin-mode main>.sfpage:not(#sf-superadmin):not(#sf-plansadmin):not(#sf-companymanage){
+ display:none!important;
+}
+body.sf-superadmin-mode main>#sf-superadmin.active,
+body.sf-superadmin-mode main>#sf-plansadmin.active,
+body.sf-superadmin-mode main>#sf-companymanage.active{
+ display:block!important;
+}
+body.sf-superadmin-mode .nav .sf-nav{display:none!important}
+body.sf-superadmin-mode .nav #sfSuperAdminNav{display:flex!important}
+body.sf-superadmin-mode .nav .navgroup{display:none!important}
+body.sf-superadmin-mode .nav .navgroup.sf-superadmin-only{display:block!important}
+body.sf-superadmin-mode .sidebar .plan{display:none!important}
+
+/* piattaforma: una dashboard unica, senza doppioni */
+#sf-superadmin>.sf-head,
+#sf-superadmin>.sf-admin-stats{display:none!important}
+#sf-superadmin .sf-admin-executive{margin-bottom:20px!important}
+#sf-superadmin .sf-exec-head h1{font-size:34px!important;letter-spacing:-.03em}
+#sf-superadmin .sf-exec-kpis{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+#sf-superadmin .sf-exec-kpis>div{padding:16px!important;min-height:105px!important}
+#sf-superadmin .sf-admin-grid{
+ grid-template-columns:300px minmax(0,1fr)!important;
+ gap:18px!important;
+ align-items:start!important;
+}
+#sf-superadmin .sf-admin-grid>.sf-page-card:first-child{
+ position:sticky!important;
+ top:18px!important;
+}
+#sf-superadmin .sf-admin-list-card{min-width:0!important;padding:18px!important}
+#sf-superadmin .sf-commercial-dashboard{
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:10px!important;
+}
+#sf-superadmin .sf-commercial-stat{min-height:92px!important}
+#sf-superadmin .sf-plan-mini{font-size:11px!important}
+
+/* scheda cliente leggibile: header / report / azioni */
+#sf-superadmin .sf-company-row{
+ display:grid!important;
+ grid-template-columns:minmax(240px,1.5fr) 100px 80px minmax(150px,.9fr)!important;
+ grid-template-areas:
+   "identity status plan billing"
+   "report report report report"
+   "actions actions actions actions"!important;
+ gap:12px 16px!important;
+ padding:16px!important;
+ align-items:center!important;
+}
+#sf-superadmin .sf-company-identity{grid-area:identity!important;min-width:0}
+#sf-superadmin .sf-company-status-col{grid-area:status!important}
+#sf-superadmin .sf-company-plan-col{grid-area:plan!important}
+#sf-superadmin .sf-company-billing{grid-area:billing!important}
+#sf-superadmin .sf-company-inline-report{
+ grid-area:report!important;
+ display:grid!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ gap:0!important;
+ margin:0!important;
+ padding:12px 14px!important;
+ border:1px solid #e8ebf0!important;
+ border-radius:12px!important;
+ background:#f8f9fb!important;
+}
+#sf-superadmin .sf-company-inline-report>div{
+ padding:0 12px!important;
+ border-right:1px solid #e5e8ed!important;
+}
+#sf-superadmin .sf-company-inline-report>div:first-child{padding-left:0!important}
+#sf-superadmin .sf-company-inline-report>div:last-child{border-right:0!important}
+#sf-superadmin .sf-company-actions{
+ grid-area:actions!important;
+ display:flex!important;
+ flex-wrap:wrap!important;
+ gap:8px!important;
+ margin:0!important;
+}
+#sf-superadmin .sf-company-actions button{margin:0!important}
+#sf-superadmin .sf-company-meta{
+ max-width:260px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important
+}
+
+@media(max-width:1200px){
+ #sf-superadmin .sf-exec-kpis{grid-template-columns:repeat(3,1fr)!important}
+ #sf-superadmin .sf-admin-grid{grid-template-columns:1fr!important}
+ #sf-superadmin .sf-admin-grid>.sf-page-card:first-child{position:relative!important;top:auto!important}
+}
+@media(max-width:780px){
+ #sf-superadmin .sf-exec-kpis,
+ #sf-superadmin .sf-commercial-dashboard{grid-template-columns:1fr 1fr!important}
+ #sf-superadmin .sf-company-row{display:block!important}
+ #sf-superadmin .sf-company-row>*{margin-bottom:10px!important}
+ #sf-superadmin .sf-company-inline-report{grid-template-columns:1fr 1fr!important}
+}
+
+
+/* V45 — gestione piani */
+.sf-plans-admin-card{padding:20px}
+.sf-plans-admin-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
+.sf-plans-admin-head h2{margin:0 0 4px}
+.sf-plans-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.sf-plan-edit{border:1px solid #e3e7ed;border-radius:16px;padding:16px;background:#fff}
+.sf-plan-edit-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.sf-plan-edit-top h3{font-size:21px;margin:3px 0}
+.sf-plan-key{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:#8a94a3}
+.sf-plan-active{display:flex!important;flex-direction:row!important;align-items:center;gap:6px;font-size:12px!important}
+.sf-plan-active input{width:auto!important}
+.sf-plan-edit>label,.sf-plan-price label,.sf-plan-limits label{display:block;font-size:11px;font-weight:800;color:#596579;margin-top:10px}
+.sf-plan-edit input{margin-top:5px}
+.sf-plan-price input{font-size:19px;font-weight:900}
+.sf-plan-limits{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+@media(max-width:850px){.sf-plans-admin-grid{grid-template-columns:1fr}.sf-plan-limits{grid-template-columns:1fr 1fr}}
+
+/* V46 — piani dinamici */
+.sf-plan-head-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.sf-plan-edit .sfDeletePlan{margin-top:14px;width:100%}
+.sf-plan-used-note{margin-top:12px;padding:9px 10px;border-radius:10px;background:#fff7e6;color:#8a5a00;font-size:11px;font-weight:700}
+
+/* V46.1 — impaginazione Piani & Prezzi */
+#sf-plansadmin{
+ max-width:1180px!important;
+}
+#sf-plansadmin .sf-head{
+ margin-bottom:16px!important;
+}
+#sf-plansadmin .sf-plans-admin-card{
+ padding:22px!important;
+ overflow:visible!important;
+}
+#sf-plansadmin .sf-plans-admin-head{
+ display:flex!important;
+ align-items:flex-start!important;
+ justify-content:space-between!important;
+ gap:18px!important;
+ margin-bottom:20px!important;
+}
+#sf-plansadmin .sf-plan-head-actions{
+ display:flex!important;
+ gap:10px!important;
+ flex-wrap:wrap!important;
+ flex:0 0 auto!important;
+}
+#sf-plansadmin .sf-plan-head-actions button{
+ min-height:42px!important;
+ padding:0 16px!important;
+}
+
+#sf-plansadmin .sf-plans-admin-grid{
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:18px!important;
+ align-items:start!important;
+}
+#sf-plansadmin .sf-plan-edit{
+ display:grid!important;
+ grid-template-columns:1fr!important;
+ gap:0!important;
+ padding:18px!important;
+ border:1px solid #dfe4eb!important;
+ border-radius:16px!important;
+ background:#fff!important;
+ min-width:0!important;
+ box-sizing:border-box!important;
+}
+#sf-plansadmin .sf-plan-edit-top{
+ display:flex!important;
+ justify-content:space-between!important;
+ align-items:flex-start!important;
+ gap:16px!important;
+ margin-bottom:14px!important;
+}
+#sf-plansadmin .sf-plan-edit-top h3{
+ margin:3px 0 0!important;
+ font-size:22px!important;
+ line-height:1.1!important;
+}
+#sf-plansadmin .sf-plan-key{
+ display:block!important;
+ margin-bottom:2px!important;
+}
+#sf-plansadmin .sf-plan-active{
+ display:flex!important;
+ flex-direction:row!important;
+ align-items:center!important;
+ justify-content:flex-end!important;
+ gap:7px!important;
+ margin:0!important;
+ white-space:nowrap!important;
+}
+#sf-plansadmin .sf-plan-active input{
+ width:16px!important;
+ height:16px!important;
+ margin:0!important;
+ min-height:0!important;
+}
+
+#sf-plansadmin .sf-plan-edit>label,
+#sf-plansadmin .sf-plan-price label,
+#sf-plansadmin .sf-plan-limits label{
+ display:flex!important;
+ flex-direction:column!important;
+ align-items:stretch!important;
+ gap:6px!important;
+ margin:0 0 12px!important;
+ width:100%!important;
+ min-width:0!important;
+ font-size:11px!important;
+ font-weight:850!important;
+ color:#536074!important;
+}
+#sf-plansadmin .sf-plan-edit input[type="text"],
+#sf-plansadmin .sf-plan-edit input[type="number"],
+#sf-plansadmin .sf-plan-edit input:not([type]),
+#sf-plansadmin .sf-plan-edit select{
+ display:block!important;
+ width:100%!important;
+ min-width:0!important;
+ max-width:none!important;
+ box-sizing:border-box!important;
+ min-height:42px!important;
+ margin:0!important;
+ padding:9px 11px!important;
+ border-radius:10px!important;
+ font-size:14px!important;
+}
+#sf-plansadmin .sf-plan-price{
+ margin:2px 0 2px!important;
+}
+#sf-plansadmin .sf-plan-price input{
+ font-size:20px!important;
+ font-weight:900!important;
+}
+#sf-plansadmin .sf-plan-limits{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:10px!important;
+ margin:0!important;
+}
+#sf-plansadmin .sf-plan-limits label{
+ margin-bottom:12px!important;
+}
+#sf-plansadmin .sf-plan-edit>label:last-of-type{
+ max-width:160px!important;
+}
+#sf-plansadmin .sfDeletePlan{
+ width:100%!important;
+ margin-top:4px!important;
+ min-height:40px!important;
+}
+#sf-plansadmin .sf-plan-used-note{
+ margin-top:4px!important;
+ padding:10px 12px!important;
+ line-height:1.35!important;
+}
+
+@media(max-width:1050px){
+ #sf-plansadmin .sf-plans-admin-grid{
+   grid-template-columns:1fr!important;
+ }
+}
+@media(max-width:680px){
+ #sf-plansadmin .sf-plans-admin-card{
+   padding:15px!important;
+ }
+ #sf-plansadmin .sf-plans-admin-head{
+   flex-direction:column!important;
+ }
+ #sf-plansadmin .sf-plan-head-actions{
+   width:100%!important;
+ }
+ #sf-plansadmin .sf-plan-head-actions button{
+   flex:1 1 180px!important;
+ }
+ #sf-plansadmin .sf-plan-limits{
+   grid-template-columns:1fr!important;
+ }
+ #sf-plansadmin .sf-plan-edit>label:last-of-type{
+   max-width:none!important;
+ }
+}
+
+
+/* V46.4 — production UI refresh */
+:root{
+ --sf-page:#f4f7fb;
+ --sf-card:#ffffff;
+ --sf-border:#e5eaf1;
+ --sf-text:#111827;
+ --sf-muted:#667085;
+ --sf-blue:#4f5fff;
+ --sf-purple:#7b42ff;
+}
+html,body{background:#07111f}
+.app{background:var(--sf-page)!important}
+.sidebar{
+ background:linear-gradient(180deg,#0d1421 0%,#080d15 100%)!important;
+ border-right:1px solid rgba(255,255,255,.05)!important;
+}
+.sidebar .logo{padding-top:22px!important}
+.nav{padding:8px 12px 18px!important}
+.navgroup{
+ color:#8390aa!important;
+ font-size:10px!important;
+ letter-spacing:.12em!important;
+ margin:18px 10px 7px!important;
+}
+.nav button,#logoutBtn{
+ display:flex!important;
+ align-items:center!important;
+ gap:11px!important;
+ width:100%!important;
+ min-height:42px!important;
+ border-radius:10px!important;
+ padding:10px 11px!important;
+ color:#e7ebf2!important;
+ background:transparent!important;
+ border:0!important;
+ text-align:left!important;
+ font-size:13px!important;
+ font-weight:700!important;
+}
+.nav button:hover,#logoutBtn:hover{background:rgba(255,255,255,.06)!important}
+.nav button.active{
+ background:linear-gradient(90deg,#3458ff,#6c45ff)!important;
+ box-shadow:0 8px 22px rgba(70,75,255,.25)!important;
+}
+.sf-nav-icon{
+ width:19px!important;height:19px!important;min-width:19px!important;
+ fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round
+}
+.sf-brand-mail{stroke:#4da3ff!important}
+.sf-brand-telegram{fill:#3aa6e8!important;stroke:#0d1421!important;stroke-width:.7!important}
+.sf-brand-whatsapp{stroke:#22c55e!important}
+.nav button.active .sf-brand-mail,.nav button.active .sf-brand-whatsapp{stroke:#fff!important}
+.nav button.active .sf-brand-telegram{fill:#fff!important;stroke:#5b4fff!important}
+
+main{
+ background:linear-gradient(180deg,#f8faff 0,#f3f6fb 100%)!important;
+ padding:20px 24px 34px!important;
+}
+main>.sfpage{max-width:1220px!important}
+.sf-page-card,.card,.stat,.sf-company-row{
+ border:1px solid var(--sf-border)!important;
+ box-shadow:0 6px 22px rgba(17,24,39,.035)!important;
+}
+.sf-head h1{letter-spacing:-.03em!important}
+.sf-kicker{color:#7c8aa5!important;letter-spacing:.12em!important}
+.primary{
+ background:linear-gradient(90deg,#335cff,#7741ff)!important;
+ color:#fff!important;border:0!important;
+ box-shadow:0 8px 20px rgba(77,76,255,.18)!important
+}
+.secondary{background:#fff!important;border:1px solid #e3e8ef!important;color:#222!important}
+
+/* Company dashboard */
+#sf-dashboard .sf-hero{
+ background:linear-gradient(110deg,#07182d 0%,#13296c 58%,#342aa0 100%)!important;
+ border-radius:18px!important;
+ min-height:190px!important;
+ box-shadow:0 12px 30px rgba(28,45,106,.14)!important;
+}
+#sf-dashboard .stats{gap:12px!important}
+#sf-dashboard .stat{border-radius:15px!important;padding:18px!important}
+
+/* Super Admin */
+#sf-superadmin>.sf-head,#sf-superadmin>.sf-admin-stats{display:none!important}
+#sf-superadmin .sf-admin-executive{margin-bottom:20px!important}
+.sf-control-hero{
+ position:relative;overflow:hidden;
+ min-height:180px;margin-bottom:16px;padding:28px 32px;
+ display:flex;align-items:center;justify-content:space-between;
+ color:#fff;border-radius:19px;
+ background:
+  radial-gradient(circle at 82% 30%,rgba(99,102,241,.38),transparent 30%),
+  linear-gradient(110deg,#07182d 0%,#152c72 60%,#30259a 100%);
+ box-shadow:0 14px 34px rgba(24,39,92,.14);
+}
+.sf-control-eyebrow{font-size:10px;font-weight:900;letter-spacing:.14em;color:#a7b8f4}
+.sf-control-hero h2{font-size:38px;line-height:1;margin:8px 0 10px;letter-spacing:-.04em}
+.sf-control-hero p{margin:0;color:#dce4ff;font-size:14px;max-width:560px}
+.sf-control-mark{
+ width:110px;height:110px;border-radius:35px;
+ display:grid;place-items:center;font-size:78px;font-weight:950;
+ background:linear-gradient(180deg,#4dc2ff,#6642ff);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ opacity:.95
+}
+#sf-superadmin .sf-exec-head{margin:0 0 12px!important}
+#sf-superadmin .sf-exec-head h1{font-size:25px!important;margin:0!important}
+#sf-superadmin .sf-exec-date{background:#fff!important}
+#sf-superadmin .sf-exec-kpis{
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ gap:12px!important;
+}
+#sf-superadmin .sf-exec-kpis>div{
+ background:#fff!important;color:#111827!important;
+ border:1px solid var(--sf-border)!important;border-radius:15px!important;
+ min-height:105px!important;padding:16px 18px!important;
+ box-shadow:0 6px 22px rgba(17,24,39,.035)!important;
+}
+#sf-superadmin .sf-exec-kpis span,#sf-superadmin .sf-exec-kpis small{color:#7b8699!important}
+#sf-superadmin .sf-exec-kpis strong{font-size:24px!important;color:#111827!important}
+
+#sf-superadmin .sf-admin-grid{
+ grid-template-columns:300px minmax(0,1fr)!important;
+ gap:16px!important;align-items:start!important
+}
+#sf-superadmin .sf-admin-grid>.sf-page-card:first-child{
+ position:sticky!important;top:18px!important;border-radius:16px!important
+}
+#sf-superadmin .sf-admin-list-card{border-radius:16px!important;padding:18px!important;min-width:0}
+#sf-superadmin .sf-commercial-dashboard{
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important
+}
+#sf-superadmin .sf-commercial-stat{border-radius:13px!important;min-height:88px!important}
+#sf-superadmin .sf-company-row{
+ display:grid!important;
+ grid-template-columns:minmax(230px,1.5fr) 100px 80px minmax(150px,.9fr)!important;
+ grid-template-areas:"identity status plan billing" "report report report report" "actions actions actions actions"!important;
+ gap:12px 16px!important;padding:16px!important;border-radius:15px!important
+}
+#sf-superadmin .sf-company-identity{grid-area:identity}
+#sf-superadmin .sf-company-status-col{grid-area:status}
+#sf-superadmin .sf-company-plan-col{grid-area:plan}
+#sf-superadmin .sf-company-billing{grid-area:billing}
+#sf-superadmin .sf-company-inline-report{
+ grid-area:report!important;display:grid!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ padding:12px 14px!important;margin:0!important;
+ background:#f7f9fc!important;border:1px solid #e9edf3!important;border-radius:12px!important
+}
+#sf-superadmin .sf-company-inline-report>div{padding:0 12px;border-right:1px solid #e4e9ef}
+#sf-superadmin .sf-company-inline-report>div:first-child{padding-left:0}
+#sf-superadmin .sf-company-inline-report>div:last-child{border-right:0}
+#sf-superadmin .sf-company-actions{grid-area:actions!important;display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin:0!important}
+#sf-superadmin .sf-company-actions button{margin:0!important}
+
+/* Plans */
+#sf-plansadmin .sf-plan-edit{box-shadow:0 6px 22px rgba(17,24,39,.035)!important}
+#sf-plansadmin .sf-plan-edit input{background:#fbfcfe!important}
+
+/* strict Super Admin isolation */
+body.sf-superadmin-mode .nav .sf-nav{display:none!important}
+body.sf-superadmin-mode .nav #sfSuperAdminNav,
+body.sf-superadmin-mode .nav #sfPlansAdminNav{display:flex!important}
+body.sf-superadmin-mode .nav .navgroup{display:none!important}
+body.sf-superadmin-mode .nav .navgroup.sf-superadmin-only{display:block!important}
+body.sf-superadmin-mode .sidebar .plan{display:none!important}
+body.sf-superadmin-mode main>.sfpage:not(#sf-superadmin):not(#sf-plansadmin):not(#sf-companymanage){display:none!important}
+
+@media(max-width:1100px){
+ #sf-superadmin .sf-admin-grid{grid-template-columns:1fr!important}
+ #sf-superadmin .sf-admin-grid>.sf-page-card:first-child{position:relative!important;top:auto!important}
+ #sf-superadmin .sf-exec-kpis{grid-template-columns:repeat(2,1fr)!important}
+}
+@media(max-width:760px){
+ main{padding:14px!important}
+ .sf-control-hero{padding:22px;min-height:160px}
+ .sf-control-mark{display:none}
+ #sf-superadmin .sf-exec-kpis,#sf-superadmin .sf-commercial-dashboard{grid-template-columns:1fr!important}
+ #sf-superadmin .sf-company-row{display:block!important}
+ #sf-superadmin .sf-company-row>*{margin-bottom:10px!important}
+ #sf-superadmin .sf-company-inline-report{grid-template-columns:1fr 1fr!important}
+}
+
 </style>
 </head>
 <body>
+<div id="sfWorkspaceBlocked" class="sf-workspace-blocked" hidden>
+ <div class="sf-workspace-blocked-card">
+  <div class="sf-blocked-icon">!</div>
+  <div class="sf-kicker">SendFlow · Accesso workspace</div>
+  <h1 id="sfBlockedTitle">Workspace sospesa</h1>
+  <p id="sfBlockedText">Questa workspace è temporaneamente sospesa. Contatta l'amministratore della tua azienda.</p>
+  <div class="sf-blocked-company" id="sfBlockedCompany"></div>
+  <button class="primary" id="sfBlockedLogoutBtn">Esci dall'account</button>
+ </div>
+</div>
 
 <div id="authScreen" style="display:flex;position:fixed;inset:0;background:#f6f7f9;z-index:100;align-items:center;justify-content:center;padding:20px">
   <div class="card" style="width:min(430px,100%);padding:28px">
-    <div style="font-weight:800;font-size:22px;margin-bottom:4px">WhatsApp <span style="color:#ff7600">Campaign</span></div>
-    <div class="muted" style="margin-bottom:20px">Accedi al tuo account</div>
+    <div style="font-weight:800;font-size:22px;margin-bottom:4px">Send<span style="color:#5267ff">Flow</span></div>
+    <div class="muted" style="margin-bottom:20px">Accedi a SendFlow</div>
     <input id="authEmail" type="email" placeholder="Email" style="width:100%;padding:12px;border:1px solid #d8dde3;border-radius:8px;font:inherit;margin-bottom:10px">
     <input id="authPassword" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid #d8dde3;border-radius:8px;font:inherit;margin-bottom:10px">
     <button id="loginBtn" class="primary" style="width:100%">Accedi</button>
@@ -37,29 +1028,63 @@ main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:sp
 </div>
 <div class="app">
 <aside class="sidebar">
-<div class="brand">◯ <b>WhatsApp</b><small>CAMPAIGN</small></div>
+<div class="brand" style="display:flex;align-items:center;gap:10px"><span id="sfSidebarLogoFallback" style="display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#16d7ff,#5267ff 55%,#8b45ff);font-size:25px;font-style:italic">S</span><img id="sfSidebarLogo" alt="Logo cliente" style="display:none;width:38px;height:38px;object-fit:contain;border-radius:9px;background:#fff;padding:4px"><span>Send<b style="color:#6d78ff">Flow</b><small style="color:#9ca9c5">COMUNICAZIONI SENZA CONFINI</small><small id="sfSidebarClient" style="color:#7f8ea7;margin-top:3px"></small></span></div>
 <div class="nav">
-<button class="active" data-section="dashboard">⌂ &nbsp; Dashboard</button>
-<button data-section="contacts">♙ &nbsp; Contatti</button>
-<button data-section="campaigns">➤ &nbsp; Campagne</button>
-<button data-section="saved">▣ &nbsp; Messaggi salvati</button>
-<button data-section="variables">{ } &nbsp; Variabili</button>
-<button id="settingsBtn">⚙ &nbsp; Impostazioni</button><button id="logoutBtn">↪ &nbsp; Esci</button><button>❔ &nbsp; Guida</button>
-</div>
-<div class="plan"><small>Piano: Free</small><div>Messaggi disponibili</div><strong id="remaining">—</strong><button>Aggiorna Piano</button></div>
+<button class="active sf-nav" data-section="dashboard"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/><path d="M9.5 19v-5h5v5"/></svg><span>Dashboard</span></button>
+<div class="navgroup">Rubrica</div>
+<button class="sf-nav" data-section="contacts"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.5-4 2.5-6 5.5-6s5 2 5.5 6"/><path d="M16 8h5M16 12h5M17 16h4"/></svg><span>Contatti</span></button>
+<div class="navgroup">Campagne</div>
+<button class="sf-nav" data-section="campaigns"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-8-7 18-3.5-7.5L3 11Z"/><path d="m10.5 13.5 5-5"/></svg><span>Campagne</span></button>
+<div class="navgroup">Canali</div>
+<button class="sf-nav sf-menu-channel" data-section="whatsapp"><svg class="sf-nav-icon sf-brand-whatsapp" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.2 8.2c.8 3.6 3.8 6.6 7.5 7.6"/><path d="m7 18-3 1 1-3"/></svg><span>WhatsApp</span></button>
+<button class="sf-nav sf-menu-channel sf-menu-mail" data-section="email"><svg class="sf-nav-icon sf-brand-mail" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>Email</span></button>
+<button class="sf-nav sf-menu-channel" data-section="telegram"><svg class="sf-nav-icon sf-brand-telegram" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3.8 10.6c-.9.4-.9 1 .1 1.3l4.4 1.4 1.7 5.2c.2.7.6.8 1.1.3l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.8-.8L24 5.5C24.3 4.2 23.5 3.6 21 4Z"/><path d="m8.3 13.3 10.5-6.6"/></svg><span>Telegram</span></button>
+<div class="navgroup sf-superadmin-only" style="display:none">Piattaforma</div>
+<button class="sf-nav sf-superadmin-only" id="sfSuperAdminNav" data-section="superadmin" style="display:none"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 20 7v5c0 5-3.4 8-8 9-4.6-1-8-4-8-9V7l8-4Z"/><path d="m9 12 2 2 4-4"/></svg><span>Control Center</span></button>
+<button class="sf-nav sf-superadmin-only" id="sfPlansAdminNav" data-section="plansadmin" style="display:none"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M8 13h3M8 16h6"/></svg><span>Piani & Prezzi</span></button>
+<div class="navgroup">Strumenti</div>
+<button class="sf-nav" data-section="saved"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18l-7-4-7 4V3Z"/><path d="M9 8h6M9 11h6"/></svg><span>Modelli messaggi</span></button>
+<button class="sf-nav" data-section="stats"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Statistiche</span></button>
+<button class="sf-nav" data-section="team"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c.4-4.2 2.5-6.3 6-6.3s5.6 2.1 6 6.3"/><path d="M15 14.5c3.3-.5 5.3 1.3 5.8 4.5"/></svg><span>Azienda & Team</span></button>
+<button class="sf-nav" id="settingsBtn" data-section="settings"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg><span>Impostazioni</span></button>
+<button id="logoutBtn"><svg class="sf-nav-icon " viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5v14h5"/><path d="M13 8l4 4-4 4M17 12H8"/></svg><span>Esci</span></button>
+</div><div class="plan"><small>Piano: Free</small><div>Messaggi disponibili</div><strong id="remaining">—</strong><button>Aggiorna Piano</button></div>
 </aside>
-<main>
-<div class="top"><div><h1>Ciao 👋</h1><p>Crea e invia messaggi WhatsApp personalizzati ai tuoi contatti.</p><div class="muted" style="margin-top:8px"><span id="cloudStatus">Modalità locale</span></div></div><button class="primary" id="newCampaign">＋ Nuova campagna</button></div>
-
+<main><section class="sfpage active" id="sf-dashboard">
+<div class="sf-head"><div><div class="sf-kicker">Overview</div><h1>Dashboard</h1><p>Panoramica del tuo spazio SendFlow.</p><div class="muted" style="margin-top:7px"><span id="cloudStatus">Modalità locale</span></div></div><div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><div class="sf-brand-pill"><span></span><b id="sfHeaderCompany">SendFlow</b></div><button class="primary" id="newCampaign">＋ Nuova campagna</button></div></div>
+<div class="sf-hero"><div>Benvenuto in</div><h2 id="sfHeroName">SendFlow</h2><p>La tua piattaforma multicanale per comunicazioni efficaci, da un'unica rubrica.</p><div class="hero-s">S</div></div>
 <section class="stats">
 <div class="stat"><small>Contatti totali</small><strong id="total">0</strong><small>In rubrica</small></div>
 <div class="stat"><small>Campagne</small><strong id="campaignCount">0</strong><small>Salvate</small></div>
-<div class="stat"><small>Messaggi inviati</small><strong id="sentCount">0</strong><small>Totali</small></div>
-<div class="stat"><small>Messaggi oggi</small><strong id="todayCount">0</strong><small>Limite demo</small></div>
+<div class="stat"><small>Invii completati</small><strong id="sentCount">0</strong><small>Totali</small></div>
+<div class="stat"><small>Invii oggi</small><strong id="todayCount">0</strong><small>Oggi</small></div>
 </section>
+<div class="sf-channel-grid">
+<div class="sf-channel-card"><div class="sf-channel-logo whatsapp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg" alt="WhatsApp"></div><h3>WhatsApp</h3><div class="muted">Messaggi personalizzati ai contatti selezionati.</div><span class="sf-badge on">ATTIVO</span><div style="margin-top:13px"><button class="secondary sf-goto" data-section="whatsapp">Vai al canale →</button></div></div>
+<div class="sf-channel-card"><div class="sf-channel-logo email"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#3b82f6" d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2 9 6 9-6H3Zm18 10V9.4l-8.45 5.63a1 1 0 0 1-1.1 0L3 9.4V17h18Z"/></svg></div><h3>Email</h3><div class="muted">Campagne email personalizzate.</div><span class="sf-badge soon">PROSSIMAMENTE</span></div>
+<div class="sf-channel-card"><div class="sf-channel-logo telegram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg" alt="Telegram"></div><h3>Telegram</h3><div class="muted">Comunicazioni tramite Telegram.</div><span class="sf-badge soon">PROSSIMAMENTE</span></div>
+</div>
 
-<section class="grid">
-<div class="card">
+<div class="sf-dashboard-bottom">
+  <div class="sf-page-card">
+    <div class="sf-kicker">Attività</div>
+    <h2 style="margin-top:0">Panoramica recente</h2>
+    <div class="sf-activity" id="sfRecentActivity"><div class="sf-empty">Nessuna attività recente.</div></div>
+  </div>
+  <div class="sf-page-card">
+    <div class="sf-kicker">Azioni rapide</div>
+    <h2 style="margin-top:0">Cosa vuoi fare?</h2>
+    <div class="sf-quick">
+      <button class="secondary sf-goto" data-section="contacts">＋ Aggiungi o importa contatti</button>
+      <button class="secondary sf-goto" data-section="whatsapp">● Nuovo invio WhatsApp</button>
+      <button class="secondary sf-goto" data-section="campaigns">➤ Apri campagne</button>
+      <button class="secondary sf-goto" data-section="settings">⚙ Personalizza branding</button>
+    </div>
+  </div>
+</div>
+
+</section>
+<section class="sfpage" id="sf-contacts"><div class="sf-head"><div><h1>Contatti</h1><p>Importa, cerca, seleziona e modifica la rubrica.</p></div></div><div class="card">
 <h2>1. Rubrica contatti</h2><div class="muted">Importa il template Excel oppure aggiungi contatti manualmente.</div>
 <div class="drop"><div class="icon">⇧</div><b>Trascina qui Excel o CSV</b><br><span class="muted">oppure</span><br>
 <label for="file" class="primary">Seleziona file</label><input id="file" type="file" accept=".xlsx,.xls,.csv"></div>
@@ -70,26 +1095,376 @@ main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:sp
 <button class="secondary" id="addContact">＋ Aggiungi</button>
 </div>
 <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
-</div>
-
-<div class="card">
-<h2>2. Messaggio personalizzato</h2><div class="muted">Scrivi una volta e personalizzalo automaticamente per ogni contatto. Il telefono serve solo per aprire la chat WhatsApp.</div>
-<textarea class="message" id="message"></textarea>
-<div class="vars">
-<button class="var" data-v="{{Nome}}">{{Nome}}</button><button class="var" data-v="{{Cognome}}">{{Cognome}}</button><button class="var" data-v="{{Azienda}}">{{Azienda}}</button><button class="var" data-v="{{Data}}">{{Data}}</button><button class="var" data-v="{{Ora}}">{{Ora}}</button><button class="var" data-v="{{Email}}">{{Email}}</button><button class="var" data-v="{{Note}}">{{Note}}</button>
-</div>
-<div style="margin-top:18px"><b>Anteprima</b><div class="preview" id="preview"></div></div>
-<div class="actions"><button class="secondary" id="saveMsg">💾 Salva messaggio</button><button class="send" id="send">➤ Invia ai selezionati <span id="selectionCount"></span></button></div>
-</div>
-</section>
-<section class="card" style="margin-top:18px">
+</div></section><section class="sfpage" id="sf-campaigns"><div class="sf-head"><div><h1>Campagne</h1><p>Storico, avanzamento e ripresa delle campagne.</p></div><button class="primary sf-goto" data-section="whatsapp">＋ Nuova campagna</button></div><section class="card" style="margin-top:18px">
 <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
 <div><h2>3. Storico campagne</h2><div class="muted">Campagne create e stato degli invii.</div></div>
 <button class="secondary" id="manageCampaigns">Gestisci campagne</button>
 </div>
 <div id="campaignList" style="margin-top:14px"></div>
+</section></section><section class="sfpage" id="sf-whatsapp"><div class="sf-head"><div class="sf-channel-header"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg" alt="WhatsApp"><div><h1>WhatsApp</h1><p>Canale attivo di SendFlow.</p></div></div></div></div><div class="card">
+<h2>2. Messaggio e canale</h2><div class="muted">Scrivi una volta e personalizza automaticamente il contenuto per ogni destinatario. Scegli il canale di invio.</div>
+<div class="channelbar" aria-label="Canale di invio">
+<button type="button" class="channelbtn active" id="channelWhatsApp" data-channel="whatsapp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/whatsapp.svg" alt="" style="width:22px;height:22px"> WhatsApp</button>
+<button type="button" class="channelbtn locked" id="channelEmail" data-channel="email" title="Disponibile prossimamente"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#3b82f6" d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2 9 6 9-6H3Zm18 10V9.4l-8.45 5.63a1 1 0 0 1-1.1 0L3 9.4V17h18Z"/></svg> Email <span class="futurebadge">PROSSIMAMENTE</span></button>
+<button type="button" class="channelbtn locked" id="channelTelegram" data-channel="telegram" title="Disponibile prossimamente"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg" alt="" style="width:22px;height:22px"> Telegram <span class="futurebadge">PROSSIMAMENTE</span></button>
+</div>
+<div class="channel-note" id="channelNote">Canale attivo: WhatsApp. Il numero di telefono viene usato solo come destinazione e non viene inserito nel testo.</div>
+<textarea class="message" id="message"></textarea>
+<div class="vars">
+<button class="var" data-v="{{Nome}}">{{Nome}}</button><button class="var" data-v="{{Cognome}}">{{Cognome}}</button><button class="var" data-v="{{Azienda}}">{{Azienda}}</button><button class="var" data-v="{{Data}}">{{Data}}</button><button class="var" data-v="{{Ora}}">{{Ora}}</button><button class="var" data-v="{{Email}}">{{Email}}</button><button class="var" data-v="{{Note}}">{{Note}}</button>
+</div>
+<div style="margin-top:18px"><b>Anteprima</b><div class="preview" id="preview"></div></div>
+<div class="actions"><button class="secondary" id="saveMsg">💾 Salva messaggio</button><button class="send" id="send">➤ Crea invio <span id="selectionCount"></span></button></div>
+</div></section><section class="sfpage" id="sf-email"><div class="sf-head"><div><h1>Email</h1><p>Canale email di SendFlow.</p></div></div><div class="sf-page-card sf-coming-box"><div class="biglogo"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#3b82f6" d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2 9 6 9-6H3Zm18 10V9.4l-8.45 5.63a1 1 0 0 1-1.1 0L3 9.4V17h18Z"/></svg></div><h2>Email</h2><p class="muted">Il modulo Email è già previsto nell'architettura. Lo collegheremo al motore di invio nella prossima fase.</p><span class="sf-badge soon">PROSSIMAMENTE</span></div></section><section class="sfpage" id="sf-telegram"><div class="sf-head"><div><h1>Telegram</h1><p>Canale Telegram di SendFlow.</p></div></div><div class="sf-page-card sf-coming-box"><div class="biglogo"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13.21.0/icons/telegram.svg" alt="Telegram"></div><h2>Telegram</h2><p class="muted">Il modulo Telegram è predisposto e verrà collegato successivamente.</p><span class="sf-badge soon">PROSSIMAMENTE</span></div></section><section class="sfpage" id="sf-saved"><div class="sf-head"><div><h1>Modelli messaggi</h1><p>Gestisci i messaggi salvati.</p></div></div><div class="sf-page-card"><div id="savedPageList" class="sf-empty">I modelli salvati verranno mostrati qui.</div></div></section><section class="sfpage" id="sf-stats"><div class="sf-head"><div><h1>Statistiche</h1><p>Riepilogo dell'attività SendFlow.</p></div></div><div class="sf-page-grid"><div class="stat"><small>Contatti</small><strong id="v15Contacts">0</strong><small>Totali</small></div><div class="stat"><small>Campagne</small><strong id="v15Campaigns">0</strong><small>Totali</small></div><div class="stat"><small>Invii</small><strong id="v15Sent">0</strong><small>Completati</small></div><div class="stat"><small>Canali attivi</small><strong>1</strong><small>su 3</small></div></div></section>
+
+<section class="sfpage" id="sf-superadmin">
+<div id="sfAdminExecutive" class="sf-admin-executive">
+<div class="sf-control-hero">
+ <div>
+  <div class="sf-control-eyebrow">SENDFLOW · PLATFORM</div>
+  <h2>Control Center</h2>
+  <p>Clienti, ricavi, rinnovi e stato della piattaforma in un’unica vista.</p>
+ </div>
+ <div class="sf-control-mark">S</div>
+</div>
+
+ <div class="sf-exec-head">
+  <div><div class="sf-kicker">SENDFLOW · CONTROL CENTER</div><h1>Dashboard commerciale</h1>
+  <div class="muted">Vendite, clienti, rinnovi e incassi in un’unica vista.</div></div>
+  <div class="sf-exec-date" id="sfExecDate"></div>
+ </div>
+ <div class="sf-exec-kpis">
+  <div><span>Aziende</span><strong id="sfExecCompanies">0</strong><small>Workspace totali</small></div>
+  <div><span>Attive</span><strong id="sfExecActive">0</strong><small>Clienti operativi</small></div>
+  <div><span>MRR stimato</span><strong id="sfExecMRR">€0</strong><small>Da piani attivi</small></div>
+  <div><span>Incassato</span><strong id="sfExecPaid">€0</strong><small>Movimenti pagati</small></div>
+  <div><span>Da incassare</span><strong id="sfExecPending">€0</strong><small>Aperti + scaduti</small></div>
+  <div><span>Insoluti</span><strong id="sfExecOverdue">€0</strong><small id="sfExecOverdueCount">0 movimenti</small></div>
+ </div>
+</div>
+
+<div class="sf-head">
+  <div>
+    <div class="sf-kicker">SendFlow Platform</div>
+    <h1>Super Admin</h1>
+    <p>Gestisci le aziende clienti della piattaforma da un unico pannello.</p>
+  </div>
+  <div class="sf-superadmin-chip">◆ Accesso piattaforma</div>
+</div>
+
+<div class="sf-admin-stats">
+  <div class="sf-page-card"><div class="sf-kicker">Aziende</div><strong id="sfCompanyCount">0</strong><div class="muted">Totali</div></div>
+  <div class="sf-page-card"><div class="sf-kicker">Attive</div><strong id="sfCompanyActiveCount">0</strong><div class="muted">Workspace operative</div></div>
+  <div class="sf-page-card"><div class="sf-kicker">Piani</div><strong id="sfCompanyPaidCount">0</strong><div class="muted">Starter / Pro / Business</div></div>
+</div>
+
+<div class="sf-admin-grid">
+  <div class="sf-page-card">
+    <div class="sf-kicker">Nuovo cliente</div>
+    <h2 style="margin:0 0 5px">Crea azienda</h2>
+    <div class="muted">L'Admin aziendale deve essere già registrato su SendFlow. Puoi anche assegnarlo in seguito.</div>
+    <label class="sf-admin-label">Nome azienda
+      <input id="sfNewCompanyName" type="text" placeholder="Es. Cliente Srl">
+    </label>
+    <label class="sf-admin-label">Email Admin azienda
+      <input id="sfNewCompanyAdmin" type="email" placeholder="admin@cliente.it">
+    </label>
+    <label class="sf-admin-label">Piano
+      <select id="sfNewCompanyPlan">
+        <option value="free">Free</option>
+        <option value="starter">Starter</option>
+        <option value="pro">Pro</option>
+        <option value="business">Business</option>
+      </select>
+    </label>
+    <button class="primary" id="sfCreateCompanyBtn" style="width:100%;margin-top:12px">＋ Crea azienda</button>
+    <div class="sf-admin-hint">Il Super Admin può vedere tutte le aziende. Ogni Admin vede esclusivamente la propria workspace.</div>
+    <div class="sf-plan-mini">
+      <b>Limiti piani</b>
+      <div>Free · 100 contatti · 1 membro · 10 campagne</div>
+      <div>Starter · 1.000 contatti · 3 membri · 100 campagne</div>
+      <div>Pro · 10.000 contatti · 10 membri · 1.000 campagne</div>
+      <div>Business · limiti estesi</div>
+    </div><div class="sf-plan-mini sf-price-mini">
+      <b>Prezzi SendFlow</b>
+      <div>Free · €0 / mese</div><div>Starter · €19 / mese</div>
+      <div>Pro · €49 / mese</div><div>Business · €99 / mese</div>
+    </div>
+  </div>
+
+  <div class="sf-page-card sf-admin-list-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div><div class="sf-kicker">Clienti</div><h2 style="margin:0">Aziende SendFlow</h2></div>
+      <button class="secondary" id="sfRefreshCompaniesBtn">↻ Aggiorna</button>
+    </div>
+    <div class="sf-commercial-dashboard">
+<div class="sf-commercial-stat sf-payment-kpi"><span>Da incassare</span><strong id="sfGlobalPendingAmount">€0,00</strong><small>Pagamenti aperti</small></div>
+<div class="sf-commercial-stat sf-payment-kpi sf-payment-kpi-overdue"><span>Scaduto</span><strong id="sfGlobalOverdueAmount">€0,00</strong><small id="sfGlobalOverdueCount">0 insoluti</small></div>
+
+<div class="sf-commercial-stat"><span>Clienti attivi</span><b id="sfStatActive">0</b><small>Abbonamento attivo</small></div>
+<div class="sf-commercial-stat"><span>Trial</span><b id="sfStatTrial">0</b><small>Clienti in prova</small></div>
+<div class="sf-commercial-stat"><span>In scadenza</span><b id="sfStatExpiring">0</b><small>Entro 30 giorni</small></div>
+<div class="sf-commercial-stat"><span>Pagamenti scaduti</span><b id="sfStatPastDue">0</b><small>Da gestire</small></div>
+</div>
+<div class="sf-plan-breakdown" id="sfPlanBreakdown"></div><div class="sf-renewal-toolbar">
+  <div class="sf-renewal-filters">
+    <button class="secondary sfBillingFilter active" data-filter="all">Tutte</button>
+    <button class="secondary sfBillingFilter" data-filter="expiring">In scadenza</button>
+    <button class="secondary sfBillingFilter" data-filter="expired">Scadute</button>
+    <button class="secondary sfBillingFilter" data-filter="active">Attive</button>
+    <button class="secondary sfBillingFilter" data-filter="trial">Trial</button>
+  </div>
+  <select id="sfCompanyPlanFilter" class="sf-renewal-select">
+    <option value="all">Tutti i piani</option>
+    <option value="free">Free</option><option value="starter">Starter</option>
+    <option value="pro">Pro</option><option value="business">Business</option>
+  </select>
+</div>
+<div id="sfCompanyList" class="sf-company-list"><div class="sf-empty">Caricamento aziende…</div></div>
+  </div>
+</div>
 </section>
-</main>
+
+
+
+<section class="sfpage" id="sf-plansadmin">
+ <div class="sf-head"><div><div class="sf-kicker">SENDFLOW · COMMERCIALE</div><h1>Piani & Prezzi</h1>
+ <p>Configura prezzi, limiti e struttura commerciale dei piani SendFlow.</p></div></div>
+ <div class="sf-page-card sf-plans-admin-card">
+  <div class="sf-plans-admin-head"><div><h2>Catalogo piani</h2><p class="muted">Crea nuovi piani oppure modifica prezzi, limiti e struttura di quelli esistenti.</p></div>
+  <div class="sf-plan-head-actions"><button class="secondary" id="sfAddPlan" type="button">＋ Nuovo piano</button><button class="primary" id="sfSavePlans" type="button">Salva configurazione</button></div></div>
+  <div id="sfPlansAdminGrid" class="sf-plans-admin-grid"></div>
+ </div>
+</section>
+<section class="sfpage" id="sf-companymanage">
+<div class="sf-head">
+ <div><div class="sf-kicker">Super Admin · Cliente</div><h1 id="sfManageCompanyTitle">Gestione azienda</h1><p id="sfManageCompanySubtitle">Dettagli, team e configurazione del cliente.</p></div>
+ <button class="secondary" id="sfBackCompaniesBtn">← Tutte le aziende</button>
+</div>
+<div class="sf-admin-stats">
+ <div class="sf-page-card"><div class="sf-kicker">Stato</div><strong id="sfManageStatus" style="font-size:22px">—</strong><div class="muted">Workspace cliente</div></div>
+ <div class="sf-page-card"><div class="sf-kicker">Piano</div><strong id="sfManagePlan" style="font-size:22px">—</strong><div class="muted">Piano corrente</div></div>
+ <div class="sf-page-card"><div class="sf-kicker">Team</div><strong id="sfManageTeamCount">0</strong><div class="muted">Utenti aziendali</div></div>
+</div>
+<div class="sf-admin-grid">
+ <div class="sf-page-card">
+  <div class="sf-kicker">Configurazione</div><h2 style="margin:0 0 6px">Dati azienda</h2>
+  <label class="sf-admin-label">Nome azienda<input id="sfManageName" type="text"></label>
+  <label class="sf-admin-label">Piano<select id="sfManagePlanSelect"><option value="free">Free</option><option value="starter">Starter</option><option value="pro">Pro</option><option value="business">Business</option></select></label><div class="sf-plan-price-preview" id="sfManagePlanPrice"><span>Prezzo piano</span><strong>Gratis</strong></div>
+  <label class="sf-admin-label">Stato<select id="sfManageStatusSelect"><option value="active">Attiva</option><option value="suspended">Sospesa</option><option value="disabled">Disabilitata</option></select></label>
+  <button class="primary" id="sfSaveManagedCompanyBtn" style="width:100%;margin-top:12px">Salva modifiche</button>
+  <button class="secondary" id="sfAssignManagedAdminBtn" style="width:100%;margin-top:8px">Assegna / cambia Admin</button>
+ </div>
+ <div class="sf-page-card sf-managed-team-card">
+  <div class="sf-managed-team-head">
+    <div><div class="sf-kicker">Accessi</div><h2 style="margin:0">Team aziendale</h2></div>
+    <span class="sf-team-ok">● Isolato</span>
+  </div>
+  <div class="sf-managed-team-tools">
+    <input id="sfManagedTeamSearch" type="search" placeholder="Cerca utente o email…">
+    <div class="sf-managed-add-row">
+      <input id="sfManagedMemberEmail" type="email" placeholder="nuovo@azienda.it">
+      <button class="primary" id="sfAddManagedMemberBtn">＋ Aggiungi membro</button>
+    </div>
+    <div class="muted sf-managed-team-help">L'utente deve essere già registrato su SendFlow. L'Admin principale si assegna con il comando dedicato.</div>
+  </div>
+  <div id="sfManagedTeamList" class="sf-company-list"><div class="sf-empty">Caricamento team…</div></div>
+ </div>
+</div>
+
+
+<div class="sf-page-card sf-plan-change-card">
+ <div class="sf-kicker">Gestione piano</div>
+ <h2 style="margin:0 0 5px">Upgrade / Downgrade</h2>
+ <div class="muted">Programma il prossimo piano oppure applica subito il cambio.</div>
+ <div class="sf-commercial-grid">
+  <label class="sf-admin-label">Piano attuale<input id="sfCurrentPlanDisplay" type="text" readonly></label>
+  <label class="sf-admin-label">Prossimo piano
+   <select id="sfNextPlanSelect">
+    <option value="">Nessun cambio programmato</option>
+    <option value="free">Free</option><option value="starter">Starter</option>
+    <option value="pro">Pro</option><option value="business">Business</option>
+   </select>
+  </label>
+  <label class="sf-admin-label">Data cambio<input id="sfPlanChangeDate" type="date"></label>
+ </div>
+ <div class="sf-plan-change-actions">
+  <button class="secondary" id="sfSchedulePlanBtn" type="button">Programma cambio</button>
+  <button class="primary" id="sfApplyPlanNowBtn" type="button">Applica subito</button>
+ </div>
+ <div id="sfPlanChangeInfo" class="sf-plan-change-info">Nessun cambio piano programmato.</div>
+</div>
+
+
+<div class="sf-page-card sf-plan-history-card">
+ <div class="sf-plan-history-head">
+  <div>
+   <div class="sf-kicker">Storico abbonamento</div>
+   <h2 style="margin:0 0 5px">Movimenti piano</h2>
+   <div class="muted">Cronologia upgrade, downgrade e cambi programmati della workspace.</div>
+  </div>
+  <button class="secondary" id="sfRefreshPlanHistoryBtn" type="button">↻ Aggiorna</button>
+ </div>
+ <div id="sfPlanHistoryList" class="sf-plan-history-list">
+  <div class="sf-empty">Nessun movimento registrato.</div>
+ </div>
+</div>
+
+
+<div class="sf-page-card sf-payments-card">
+ <div class="sf-payments-head">
+  <div>
+   <div class="sf-kicker">Pagamenti & fatturazione</div>
+   <h2 style="margin:0 0 5px">Movimenti economici</h2>
+   <div class="muted">Registro amministrativo interno. Nessun pagamento online viene ancora elaborato.</div>
+  </div>
+  <button class="secondary" id="sfRefreshPaymentsBtn" type="button">↻ Aggiorna</button>
+ </div>
+
+ <div class="sf-commercial-grid sf-payment-form">
+  <label class="sf-admin-label">Descrizione<input id="sfPaymentDescription" type="text" placeholder="Es. Abbonamento Pro - Settembre"></label>
+  <label class="sf-admin-label">Importo (€)<input id="sfPaymentAmount" type="number" min="0" step="0.01" placeholder="49.00"></label>
+  <label class="sf-admin-label">Scadenza<input id="sfPaymentDueDate" type="date"></label>
+  <label class="sf-admin-label">Stato
+   <select id="sfPaymentStatus">
+    <option value="pending">Da pagare</option>
+    <option value="paid">Pagato</option>
+    <option value="overdue">Scaduto</option>
+    <option value="cancelled">Annullato</option>
+   </select>
+  </label>
+ </div>
+ <button class="primary" id="sfAddPaymentBtn" type="button" style="margin-top:12px">＋ Registra movimento</button>
+
+ <div class="sf-payment-summary">
+  <div><span>Totale registrato</span><strong id="sfPaymentsTotal">€0,00</strong></div>
+  <div><span>Incassato</span><strong id="sfPaymentsPaid">€0,00</strong></div>
+  <div><span>Da incassare</span><strong id="sfPaymentsPending">€0,00</strong></div>
+ </div>
+ <div id="sfPaymentsList" class="sf-payments-list"><div class="sf-empty">Nessun movimento registrato.</div></div>
+</div>
+
+<div class="sf-page-card sf-commercial-card">
+ <div>
+  <div class="sf-kicker">Amministrazione commerciale</div>
+  <h2 style="margin:0 0 5px">Abbonamento cliente</h2>
+  <div class="muted">Dati amministrativi visibili esclusivamente al Super Admin.</div>
+ </div>
+ <div class="sf-commercial-grid">
+  <label class="sf-admin-label">Stato abbonamento
+   <select id="sfBillingStatus">
+    <option value="trial">Trial</option>
+    <option value="active">Attivo</option>
+    <option value="past_due">Pagamento scaduto</option>
+    <option value="cancelled">Cancellato</option>
+   </select>
+  </label>
+  <label class="sf-admin-label">Data attivazione<input id="sfBillingStart" type="date"></label>
+  <label class="sf-admin-label">Rinnovo / scadenza<input id="sfBillingRenewal" type="date"></label>
+  <label class="sf-admin-label">Durata trial (giorni)<input id="sfTrialDays" type="number" min="1" max="365" value="14"></label><label class="sf-admin-label">Ciclo fatturazione<select id="sfBillingCycle"><option value="monthly">Mensile</option><option value="yearly">Annuale</option></select></label>
+  <label class="sf-admin-label">Importo concordato (€)<input id="sfBillingAmount" type="number" min="0" step="0.01" placeholder="Es. 49.00"></label>
+  <label class="sf-admin-label sf-commercial-notes">Note amministrative<textarea id="sfBillingNotes" rows="3" placeholder="Es. contratto annuale, condizioni concordate, riferimento commerciale..."></textarea></label>
+ </div>
+ <button class="primary" id="sfSaveBillingBtn" style="margin-top:12px">Salva dati commerciali</button>
+<div id="sfTrialStatusCard" class="sf-trial-status-card">
+ <div><div class="sf-kicker">Trial</div><h3 id="sfTrialStatusTitle">Nessun trial attivo</h3><div id="sfTrialStatusText" class="muted">—</div></div>
+ <span id="sfTrialStatusBadge" class="sf-team-badge">—</span>
+</div>
+</div>
+</section>
+
+<section class="sfpage" id="sf-team">
+<div class="sf-head"><div><div class="sf-kicker">Organizzazione</div><h1>Azienda & Team</h1><p>Tutta la gestione aziendale in un'unica schermata.</p></div><div class="sf-brand-pill"><span></span><b id="sfTeamWorkspaceStatus">Workspace attiva</b></div></div>
+
+<div class="sf-team-top">
+  <div class="sf-page-card">
+    <div class="sf-kicker">Workspace aziendale</div>
+    <h2 id="sfOrgNameView" style="margin:0 0 5px">Nessuna azienda</h2>
+    <div class="muted" id="sfOrgInfo">Crea la prima azienda per attivare il team.</div>
+    <label style="display:block;margin-top:13px;font-size:12px;font-weight:800;color:#596273">Nome azienda
+      <input id="sfOrgNameInput" type="text" placeholder="Es. Enoverso Srl" style="width:100%;margin-top:6px">
+    </label>
+    <button class="primary" id="sfSaveOrgBtn" style="width:100%;margin-top:9px">Salva azienda</button>
+    <button class="secondary" id="sfCreateOrgBtn" style="width:100%;margin-top:7px">＋ Crea azienda</button>
+  </div>
+
+  <div class="sf-page-card">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+      <div><div class="sf-kicker">Membri</div><h2 style="margin:0">Team <span id="sfTeamCount"></span></h2></div>
+      <span class="sf-team-ok">● Attivo</span>
+    </div>
+    <div id="sfTeamList" style="margin-top:10px"><div class="sf-empty">Nessun team configurato.</div></div>
+  </div>
+
+  <div class="sf-page-card sf-team-invite">
+    <div class="sf-kicker">Collaboratori</div>
+    <h2 style="margin:0 0 5px">Aggiungi al team</h2>
+    <div class="muted">L'utente deve essere già registrato su SendFlow.</div>
+    <input id="sfInviteEmail" type="email" placeholder="email@azienda.it" style="width:100%;margin-top:12px">
+    <select id="sfInviteRole" style="width:100%;margin-top:8px"><option value="member">Membro</option></select>
+    <button class="primary" id="sfInviteBtn" style="width:100%;margin-top:8px">Aggiungi</button>
+  </div>
+</div>
+
+<div class="sf-page-card sf-team-brand">
+  <div>
+    <div class="sf-kicker">Branding aziendale condiviso</div>
+    <h2 style="margin:0 0 5px">Identità della workspace</h2>
+    <div class="muted">Logo, nome e colore vengono condivisi con il team.</div>
+    <button class="secondary sf-goto" data-section="settings" style="margin-top:11px">⚙ Gestisci branding</button>
+  </div>
+  <div class="sf-team-brand-preview" id="sfTeamBrandPreview"><div class="muted">Anteprima branding</div></div>
+</div>
+<div class="sf-page-card sf-plan-company-card">
+  <div><div class="sf-kicker">Piano aziendale</div><h2 style="margin:0">Utilizzo workspace</h2><div class="muted">Limiti applicati automaticamente in base al piano assegnato dal Super Admin.</div></div>
+  <div class="sf-plan-usage" id="sfPlanUsage"><div class="sf-empty">Caricamento piano…</div></div>
+</div>
+<div class="sf-team-note">ⓘ In V29 l'Admin Azienda gestisce la propria workspace. La gestione globale delle aziende è riservata al Super Admin.</div>
+</section>
+
+<section class="sfpage" id="sf-settings">
+<div class="sf-head"><div><div class="sf-kicker">Workspace</div><h1>Impostazioni</h1><p>Account e personalizzazione di SendFlow.</p></div></div>
+<div class="sf-page-grid">
+  <div class="sf-page-card">
+    <h2>Account</h2><div class="muted">Accesso cloud tramite Supabase.</div><div id="v15Account" style="margin-top:14px;font-weight:700">—</div>
+  </div>
+  <div class="sf-page-card">
+    <div class="sf-kicker">White-label</div>
+    <h2 style="margin-top:0">Branding cliente</h2>
+    <div class="muted">Personalizza il nome visualizzato, il colore principale e il logo della workspace.</div><div id="sfBrandCloudStatus" class="muted" style="margin-top:7px">Branding locale</div>
+    <div class="sf-brand-preview" id="sfBrandPreview"></div>
+<div class="sf-theme-preview" title="Anteprima colore interfaccia">
+ <div class="sf-theme-preview-top"></div>
+ <div class="sf-theme-preview-body">
+  <div class="sf-theme-preview-side"><i></i><i></i><i></i><i></i></div>
+  <div class="sf-theme-preview-main"><b>Anteprima interfaccia aziendale</b><div class="muted" style="font-size:11px;margin-top:3px">Base nera + colore aziendale</div><div class="sf-theme-preview-btn"></div></div>
+ </div>
+</div>
+    <div class="sf-settings-form">
+      <label>Nome azienda / workspace
+        <input type="text" id="sfBrandName" placeholder="Es. Azienda Rossi">
+      </label>
+      <label>Colore principale
+        <input type="color" id="sfBrandColor" value="#111111">
+      </label>
+      <label>Carica logo dal PC
+        <div class="sf-logo-upload">
+          <label for="sfBrandLogoFile" class="sf-upload-btn">⇧ Scegli file</label>
+          <input type="file" id="sfBrandLogoFile" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          <span class="sf-file-name" id="sfBrandLogoFileName">Nessun file selezionato</span>
+        </div>
+      </label>
+      <label>Oppure URL logo
+        <input type="url" id="sfBrandLogo" placeholder="https://.../logo.png">
+      </label>
+      <div class="sf-settings-actions">
+        <button class="primary" id="sfSaveBrand">Salva personalizzazione</button>
+        <button class="secondary" id="sfResetBrand">Ripristina SendFlow</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section></main>
 </div>
 
 <div class="modal" id="duplicateModal"><div class="modalbox" style="width:min(760px,96vw)">
@@ -109,8 +1484,8 @@ main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:sp
 </div>
 </div></div>
 
-<div class="modal" id="sendModal"><div class="modalbox"><h2>Invio WhatsApp</h2><p class="muted">Verrà aperto WhatsApp Web con il testo già compilato. L'invio viene confermato manualmente su WhatsApp.</p><div id="sendProgress" style="margin:12px 0 8px;font-weight:700"></div>
-<div style="height:8px;background:#eceff2;border-radius:99px;overflow:hidden"><div id="sendBar" style="height:100%;width:0;background:#ff7600;transition:width .25s"></div></div>
+<div class="modal" id="sendModal"><div class="modalbox"><h2>Invio · WhatsApp</h2><p class="muted">Verrà aperto WhatsApp Web con il testo già compilato. L'invio viene confermato manualmente su WhatsApp.</p><div id="sendProgress" style="margin:12px 0 8px;font-weight:700"></div>
+<div style="height:8px;background:#eceff2;border-radius:99px;overflow:hidden"><div id="sendBar" style="height:100%;width:0;background:#5267ff;transition:width .25s"></div></div>
 <div id="sendInfo" class="preview"></div><div class="modalfoot"><button class="secondary" id="closeSend">Chiudi</button><button class="send" id="nextSend">▶ Apri WhatsApp</button></div></div></div>
 
 <div class="modal" id="contactModal"><div class="modalbox"><h2 id="contactTitle">Nuovo contatto</h2><div class="formgrid">
@@ -119,6 +1494,7 @@ main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:sp
 <div class="modal" id="savedModal"><div class="modalbox"><h2>Messaggi salvati</h2><div id="savedList"></div><div class="modalfoot"><button class="secondary" onclick="document.getElementById('savedModal').style.display='none'">Chiudi</button></div></div></div>
 <div class="modal" id="campaignModal"><div class="modalbox">
 <h2>Nuova campagna</h2>
+<div class="dup-chip" style="display:inline-block;margin-bottom:12px">Canale: WhatsApp</div>
 <input id="campName" placeholder="Nome campagna" value="Promemoria" style="width:100%;padding:11px;border:1px solid #d8dde3;border-radius:8px;font:inherit">
 <div id="campCount" class="preview" style="min-height:0">0 destinatari</div>
 <div id="campMessage" class="preview"></div>
@@ -131,16 +1507,39 @@ main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:sp
 <div id="managerList" style="margin-top:16px"></div>
 <div class="modalfoot"><button class="secondary" id="closeManager">Chiudi</button></div>
 </div></div>
+<div class="modal sf-message-modal" id="sfMessageModal">
+  <div class="modalbox sf-message-box">
+    <div class="sf-message-icon" id="sfMessageIcon">i</div>
+    <h2 id="sfMessageTitle">SendFlow</h2>
+    <div id="sfMessageText" class="sf-message-text"></div>
+    <div class="modalfoot" style="justify-content:center">
+      <button class="primary" id="sfMessageOk">OK</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
-const KEY='wa_campaign_contacts_v12_cloud', MSG='wa_campaign_saved_v12_cloud', CAM='wa_campaign_campaigns_v12_cloud';
+const KEY='sendflow_contacts_v27_cloud', MSG='sendflow_saved_v27_cloud', CAM='sendflow_campaigns_v27_cloud';
 let contacts=JSON.parse(localStorage.getItem(KEY)||'[]'), saved=JSON.parse(localStorage.getItem(MSG)||'[]'), campaigns=JSON.parse(localStorage.getItem(CAM)||'[]');
 let selected=[], sendPos=0, editing=-1, activeCampaignId=null;
+let activeChannel='whatsapp';
 let currentSendQueue=[];
 const $=id=>document.getElementById(id), message=$('message'), preview=$('preview');
 
-function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
+function toast(t,title='SendFlow'){
+ const modal=$('sfMessageModal'),text=$('sfMessageText'),ttl=$('sfMessageTitle'),icon=$('sfMessageIcon');
+ if(!modal||!text){return}
+ const msg=String(t||'');
+ text.textContent=msg;
+ ttl.textContent=title;
+ const isError=/errore|non riuscit|non valido|richiest|impossibil|already|not allowed|not found/i.test(msg);
+ icon.textContent=isError?'!':'✓';
+ modal.style.display='flex';
+}
+function closeSfMessage(){if($('sfMessageModal'))$('sfMessageModal').style.display='none'}
+if($('sfMessageOk'))$('sfMessageOk').onclick=closeSfMessage;
+if($('sfMessageModal'))$('sfMessageModal').addEventListener('click',e=>{if(e.target===$('sfMessageModal'))closeSfMessage()});
 
 let pendingDuplicates=[];
 let lastImportSummary={fresh:0,invalid:0};
@@ -206,6 +1605,249 @@ $('dupConfirm').onclick=()=>{
 let sb=null;
 let cloudUser=null;
 let cloudReady=false;
+let sfOrg=null,sfOrgMembership=null,sfTeamMembers=[];
+let sfAccessContext=null,sfIsSuperAdmin=false,sfCompanies=[];
+ sfApplyRoleShell();let sfManagedCompany=null,sfManagedTeam=[];let sfManagedTeamSearch='';let sfBillingData=null;
+
+function sfWorkspaceIsBlocked(){
+ return !sfIsSuperAdmin && !!sfAccessContext?.organization_id && ['suspended','disabled'].includes(sfAccessContext?.organization_status);
+}
+function sfApplyWorkspaceAccess(){
+ const mask=$('sfWorkspaceBlocked');if(!mask)return;
+ const blocked=sfWorkspaceIsBlocked();
+ mask.hidden=!blocked;
+ document.body.classList.toggle('sf-workspace-locked',blocked);
+ if(blocked){
+   const disabled=sfAccessContext.organization_status==='disabled';
+   const sub=String(sfAccessContext?.subscription_status||'').toLowerCase();
+   const renewal=sfAccessContext?.subscription_renews_on||null;
+   const today=new Date();today.setHours(0,0,0,0);
+   const renewalDate=renewal?new Date(renewal+'T00:00:00'):null;
+   const trialExpired=sub==='trial'&&renewalDate&&renewalDate<today;
+
+   if(trialExpired){
+     $('sfBlockedTitle').textContent='Il periodo di prova è terminato';
+     $('sfBlockedText').textContent='Il trial di SendFlow è scaduto. Contatta l’amministratore della tua azienda per attivare un piano e riottenere l’accesso.';
+   }else if(disabled){
+     $('sfBlockedTitle').textContent='Workspace disabilitata';
+     $('sfBlockedText').textContent='L’accesso operativo a questa workspace è stato disabilitato. Contatta l’amministratore della tua azienda.';
+   }else{
+     $('sfBlockedTitle').textContent='Workspace sospesa';
+     $('sfBlockedText').textContent='Questa workspace è temporaneamente sospesa. Contatta l’amministratore della tua azienda.';
+   }
+   $('sfBlockedCompany').textContent=sfAccessContext.organization_name||'Workspace aziendale';
+ }
+}
+function sfAssertWorkspaceWritable(){
+ if(sfWorkspaceIsBlocked()){
+   sfApplyWorkspaceAccess();
+   toast(sfAccessContext.organization_status==='disabled'?'Workspace disabilitata':'Workspace sospesa');
+   return false;
+ }
+ return true;
+}
+
+let SF_PLANS={
+ free:{label:'Free',price:0,contacts:100,members:1,campaigns:10},
+ starter:{label:'Starter',price:19,contacts:1000,members:3,campaigns:100},
+ pro:{label:'Pro',price:49,contacts:10000,members:10,campaigns:1000},
+ business:{label:'Business',price:99,contacts:50000,members:50,campaigns:10000}
+};
+const SF_PLAN_FEATURE_LABELS={
+ contacts:'Contatti massimi',
+ members:'Utenti / membri',
+ campaigns:'Campagne massime'
+};
+
+function sfPlanKeys(includeInactive=false){
+ return Object.keys(SF_PLANS)
+  .filter(k=>includeInactive || SF_PLANS[k]?.active!==false)
+  .sort((a,b)=>(Number(SF_PLANS[a]?.sort_order||999)-Number(SF_PLANS[b]?.sort_order||999)) || String(a).localeCompare(String(b)));
+}
+function sfSlugPlan(v){
+ return String(v||'').trim().toLowerCase()
+   .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+   .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);
+}
+function sfPopulatePlanSelects(){
+ const active=sfPlanKeys(false);
+ const currentValues={};
+ ['sfNewCompanyPlan','sfManagePlanSelect','sfNextPlanSelect','sfCompanyPlanFilter'].forEach(id=>{
+   const el=$(id); if(el) currentValues[id]=el.value;
+ });
+ const options=active.map(k=>`<option value="${esc(k)}">${esc(SF_PLANS[k]?.label||k)}</option>`).join('');
+
+ const create=$('sfNewCompanyPlan');
+ if(create){create.innerHTML=options; if(active.includes(currentValues.sfNewCompanyPlan))create.value=currentValues.sfNewCompanyPlan;}
+
+ const manage=$('sfManagePlanSelect');
+ if(manage){
+   let list=options;
+   const cur=sfManagedCompany?.plan;
+   if(cur && !active.includes(cur))list=`<option value="${esc(cur)}">${esc(SF_PLANS[cur]?.label||cur)} (non attivo)</option>`+list;
+   manage.innerHTML=list;
+   if(cur)manage.value=cur;
+ }
+
+ const next=$('sfNextPlanSelect');
+ if(next){
+   next.innerHTML='<option value="">Nessun cambio programmato</option>'+options;
+   if(currentValues.sfNextPlanSelect && active.includes(currentValues.sfNextPlanSelect))next.value=currentValues.sfNextPlanSelect;
+ }
+
+ const filter=$('sfCompanyPlanFilter');
+ if(filter){
+   filter.innerHTML='<option value="all">Tutti i piani</option>'+sfPlanKeys(true).map(k=>`<option value="${esc(k)}">${esc(SF_PLANS[k]?.label||k)}</option>`).join('');
+   if(currentValues.sfCompanyPlanFilter && [...filter.options].some(o=>o.value===currentValues.sfCompanyPlanFilter))filter.value=currentValues.sfCompanyPlanFilter;
+ }
+}
+function sfRenderPlanMini(){
+ const boxes=document.querySelectorAll('.sf-plan-mini');
+ if(boxes[0]){
+   boxes[0].innerHTML='<b>Limiti piani</b>'+sfPlanKeys(false).map(k=>{
+     const x=SF_PLANS[k];
+     return `<div>${esc(x.label||k)} · ${Number(x.contacts||0).toLocaleString('it-IT')} contatti · ${Number(x.members||0)} membri · ${Number(x.campaigns||0).toLocaleString('it-IT')} campagne</div>`;
+   }).join('');
+ }
+ if(boxes[1]){
+   boxes[1].innerHTML='<b>Prezzi SendFlow</b>'+sfPlanKeys(false).map(k=>{
+     const x=SF_PLANS[k]; return `<div>${esc(x.label||k)} · €${Number(x.price||0).toLocaleString('it-IT',{minimumFractionDigits:0,maximumFractionDigits:2})} / mese</div>`;
+   }).join('');
+ }
+}
+async function sfLoadPlanCatalog(){
+ try{
+   const {data,error}=await sb.from('platform_plan_catalog').select('*').order('sort_order');
+   if(error)throw error;
+   if(data?.length){
+     const next={};
+     data.forEach(r=>{
+       next[r.plan_key]={
+         label:r.name||r.plan_key,
+         price:Number(r.monthly_price||0),
+         contacts:Number(r.contacts_limit||0),
+         members:Number(r.members_limit||0),
+         campaigns:Number(r.campaigns_limit||0),
+         active:r.is_active!==false,
+         description:r.description||'',
+         sort_order:Number(r.sort_order||0)
+       };
+     });
+     SF_PLANS=next;
+   }
+   sfPopulatePlanSelects();
+   sfRenderPlanMini();
+   if(sfIsSuperAdmin)sfRenderPlansAdmin();
+ }catch(e){console.warn('Plan catalog:',e)}
+}
+function sfRenderPlansAdmin(){
+ const box=$('sfPlansAdminGrid');if(!box)return;
+ const order=sfPlanKeys(true);
+ box.innerHTML=order.map((key,idx)=>{
+   const x=SF_PLANS[key]||{};
+   const used=sfCompanies.some(c=>c.plan===key);
+   return `<div class="sf-plan-edit" data-plan="${esc(key)}">
+    <div class="sf-plan-edit-top"><div><span class="sf-plan-key">${esc(key)}</span><h3>${esc(x.label||key)}</h3></div>
+      <label class="sf-plan-active"><input type="checkbox" data-f="active" ${x.active===false?'':'checked'}> Attivo</label></div>
+    <label>Nome piano<input data-f="label" value="${esc(x.label||'')}"></label>
+    <label>Descrizione<input data-f="description" value="${esc(x.description||'')}"></label>
+    <div class="sf-plan-price"><label>Prezzo mensile (€)<input type="number" min="0" step="0.01" data-f="price" value="${Number(x.price||0)}"></label></div>
+    <div class="sf-plan-limits">
+      <label>Contatti<input type="number" min="0" data-f="contacts" value="${Number(x.contacts||0)}"></label>
+      <label>Membri<input type="number" min="0" data-f="members" value="${Number(x.members||0)}"></label>
+      <label>Campagne<input type="number" min="0" data-f="campaigns" value="${Number(x.campaigns||0)}"></label>
+    </div>
+    <label>Ordine<input type="number" min="0" data-f="sort_order" value="${Number(x.sort_order||idx+1)}"></label>
+    ${!used && !['free'].includes(key)?`<button class="secondary sfDeletePlan" data-plan="${esc(key)}" type="button">Rimuovi piano</button>`:''}
+    ${used?'<div class="sf-plan-used-note">Piano assegnato ad almeno un cliente: può essere disattivato ma non rimosso.</div>':''}
+   </div>`;
+ }).join('');
+ box.querySelectorAll('.sfDeletePlan').forEach(b=>b.onclick=()=>sfDeletePlan(b.dataset.plan));
+}
+function sfAddPlan(){
+ let base='nuovo-piano', n=1, key=base;
+ while(SF_PLANS[key])key=base+'-'+(++n);
+ const maxOrder=Math.max(0,...Object.values(SF_PLANS).map(x=>Number(x.sort_order||0)));
+ SF_PLANS[key]={label:'Nuovo piano',description:'',price:0,contacts:1000,members:5,campaigns:100,active:true,sort_order:maxOrder+1,_new:true};
+ sfRenderPlansAdmin();
+ setTimeout(()=>{
+   const card=document.querySelector(`.sf-plan-edit[data-plan="${key}"]`);
+   card?.scrollIntoView({behavior:'smooth',block:'center'});
+   card?.querySelector('[data-f="label"]')?.focus();
+ },50);
+}
+async function sfDeletePlan(key){
+ if(!sfIsSuperAdmin||!key)return;
+ if(sfCompanies.some(c=>c.plan===key)){toast('Questo piano è assegnato a un cliente: disattivalo invece di rimuoverlo');return}
+ if(!confirm('Rimuovere questo piano dal catalogo?'))return;
+ try{
+   const {error}=await sb.from('platform_plan_catalog').delete().eq('plan_key',key);
+   if(error)throw error;
+   delete SF_PLANS[key];
+   sfRenderPlansAdmin();sfPopulatePlanSelects();sfRenderPlanMini();
+   toast('Piano rimosso');
+ }catch(e){toast('Rimozione non riuscita: '+(e.message||e))}
+}
+async function sfSavePlanCatalog(){
+ if(!sfIsSuperAdmin)return;
+ try{
+   const cards=[...document.querySelectorAll('.sf-plan-edit')];
+   const rows=[];
+   const seen=new Set();
+   for(const card of cards){
+     const oldKey=card.dataset.plan;
+     const get=f=>card.querySelector(`[data-f="${f}"]`);
+     const name=get('label').value.trim();
+     if(!name){toast('Ogni piano deve avere un nome');return}
+     let key=oldKey;
+     if(SF_PLANS[oldKey]?._new){
+       key=sfSlugPlan(name);
+       if(!key){toast('Nome piano non valido');return}
+       if((SF_PLANS[key] && key!==oldKey) || seen.has(key)){toast('Esiste già un piano con questo nome/chiave');return}
+     }
+     seen.add(key);
+     rows.push({
+       plan_key:key,
+       name,
+       description:get('description').value.trim(),
+       monthly_price:Number(get('price').value||0),
+       contacts_limit:Number(get('contacts').value||0),
+       members_limit:Number(get('members').value||0),
+       campaigns_limit:Number(get('campaigns').value||0),
+       sort_order:Number(get('sort_order').value||0),
+       is_active:get('active').checked,
+       updated_at:new Date().toISOString(),
+       _oldKey:oldKey
+     });
+   }
+   const payload=rows.map(({_oldKey,...r})=>r);
+   const {error}=await sb.from('platform_plan_catalog').upsert(payload,{onConflict:'plan_key'});
+   if(error)throw error;
+
+   // Remove temporary unsaved keys that were converted to real slugs.
+   rows.forEach(r=>{ if(r._oldKey!==r.plan_key)delete SF_PLANS[r._oldKey]; });
+   rows.forEach(r=>SF_PLANS[r.plan_key]={
+     label:r.name,description:r.description,price:r.monthly_price,
+     contacts:r.contacts_limit,members:r.members_limit,campaigns:r.campaigns_limit,
+     active:r.is_active,sort_order:r.sort_order
+   });
+   sfRenderPlansAdmin();sfPopulatePlanSelects();sfRenderPlanMini();
+   toast('Configurazione piani salvata');
+   if(sfIsSuperAdmin)await sfLoadCompanies();
+ }catch(e){toast('Salvataggio piani non riuscito: '+(e.message||e))}
+}
+function sfPlan(){const k=sfAccessContext?.organization_plan||sfOrg?.plan||'free';return SF_PLANS[k]||SF_PLANS.free||Object.values(SF_PLANS)[0]}
+function sfLimitReached(type,current){
+ const lim=sfPlan()[type];
+ return Number.isFinite(lim)&&current>=lim;
+}
+function sfRenderPlanUsage(){
+ const box=$('sfPlanUsage');if(!box)return;
+ const p=sfPlan(), cc=contacts.length, mc=sfTeamMembers.length, kc=campaigns.length;
+ const item=(label,val,max)=>`<div class="sf-usage-item"><div><b>${label}</b><span>${val.toLocaleString('it-IT')} / ${max.toLocaleString('it-IT')}</span></div><div class="sf-usage-track"><i style="width:${Math.min(100,(val/max)*100)}%"></i></div></div>`;
+ box.innerHTML=`<div class="sf-plan-name">${p.label}</div>${item('Contatti',cc,p.contacts)}${item('Membri',mc,p.members)}${item('Campagne',kc,p.campaigns)}`;
+}
+
 
 function setAuthMsg(t){const el=document.getElementById('authMsg');if(el)el.textContent=t||'';}
 function showAuth(show){const el=document.getElementById('authScreen');if(el)el.style.display=show?'flex':'none';}
@@ -245,7 +1887,7 @@ async function initCloud(){
     cloudReady=true;
     showAuth(false);
     cloudStatus('☁ Cloud connesso · '+cloudUser.email);
-    await loadCloudData();
+    await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();
   }else{
     cloudUser=null;
     cloudReady=false;
@@ -261,7 +1903,7 @@ async function initCloud(){
       cloudReady=true;
       showAuth(false);
       cloudStatus('☁ Cloud connesso · '+cloudUser.email);
-      await loadCloudData();
+      await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();
     }else{
       cloudReady=false;
       showAuth(true);
@@ -296,62 +1938,92 @@ async function signup(){
 }
 
 async function logoutApp(){
- if(!sb)return;
- const {error}=await sb.auth.signOut();
- if(error){toast('Errore logout: '+error.message);return;}
- cloudUser=null;cloudReady=false;contacts=[];saved=[];campaigns=[];selected=[];
- render();renderCampaigns();updateStats();
- showAuth(true);cloudStatus('Accesso richiesto');
+ try{
+  if(sb){
+   const {error}=await sb.auth.signOut({scope:'local'});
+   if(error)throw error;
+  }
+ }catch(e){
+  console.error('Logout error',e);
+  toast('Errore logout: '+(e.message||e));
+  return;
+ }
+ cloudUser=null;cloudReady=false;sfOrg=null;sfTeamMembers=[];sfAccessContext=null;sfIsSuperAdmin=false;sfApplyWorkspaceAccess();sfCompanies=[];
+ document.querySelectorAll('.sf-superadmin-only').forEach(el=>el.style.display='none');
+ contacts=[];saved=[];campaigns=[];selected=[];
+ try{render();renderCampaigns();updateStats();}catch(e){}
+ cloudStatus('Accesso richiesto');
+ showAuth(true);
+ if($('authEmail'))$('authEmail').focus();
+ window.scrollTo({top:0,left:0,behavior:'auto'});
 }
 
 async function loadCloudData(){
  if(!cloudReady||!cloudUser)return;
  try{
-  const [cr,sr,pr]=await Promise.all([
-   sb.from('contacts').select('*').order('created_at',{ascending:true}),
-   sb.from('saved_messages').select('*').order('created_at',{ascending:true}),
-   sb.from('campaigns').select('*').order('created_at',{ascending:true})
-  ]);
+  let cq=sb.from('contacts').select('*').order('created_at',{ascending:true});
+  let sq=sb.from('saved_messages').select('*').order('created_at',{ascending:true});
+  let pq=sb.from('campaigns').select('*').order('created_at',{ascending:true});
+  if(sfOrg?.id){
+    cq=cq.eq('organization_id',sfOrg.id);
+    sq=sq.eq('organization_id',sfOrg.id);
+    pq=pq.eq('organization_id',sfOrg.id);
+  }else{
+    cq=cq.eq('user_id',cloudUser.id).is('organization_id',null);
+    sq=sq.eq('user_id',cloudUser.id).is('organization_id',null);
+    pq=pq.eq('user_id',cloudUser.id).is('organization_id',null);
+  }
+  const [cr,sr,pr]=await Promise.all([cq,sq,pq]);
   if(cr.error||sr.error||pr.error){console.warn(cr.error||sr.error||pr.error);return;}
   contacts=(cr.data||[]).map(x=>({id:x.id,Nome:x.nome||'',Cognome:x.cognome||'',Telefono:x.telefono||'',Azienda:x.azienda||'',Data:x.data||'',Ora:x.ora||'',Email:x.email||'',Note:x.note||''}));
   saved=(sr.data||[]).map(x=>({id:x.id,name:x.name,text:x.text}));
   campaigns=(pr.data||[]).map(x=>({id:x.id,name:x.name,date:x.date,sent:x.sent||0,total:x.total||0,status:x.status||'In corso',message:x.message||'',recipients:x.recipients||[]}));
-  render();renderCampaigns();renderManager?.();updateStats();
+  render();renderCampaigns();renderManager?.();updateStats();sfRenderPlanUsage();
  }catch(e){console.warn(e);}
 }
 
 async function saveContactCloud(c){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser)return;
- const row={user_id:cloudUser.id,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''};
+ if(sfLimitReached('contacts',contacts.length)){toast(`Limite contatti raggiunto per il piano ${sfPlan().label}.`);throw new Error('PLAN_LIMIT_CONTACTS')}
+ const row={user_id:cloudUser.id,organization_id:sfOrg?.id||null,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''};
  const {error}=await sb.from('contacts').insert(row);if(error)throw error;
 }
 async function updateContactCloud(id,c){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser||!id)return;
  const row={nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''};
  const {error}=await sb.from('contacts').update(row).eq('id',id);if(error)throw error;
 }
 
 async function deleteContactCloud(id){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser||!id)return;
  const {error}=await sb.from('contacts').delete().eq('id',id);
  if(error)throw error;
 }
 
 async function saveMessageCloud(s){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser)return;
- const {error}=await sb.from('saved_messages').insert({user_id:cloudUser.id,name:s.name,text:s.text});if(error)throw error;
+ const {error}=await sb.from('saved_messages').insert({user_id:cloudUser.id,organization_id:sfOrg?.id||null,name:s.name,text:s.text});if(error)throw error;
 }
 async function saveCampaignCloud(c){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
+ if(sfLimitReached('campaigns',campaigns.length)){toast(`Limite campagne raggiunto per il piano ${sfPlan().label}.`);throw new Error('PLAN_LIMIT_CAMPAIGNS')}
+
  if(!cloudReady||!cloudUser)return;
- const row={id:c.id,user_id:cloudUser.id,name:c.name,date:c.date,sent:c.sent||0,total:c.total||0,status:c.status||'In corso',message:c.message||'',recipients:c.recipients||[]};
+ const row={id:c.id,user_id:cloudUser.id,organization_id:sfOrg?.id||null,name:c.name,date:c.date,sent:c.sent||0,total:c.total||0,status:c.status||'In corso',message:c.message||'',recipients:c.recipients||[]};
  const {error}=await sb.from('campaigns').insert(row);if(error)throw error;
 }
 async function updateCampaignCloud(c){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser||!c?.id)return;
  const row={sent:c.sent||0,total:c.total||0,status:c.status||'In corso',message:c.message||'',recipients:c.recipients||[]};
  const {error}=await sb.from('campaigns').update(row).eq('id',c.id);if(error)throw error;
 }
 async function deleteCampaignCloud(id){
+ if(!sfAssertWorkspaceWritable())throw new Error('SENDFLOW_WORKSPACE_LOCKED');
  if(!cloudReady||!cloudUser||!id)return;
  const {error}=await sb.from('campaigns').delete().eq('id',id);if(error)throw error;
 }
@@ -395,7 +2067,7 @@ function render(){
    const label=[c.Nome,c.Cognome].filter(Boolean).join(' ')||c.Telefono||'questo contatto';
    if(!confirm(`Eliminare ${label}?`))return;
    try{
-     if(cloudReady&&c.id){await deleteContactCloud(c.id);await loadCloudData();}
+     if(cloudReady&&c.id){await deleteContactCloud(c.id);await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();}
      else{contacts.splice(i,1);selected=selected.filter(v=>v!==i).map(v=>v>i?v-1:v);persist();render();}
      toast('Contatto eliminato');
    }catch(e){console.error(e);toast('Impossibile eliminare il contatto');}
@@ -422,7 +2094,7 @@ $('deleteContact').onclick=async()=>{
  try{
    if(cloudReady&&c.id){
      await deleteContactCloud(c.id);
-     await loadCloudData();
+     await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();
    }else{
      contacts.splice(editing,1);
      selected=selected.filter(i=>i!==editing).map(i=>i>editing?i-1:i);
@@ -476,13 +2148,13 @@ $('file').onchange=async e=>{
    if(cloudReady){
     if(fresh.length){
      const payload=fresh.map(c=>({
-      user_id:cloudUser.id,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',
+      user_id:cloudUser.id,organization_id:sfOrg?.id||null,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',
       azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''
      }));
      const {error}=await sb.from('contacts').insert(payload);
      if(error)throw error;
     }
-    await loadCloudData();
+    await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();
    }else{
     contacts.push(...fresh);persist();render();
    }
@@ -499,6 +2171,20 @@ $('file').onchange=async e=>{
  };
  r.readAsArrayBuffer(f);
 };
+
+function setChannel(channel){
+ if(channel!=='whatsapp'){
+   toast(channel==='email'?'Email sarà attivata nella prossima integrazione':'Telegram sarà attivato nella prossima integrazione');
+   return;
+ }
+ activeChannel='whatsapp';
+ document.querySelectorAll('.channelbtn').forEach(b=>b.classList.toggle('active',b.dataset.channel===channel));
+ $('channelNote').textContent='Canale attivo: WhatsApp. Il numero di telefono viene usato solo come destinazione e non viene inserito nel testo.';
+}
+['channelWhatsApp','channelEmail','channelTelegram'].forEach(id=>{
+ const b=$(id);if(b)b.onclick=()=>setChannel(b.dataset.channel);
+});
+
 document.querySelectorAll('.var').forEach(b=>b.onclick=()=>{message.setRangeText(b.dataset.v,message.selectionStart,message.selectionEnd,'end');message.focus();showPreview()});
 message.oninput=showPreview;
 
@@ -511,12 +2197,12 @@ $('saveContact').onclick=async()=>{let c={};['Nome','Cognome','Telefono','Aziend
  if(dup>=0){toast('Numero già presente in rubrica');return;}
  try{
   if(editing>=0){const old=contacts[editing];contacts[editing]={...old,...c};if(cloudReady)await updateContactCloud(old.id,c);}
-  else {if(cloudReady){await saveContactCloud(c);await loadCloudData();}else contacts.push(c);}
+  else {if(cloudReady){await saveContactCloud(c);await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();}else contacts.push(c);}
   $('contactModal').style.display='none';persist();render();toast('Contatto salvato');
  }catch(e){toast('Errore salvataggio cloud')}
 };
 
-$('saveMsg').onclick=async()=>{let name=prompt('Nome del messaggio:','Promemoria');if(!name)return;const item={name,text:message.value};saved.push(item);persist();if(cloudReady){await saveMessageCloud(item);await loadCloudData();}toast('Messaggio salvato')};
+$('saveMsg').onclick=async()=>{let name=prompt('Nome del messaggio:','Promemoria');if(!name)return;const item={name,text:message.value};saved.push(item);persist();if(cloudReady){await saveMessageCloud(item);await sfLoadOrgCloud(); await sfLoadAccessContext(); await loadCloudData(); await sfLoadBrandCloud(); sfApplyWorkspaceAccess();}toast('Messaggio salvato')};
 function openSaved(){let box=$('savedList');box.innerHTML=saved.length?saved.map((s,i)=>`<div style="border:1px solid #e2e5e9;border-radius:9px;padding:12px;margin-bottom:9px"><b>${esc(s.name)}</b><div class="muted" style="white-space:pre-wrap;margin:7px 0">${esc(s.text)}</div><button class="primary" onclick="loadSaved(${i})">Usa questo</button></div>`).join(''):'<p class="muted">Nessun messaggio salvato.</p>';$('savedModal').style.display='flex'}
 window.loadSaved=i=>{message.value=saved[i].text;showPreview();$('savedModal').style.display='none';toast('Messaggio caricato')};
 
@@ -566,13 +2252,13 @@ $('startCampaign').onclick=async()=>{
  persist();if(cloudReady){try{await saveCampaignCloud(campaigns[campaigns.length-1]);}catch(e){console.error(e);toast('Errore salvataggio campagna cloud');return;}}$('campaignModal').style.display='none';sendPos=0;$('sendModal').style.display='flex';updateSendInfo();
 };
 $('newCampaign').onclick=()=>{message.value='Ciao {{Nome}},\\n\\n';showPreview();message.focus()};
-document.getElementById('logoutBtn').onclick=async()=>{if(sb&&cloudReady)await sb.auth.signOut();};
+if($('logoutBtn'))$('logoutBtn').onclick=logoutApp;
 document.getElementById('settingsBtn').onclick=()=>{
  if(confirm('Vuoi svuotare completamente questa workspace? Verranno rimossi solo i dati di questa versione.')){
   contacts=[];saved=[];campaigns=[];selected=[];persist();render();renderCampaigns();toast('Workspace svuotata');
  }
 };
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');let s=b.dataset.section;if(s==='contacts'){$('search').focus();toast('Sezione Contatti: usa la rubrica qui a sinistra')}if(s==='campaigns')toast(`Campagne salvate: ${campaigns.length}`);if(s==='saved')openSaved();if(s==='variables')toast('Variabili: '+['Nome','Cognome','Azienda','Data','Ora','Email','Note'].map(x=>'{{'+x+'}}').join(' '))});
+document.querySelectorAll('.nav .sf-nav').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav .sf-nav').forEach(x=>x.classList.remove('active'));b.classList.add('active');let s=b.dataset.section;if(s==='contacts'){$('search').focus();toast('Sezione Contatti: usa la rubrica qui a sinistra')}if(s==='campaigns')toast(`Campagne salvate: ${campaigns.length}`);if(s==='saved')openSaved();if(s==='variables')toast('Variabili: '+['Nome','Cognome','Azienda','Data','Ora','Email','Note'].map(x=>'{{'+x+'}}').join(' '))});
 function resumeCampaign(id){
  const c=campaigns.find(x=>String(x.id)===String(id));if(!c)return;
  message.value=c.message||'';
@@ -663,6 +2349,1029 @@ $('signupBtn').onclick=signup;
 $('authPassword').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
 
 updateStats();render();renderCampaigns();initCloud();
+
+// SendFlow V15 navigation: deliberately added after the proven V14 auth handlers.
+
+
+function sfNormalizeWhatsAppComposer(){
+ const wa=document.getElementById('sf-whatsapp');
+ const msg=document.getElementById('message');
+ if(!wa||!msg)return;
+ let holder=msg.closest('.card,.sf-page-card');
+ if(holder && !wa.contains(holder)) wa.appendChild(holder);
+}
+sfNormalizeWhatsAppComposer();
+
+function sfNormalizePages(){
+ const main=document.querySelector('main');
+ if(!main)return;
+ const order=['dashboard','superadmin','plansadmin','companymanage','contacts','campaigns','whatsapp','email','telegram','saved','stats','team','settings'];
+ order.forEach(name=>{
+   const page=document.getElementById('sf-'+name);
+   if(page && page.parentElement!==main) main.appendChild(page);
+ });
+ // Also catch any future sfpage accidentally outside main.
+ document.querySelectorAll('.sfpage').forEach(page=>{
+   if(page.parentElement!==main) main.appendChild(page);
+ });
+}
+sfNormalizePages();
+
+function sfShow(section){
+ if(sfIsSuperAdmin && !['superadmin','plansadmin','companymanage'].includes(section))section='superadmin';
+ sfNormalizePages();
+ sfNormalizeWhatsAppComposer();
+ document.querySelectorAll('.sfpage').forEach(p=>p.classList.remove('active'));
+ const page=document.getElementById('sf-'+section);
+ if(page)page.classList.add('active');
+ document.querySelectorAll('.sf-nav').forEach(b=>b.classList.toggle('active',b.dataset.section===section));
+ window.scrollTo({top:0,left:0,behavior:'auto'});
+ if(section==='saved')sfRenderSaved();
+ if(section==='stats')sfUpdateExtras();
+ if(section==='team'){sfRenderOrg();sfRenderTeamBrand();}
+ if(section==='superadmin'&&sfIsSuperAdmin)sfLoadCompanies();
+ if(section==='plansadmin'&&sfIsSuperAdmin)sfLoadPlanCatalog();
+}
+document.querySelectorAll('.sf-nav').forEach(b=>{
+ b.onclick=()=>sfShow(b.dataset.section);
+});
+document.querySelectorAll('.sf-goto').forEach(b=>{
+ b.onclick=()=>sfShow(b.dataset.section);
+});
+if($('settingsBtn'))$('settingsBtn').onclick=()=>sfShow('settings');
+if($('newCampaign'))$('newCampaign').onclick=()=>{
+ message.value='Ciao {{Nome}},\\n\\n';
+ showPreview();
+ sfShow('whatsapp');
+ setTimeout(()=>message.focus(),50);
+};
+function sfRenderSaved(){
+ const box=$('savedPageList');if(!box)return;
+ if(!saved.length){box.innerHTML='<div class="sf-empty">Nessun modello salvato.</div>';return;}
+ box.innerHTML=saved.map((s,i)=>`<div style="padding:13px 0;border-bottom:1px solid #edf0f4"><b>${esc(s.name||'Modello')}</b><div class="muted" style="margin-top:5px;white-space:pre-wrap">${esc(s.text||'')}</div><button class="secondary sfUseSaved" data-i="${i}" style="margin-top:9px">Usa questo modello</button></div>`).join('');
+ document.querySelectorAll('.sfUseSaved').forEach(b=>b.onclick=()=>{const s=saved[Number(b.dataset.i)];if(!s)return;message.value=s.text||'';showPreview();sfShow('whatsapp');});
+}
+function sfUpdateExtras(){
+ const sent=campaigns.reduce((a,c)=>a+(Number(c.sent)||0),0);
+ if($('v15Contacts'))$('v15Contacts').textContent=contacts.length;
+ if($('v15Campaigns'))$('v15Campaigns').textContent=campaigns.length;
+ if($('v15Sent'))$('v15Sent').textContent=sent;
+ if($('v15Account'))$('v15Account').textContent=cloudUser?.email||'—';
+}
+setTimeout(sfUpdateExtras,300);
+
+
+// SendFlow V16 premium branding (client-side, does not alter Supabase/auth).
+const SF_BRAND_KEY='sendflow_brand_v27';
+let sfBrand={name:'SendFlow',color:'#111111',logo:''};
+let sfPendingLogoFile=null;
+function sfColor2(hex){
+ try{
+  let h=hex.replace('#',''); if(h.length===3)h=h.split('').map(x=>x+x).join('');
+  let n=parseInt(h,16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  r=Math.min(255,Math.round(r*1.10));g=Math.min(255,Math.round(g*1.10));b=Math.min(255,Math.round(b*1.14));
+  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+ }catch(_){return '#7a4cff'}
+}
+function sfLoadBrand(){
+ try{sfBrand={...sfBrand,...JSON.parse(localStorage.getItem(SF_BRAND_KEY)||'{}')}}catch(_){}
+ sfApplyBrand();
+}
+function sfApplyBrand(){
+ document.documentElement.style.setProperty('--sf-accent',sfBrand.color||'#111111');
+ document.documentElement.style.setProperty('--sf-accent2',sfColor2(sfBrand.color||'#111111'));
+ document.documentElement.style.setProperty('--sf-shell','#090909');
+ document.documentElement.style.setProperty('--sf-sidebar','#101010');
+ if($('sfHeroName'))$('sfHeroName').textContent=sfBrand.name||'SendFlow';
+ if($('sfHeaderCompany'))$('sfHeaderCompany').textContent=sfBrand.name||'SendFlow';
+ if($('sfSidebarClient'))$('sfSidebarClient').textContent=(sfBrand.name&&sfBrand.name!=='SendFlow')?sfBrand.name.toUpperCase():'';
+ if($('sfBrandName'))$('sfBrandName').value=sfBrand.name||'SendFlow';
+ if($('sfBrandColor'))$('sfBrandColor').value=sfBrand.color||'#111111';
+ if($('sfBrandLogo'))$('sfBrandLogo').value=(sfBrand.logo&&String(sfBrand.logo).startsWith('http'))?sfBrand.logo:'';
+ const sideLogo=$('sfSidebarLogo'),sideFallback=$('sfSidebarLogoFallback');
+ if(sideLogo&&sideFallback){
+   if(sfBrand.logo){
+     sideLogo.src=sfBrand.logo;sideLogo.style.display='block';sideFallback.style.display='none';
+     sideLogo.onerror=()=>{sideLogo.style.display='none';sideFallback.style.display='grid';};
+   }else{sideLogo.style.display='none';sideFallback.style.display='grid';}
+ }
+ sfRenderBrandPreview(); if(typeof sfRenderTeamBrand==='function')sfRenderTeamBrand();
+ sfRenderPlanUsage();
+}
+function sfRenderBrandPreview(){
+ const box=$('sfBrandPreview'); if(!box)return;
+ const visual=sfBrand.logo?`<img src="${esc(sfBrand.logo)}" alt="Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="fallback" style="display:none">S</div>`:`<div class="fallback">S</div>`;
+ box.innerHTML=`${visual}<div><b style="font-size:16px">${esc(sfBrand.name||'SendFlow')}</b><div class="muted" style="margin-top:3px">Anteprima workspace</div></div>`;
+}
+
+if($('sfBrandLogoFile'))$('sfBrandLogoFile').addEventListener('change',e=>{
+ const file=e.target.files?.[0];
+ if(!file)return;
+ if(!file.type.startsWith('image/')){toast('Seleziona un file immagine');e.target.value='';return;}
+ if(file.size>2*1024*1024){toast('Logo troppo grande: massimo 2 MB');e.target.value='';return;}
+ sfPendingLogoFile=file;
+ if($('sfBrandLogoFileName'))$('sfBrandLogoFileName').textContent=file.name;
+ if($('sfBrandLogo'))$('sfBrandLogo').value='';
+ const reader=new FileReader();
+ reader.onload=ev=>{sfBrand.logo=String(ev.target.result||'');sfApplyBrand();};
+ reader.readAsDataURL(file);
+});
+
+
+async function sfUploadBrandLogo(file){
+ if(!cloudReady||!cloudUser||!sb||!file)return null;
+ const ext=(file.name.split('.').pop()||'png').toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
+ const path=`${cloudUser.id}/logo.${ext}`;
+ const {error}=await sb.storage.from('branding-logos').upload(path,file,{upsert:true,contentType:file.type,cacheControl:'3600'});
+ if(error)throw error;
+ const {data}=sb.storage.from('branding-logos').getPublicUrl(path);
+ return data?.publicUrl?`${data.publicUrl}?v=${Date.now()}`:null;
+}
+async function sfSaveBrandCloud(){
+ if(!sfAssertWorkspaceWritable())return;
+ if(!cloudReady||!cloudUser||!sb)return false;
+ let logo=sfBrand.logo||'';
+ if(sfPendingLogoFile){
+   logo=await sfUploadBrandLogo(sfPendingLogoFile);
+   sfPendingLogoFile=null;
+ }
+ const typed=($('sfBrandLogo')?.value||'').trim();
+ if(typed)logo=typed;
+ sfBrand.logo=logo||'';
+ const {error}=await sb.from('workspace_branding').upsert({
+   user_id:cloudUser.id,
+   organization_id:sfOrg?.id||null,
+   company_name:sfBrand.name||'SendFlow',
+   primary_color:sfBrand.color||'#111111',
+   logo_url:sfBrand.logo||null,
+   updated_at:new Date().toISOString()
+ },{onConflict:'user_id'});
+ if(error)throw error;
+ return true;
+}
+async function sfLoadBrandCloud(){
+ if(!cloudReady||!cloudUser||!sb){if($('sfBrandCloudStatus'))$('sfBrandCloudStatus').textContent='Branding locale';return;}
+ try{
+   let q=sb.from('workspace_branding').select('company_name,primary_color,logo_url,user_id,organization_id');
+   if(sfOrg?.id) q=q.eq('organization_id',sfOrg.id).limit(1); else q=q.eq('user_id',cloudUser.id).limit(1);
+   const {data:rows,error}=await q;
+   const data=rows?.[0]||null;
+   if(error)throw error;
+   if(data){
+     sfBrand={name:data.company_name||'SendFlow',color:data.primary_color||'#111111',logo:data.logo_url||''};
+     localStorage.setItem(SF_BRAND_KEY,JSON.stringify(sfBrand));
+     sfApplyBrand();
+   }
+   if($('sfBrandCloudStatus'))$('sfBrandCloudStatus').textContent='☁ Branding sincronizzato con Supabase';
+ }catch(e){
+   console.warn('Branding cloud non disponibile:',e);
+   if($('sfBrandCloudStatus'))$('sfBrandCloudStatus').textContent='Branding locale · esegui la migrazione V18 per attivare il cloud';
+ }
+}
+if($('sfSaveBrand'))$('sfSaveBrand').onclick=async()=>{
+ sfBrand.name=($('sfBrandName').value||'SendFlow').trim();
+ sfBrand.color=$('sfBrandColor').value||'#5267ff';
+ const urlLogo=($('sfBrandLogo').value||'').trim();
+ if(urlLogo){sfBrand.logo=urlLogo;sfPendingLogoFile=null;}
+ localStorage.setItem(SF_BRAND_KEY,JSON.stringify(sfBrand));
+ sfApplyBrand();
+ if(cloudReady){
+   try{
+     if($('sfSaveBrand')){$('sfSaveBrand').disabled=true;$('sfSaveBrand').textContent='Salvataggio...';}
+     await sfSaveBrandCloud();
+     localStorage.setItem(SF_BRAND_KEY,JSON.stringify(sfBrand));
+     sfApplyBrand();
+     if($('sfBrandCloudStatus'))$('sfBrandCloudStatus').textContent='☁ Branding sincronizzato con Supabase';
+     toast('Personalizzazione salvata nel cloud');
+   }catch(e){
+     console.error(e);toast('Branding salvato localmente. Cloud non disponibile: '+(e.message||e));
+   }finally{
+     if($('sfSaveBrand')){$('sfSaveBrand').disabled=false;$('sfSaveBrand').textContent='Salva personalizzazione';}
+   }
+ }else toast('Personalizzazione salvata localmente');
+};
+if($('sfResetBrand'))$('sfResetBrand').onclick=async()=>{
+ sfBrand={name:'SendFlow',color:'#111111',logo:''};sfPendingLogoFile=null;
+ localStorage.removeItem(SF_BRAND_KEY);
+ if($('sfBrandLogoFile'))$('sfBrandLogoFile').value='';
+ if($('sfBrandLogoFileName'))$('sfBrandLogoFileName').textContent='Nessun file selezionato';
+ sfApplyBrand();
+ if(cloudReady&&cloudUser&&sb){
+   try{
+     await sb.from('workspace_branding').delete().eq('user_id',cloudUser.id);
+     if($('sfBrandCloudStatus'))$('sfBrandCloudStatus').textContent='☁ Branding cloud ripristinato';
+   }catch(e){console.warn(e);}
+ }
+ toast('Branding SendFlow ripristinato');
+};
+['sfBrandName','sfBrandColor','sfBrandLogo'].forEach(id=>{
+ if($(id))$(id).addEventListener('input',()=>{
+   const old={...sfBrand};
+   sfBrand.name=($('sfBrandName').value||'SendFlow').trim();
+   sfBrand.color=$('sfBrandColor').value||'#5267ff';
+   const typedLogo=($('sfBrandLogo').value||'').trim();
+   if(typedLogo) sfBrand.logo=typedLogo;
+   sfApplyBrand();
+ });
+});
+function sfRenderRecent(){
+ const box=$('sfRecentActivity');if(!box)return;
+ if(!campaigns.length){box.innerHTML='<div class="sf-empty">Nessuna campagna ancora. Crea il primo invio WhatsApp.</div>';return;}
+ const items=[...campaigns].reverse().slice(0,4);
+ box.innerHTML=items.map(c=>`<div class="sf-activity-row"><div><b>${esc(c.name||'Campagna')}</b><div class="muted">${esc(c.date||'')}</div></div><div style="text-align:right"><b>${Number(c.sent)||0}/${Number(c.total)||0}</b><div class="muted">${esc(c.status||'In corso')}</div></div></div>`).join('');
+}
+const _sfOldUpdateExtras=sfUpdateExtras;
+sfUpdateExtras=function(){_sfOldUpdateExtras();sfRenderRecent();sfApplyBrand();}
+
+
+async function sfLoadAccessContext(){
+ if(!cloudReady||!cloudUser||!sb)return;
+ try{
+   const {data,error}=await sb.rpc('get_sendflow_access_context');
+   if(error)throw error;
+   sfAccessContext=Array.isArray(data)?(data[0]||null):data;
+   sfIsSuperAdmin=!!sfAccessContext?.is_super_admin;
+   sfApplyRoleShell();
+   sfApplyWorkspaceAccess();
+ }catch(e){
+   console.warn('Access context V29:',e);
+   sfAccessContext=null;sfIsSuperAdmin=false;
+ }
+ await sfLoadPlanCatalog();
+ sfApplyRoleShell();
+ document.querySelectorAll('.sf-superadmin-only').forEach(el=>{
+   if(sfIsSuperAdmin) el.style.removeProperty('display');
+ });
+ if(sfIsSuperAdmin){
+   if(typeof sfShow==='function')sfShow('superadmin');
+   await sfLoadCompanies();
+ }
+}
+
+
+function sfBillingBadge(status){
+ const map={active:['Attivo','ok'],trial:['Trial','trial'],past_due:['Pagamento scaduto','bad'],cancelled:['Cancellato','off']};
+ const x=map[status]||['Trial','trial'];
+ return `<span class="sf-billing-badge ${x[1]}">${x[0]}</span>`;
+}
+
+
+window.sfCompanyReports={};
+
+function sfApplyRoleShell(){
+ const superMode=!!sfIsSuperAdmin;
+ document.body.classList.toggle('sf-superadmin-mode',superMode);
+
+ if(superMode){
+   document.querySelectorAll('.nav .sf-nav').forEach(b=>{
+     b.style.setProperty('display', ['sfSuperAdminNav','sfPlansAdminNav'].includes(b.id) ? 'flex' : 'none', 'important');
+   });
+   document.querySelectorAll('.nav .navgroup').forEach(g=>{
+     g.style.setProperty('display', g.classList.contains('sf-superadmin-only') ? 'block' : 'none', 'important');
+   });
+   document.querySelectorAll('.sf-superadmin-only').forEach(x=>{
+     x.style.setProperty('display', ['sfSuperAdminNav','sfPlansAdminNav'].includes(x.id) ? 'flex' : 'block', 'important');
+   });
+   const plan=document.querySelector('.sidebar .plan');
+   if(plan)plan.style.setProperty('display','none','important');
+
+   // Super Admin must never land on the company operational dashboard.
+   setTimeout(()=>{ if(typeof sfShow==='function') sfShow('superadmin'); },0);
+ }else{
+   document.querySelectorAll('.nav .sf-nav').forEach(b=>{
+     if(b.classList.contains('sf-superadmin-only')) b.style.setProperty('display','none','important');
+     else b.style.removeProperty('display');
+   });
+   document.querySelectorAll('.nav .navgroup').forEach(g=>{
+     if(g.classList.contains('sf-superadmin-only')) g.style.setProperty('display','none','important');
+     else g.style.removeProperty('display');
+   });
+   const plan=document.querySelector('.sidebar .plan');
+   if(plan)plan.style.removeProperty('display');
+ }
+}
+
+async function sfLoadCompanyReports(){
+ if(!sfIsSuperAdmin)return;
+ try{
+  const [{data:billing,error:be},{data:payments,error:pe},{data:members,error:me}]=await Promise.all([
+   sb.from('organization_billing').select('organization_id,subscription_status,renews_on,agreed_amount,billing_cycle'),
+   sb.from('organization_payments').select('organization_id,amount,status,due_on'),
+   sb.from('organization_members').select('organization_id,user_id,role')
+  ]);
+  if(be)throw be;if(pe)throw pe;if(me)throw me;
+  const map={};
+  sfCompanies.forEach(c=>map[c.id]={billing:null,payments:[],members:0});
+  (billing||[]).forEach(x=>{if(map[x.organization_id])map[x.organization_id].billing=x});
+  (payments||[]).forEach(x=>{if(map[x.organization_id])map[x.organization_id].payments.push(x)});
+  (members||[]).forEach(x=>{if(map[x.organization_id])map[x.organization_id].members++});
+  window.sfCompanyReports=map;
+  sfRenderExecutiveDashboard();
+ }catch(e){console.warn('Company reports:',e)}
+}
+function sfCompanyReportHTML(c){
+ const r=window.sfCompanyReports[c.id]||{billing:null,payments:[],members:0};
+ const b=r.billing||{};
+ const activePays=r.payments.filter(x=>x.status!=='cancelled');
+ const paid=activePays.filter(x=>x.status==='paid').reduce((a,x)=>a+Number(x.amount||0),0);
+ const open=activePays.filter(x=>x.status!=='paid').reduce((a,x)=>a+Number(x.amount||0),0);
+ const overdue=activePays.filter(x=>x.status==='overdue').reduce((a,x)=>a+Number(x.amount||0),0);
+ const renew=b.renews_on?sfFormatDateIT(b.renews_on):'—';
+ return `<div class="sf-company-inline-report">
+   <div><span>Team</span><b>${r.members||0}</b></div>
+   <div><span>Rinnovo</span><b>${renew}</b></div>
+   <div><span>Incassato</span><b>${sfMoney(paid)}</b></div>
+   <div><span>Da incassare</span><b>${sfMoney(open)}</b></div>
+   <div><span>Scaduto</span><b class="${overdue>0?'sf-danger-text':''}">${sfMoney(overdue)}</b></div>
+ </div>`;
+}
+function sfRenderExecutiveDashboard(){
+ if(!sfIsSuperAdmin)return;
+ const reports=window.sfCompanyReports||{};
+ let paid=0,pending=0,overdue=0,overdueCount=0,mrr=0;
+ sfCompanies.forEach(c=>{
+  const r=reports[c.id]||{billing:null,payments:[]};
+  if(c.status==='active')mrr+=Number(r.billing?.agreed_amount ?? SF_PLANS[c.plan||'free']?.price ?? 0);
+  (r.payments||[]).filter(x=>x.status!=='cancelled').forEach(x=>{
+    const n=Number(x.amount||0);
+    if(x.status==='paid')paid+=n; else pending+=n;
+    if(x.status==='overdue'){overdue+=n;overdueCount++}
+  });
+ });
+ if($('sfExecCompanies'))$('sfExecCompanies').textContent=sfCompanies.length;
+ if($('sfExecActive'))$('sfExecActive').textContent=sfCompanies.filter(x=>x.status==='active').length;
+ if($('sfExecMRR'))$('sfExecMRR').textContent=sfMoney(mrr);
+ if($('sfExecPaid'))$('sfExecPaid').textContent=sfMoney(paid);
+ if($('sfExecPending'))$('sfExecPending').textContent=sfMoney(pending);
+ if($('sfExecOverdue'))$('sfExecOverdue').textContent=sfMoney(overdue);
+ if($('sfExecOverdueCount'))$('sfExecOverdueCount').textContent=`${overdueCount} ${overdueCount===1?'movimento':'movimenti'}`;
+ if($('sfExecDate'))$('sfExecDate').textContent=new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'long',year:'numeric'});
+}
+
+async function sfLoadCompanies(){
+ if(!sfIsSuperAdmin||!sb)return;
+ const box=$('sfCompanyList');
+ if(box)box.innerHTML='<div class="sf-empty">Caricamento aziende…</div>';
+ try{
+   const orgRes=await sb.from('organizations')
+     .select('id,name,status,plan,owner_user_id,created_at,updated_at')
+     .order('created_at',{ascending:true});
+   if(orgRes.error)throw orgRes.error;
+   sfCompanies=orgRes.data||[];
+
+   window.sfBillingMap={};
+window.sfBillingFilter='all';window.sfCompanyPlanFilter='all';
+   const billRes=await sb.from('organization_billing').select('*');
+   if(!billRes.error)(billRes.data||[]).forEach(x=>window.sfBillingMap[x.organization_id]=x);
+
+   let active=0,trial=0,past=0,exp=0;
+   const plans={free:0,starter:0,pro:0,business:0};
+   const today=new Date();today.setHours(0,0,0,0);
+   sfCompanies.forEach(c=>{
+     plans[c.plan||'free']=(plans[c.plan||'free']||0)+1;
+     const b=(window.sfBillingMap||{})[c.id]||{};
+     const s=b.subscription_status||'trial';
+     if(s==='active')active++; else if(s==='trial')trial++; else if(s==='past_due')past++;
+     if(b.renews_on&&(s==='active'||s==='trial')){
+       const d=Math.ceil((new Date(b.renews_on+'T00:00:00')-today)/86400000);
+       if(d>=0&&d<=30)exp++;
+     }
+   });
+   if($('sfStatActive'))$('sfStatActive').textContent=active;
+   if($('sfStatTrial'))$('sfStatTrial').textContent=trial;
+   if($('sfStatExpiring'))$('sfStatExpiring').textContent=exp;
+   if($('sfStatPastDue'))$('sfStatPastDue').textContent=past;
+   if($('sfPlanBreakdown'))$('sfPlanBreakdown').innerHTML=
+     `<b>Distribuzione piani</b><span>Free ${plans.free}</span><span>Starter ${plans.starter}</span><span>Pro ${plans.pro}</span><span>Business ${plans.business}</span>`;
+
+   await sfLoadCompanyReports();
+ sfRenderCompanies();
+ await sfLoadGlobalPaymentKpis();
+ }catch(e){
+   console.error(e);
+   if(box)box.innerHTML='<div class="sf-empty">Errore caricamento aziende: '+esc(e.message||e)+'</div>';
+ }
+}
+
+function sfRenewalInfo(c){
+ const b=(window.sfBillingMap||{})[c.id]||{}, s=b.subscription_status||'trial';
+ if(!b.renews_on)return {days:null,state:s,label:'Nessuna scadenza'};
+ const today=new Date();today.setHours(0,0,0,0);
+ const d=Math.ceil((new Date(b.renews_on+'T00:00:00')-today)/86400000);
+ if(d<0)return {days:d,state:'expired',label:`Scaduta da ${Math.abs(d)} gg`};
+ if(d===0)return {days:0,state:'expiring',label:'Scade oggi'};
+ if(d<=30)return {days:d,state:'expiring',label:`Scade tra ${d} gg`};
+ return {days:d,state:s,label:`Rinnovo ${b.renews_on}`};
+}
+function sfFilteredCompanies(){
+ return sfCompanies.filter(c=>{
+   if(window.sfCompanyPlanFilter!=='all'&&(c.plan||'free')!==window.sfCompanyPlanFilter)return false;
+   const b=(window.sfBillingMap||{})[c.id]||{}, s=b.subscription_status||'trial', r=sfRenewalInfo(c), f=window.sfBillingFilter;
+   if(f==='all')return true;
+   if(f==='expiring')return r.state==='expiring';
+   if(f==='expired')return r.state==='expired'||s==='past_due';
+   return s===f;
+ });
+}
+function sfRenderCompanies(){
+ if($('sfCompanyCount'))$('sfCompanyCount').textContent=sfCompanies.length;
+ if($('sfCompanyActiveCount'))$('sfCompanyActiveCount').textContent=sfCompanies.filter(x=>x.status==='active').length;
+ if($('sfCompanyPaidCount'))$('sfCompanyPaidCount').textContent=sfCompanies.filter(x=>Number(SF_PLANS[x.plan]?.price||0)>0).length;
+ const box=$('sfCompanyList');if(!box)return;
+ const sfVisibleCompanies=sfFilteredCompanies();
+ if(!sfVisibleCompanies.length){box.innerHTML='<div class="sf-empty">Nessuna azienda corrisponde ai filtri selezionati.</div>';return;}
+ box.innerHTML=sfVisibleCompanies.map(c=>`
+   <div class="sf-company-row sf-renewal-${sfRenewalInfo(c).state}" data-org="${esc(c.id)}">
+     <div class="sf-company-identity">
+       <div class="sf-company-name">${esc(c.name||'Azienda')}</div>
+       <div class="sf-company-meta">${esc(c.id)}</div>
+     </div>
+     <div class="sf-company-status-col"><span class="sf-company-badge ${esc(c.status||'active')}">${esc(c.status||'active')}</span></div>
+     <div class="sf-company-plan-col"><span class="sf-company-badge">${esc(c.plan||'free')}</span></div>
+     <div class="sf-company-billing">${sfBillingBadge(((window.sfBillingMap||{})[c.id]||{}).subscription_status)}
+       <small>${esc(sfRenewalInfo(c).label)}</small>
+     </div>
+     ${sfCompanyReportHTML(c)}<div class="sf-company-actions">
+       <button class="primary sfCompanyManageBtn" data-id="${esc(c.id)}">Gestisci</button>
+       <button class="secondary sfCompanyAdminBtn" data-id="${esc(c.id)}">Admin</button>
+       <button class="secondary sfCompanyPlanBtn" data-id="${esc(c.id)}">Piano</button>
+       <button class="secondary sfCompanyStatusBtn" data-id="${esc(c.id)}">${c.status==='active'?'Sospendi':'Attiva'}</button>
+     </div>
+   </div>`).join('');
+
+ document.querySelectorAll('.sfCompanyManageBtn').forEach(b=>b.onclick=()=>sfManageCompany(b.dataset.id));
+ document.querySelectorAll('.sfCompanyAdminBtn').forEach(b=>b.onclick=()=>sfPromptCompanyAdmin(b.dataset.id));
+ document.querySelectorAll('.sfCompanyPlanBtn').forEach(b=>b.onclick=()=>sfPromptCompanyPlan(b.dataset.id));
+ document.querySelectorAll('.sfCompanyStatusBtn').forEach(b=>b.onclick=()=>sfToggleCompanyStatus(b.dataset.id));
+ document.querySelectorAll('.sfBillingFilter').forEach(b=>b.onclick=()=>{
+   window.sfBillingFilter=b.dataset.filter||'all';
+   document.querySelectorAll('.sfBillingFilter').forEach(x=>x.classList.toggle('active',x===b));
+   sfRenderCompanies();
+ });
+ if($('sfCompanyPlanFilter'))$('sfCompanyPlanFilter').onchange=e=>{window.sfCompanyPlanFilter=e.target.value||'all';sfRenderCompanies();};
+
+}
+
+
+
+
+window.sfTrialDefaultDays=14;
+function sfTrialDate(d){if(!d)return null;const x=new Date(d+'T00:00:00');return isNaN(x)?null:x}
+function sfTrialInfo(b){
+ if(!b||b.subscription_status!=='trial')return {active:false,days:null,expired:false};
+ const start=sfTrialDate(b.started_on);let end=sfTrialDate(b.renews_on);
+ if(!end&&start){end=new Date(start);end.setDate(end.getDate()+Math.max(1,parseInt(b.trial_days||14,10)||14))}
+ if(!end)return {active:true,days:null,expired:false};
+ const today=new Date();today.setHours(0,0,0,0);end.setHours(0,0,0,0);
+ const days=Math.ceil((end-today)/86400000);
+ return {active:true,days,expired:days<0};
+}
+function sfRenderTrialStatus(b){
+ const title=$('sfTrialStatusTitle'),text=$('sfTrialStatusText'),badge=$('sfTrialStatusBadge');if(!title)return;
+ const t=sfTrialInfo(b);
+ if(!t.active){title.textContent='Nessun trial attivo';text.textContent='Lo stato abbonamento non è Trial.';badge.textContent='—';return}
+ if(t.days===null){title.textContent='Trial attivo';text.textContent='Imposta data attivazione e durata trial.';badge.textContent='Trial';return}
+ if(t.expired){title.textContent='Trial scaduto';text.textContent=`Scaduto da ${Math.abs(t.days)} giorni.`;badge.textContent='Scaduto';return}
+ title.textContent='Trial attivo';text.textContent=t.days===0?'Scade oggi.':`Restano ${t.days} giorni.`;badge.textContent=t.days===0?'Oggi':`${t.days} gg`;
+}
+
+
+let sfPlanChangeData=null;
+function sfPlanLabel(key){return (SF_PLANS[key]||SF_PLANS.free).label}
+function sfRenderPlanChange(){
+ if(!sfManagedCompany)return;
+ $('sfCurrentPlanDisplay').value=sfPlanLabel(sfManagedCompany.plan||'free');
+ $('sfNextPlanSelect').value=sfPlanChangeData?.new_plan||'';
+ $('sfPlanChangeDate').value=sfPlanChangeData?.effective_on||'';
+ const info=$('sfPlanChangeInfo');
+ if(sfPlanChangeData?.new_plan){
+   info.innerHTML=`Cambio programmato: <b>${sfPlanLabel(sfManagedCompany.plan||'free')} → ${sfPlanLabel(sfPlanChangeData.new_plan)}</b> dal <b>${sfPlanChangeData.effective_on||'—'}</b>.`;
+ }else info.textContent='Nessun cambio piano programmato.';
+}
+async function sfLoadPlanChange(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const {data,error}=await sb.from('organization_plan_changes').select('*').eq('organization_id',sfManagedCompany.id).eq('status','scheduled').order('created_at',{ascending:false}).limit(1).maybeSingle();
+ if(error){console.warn('Plan change V40:',error);sfPlanChangeData=null}else sfPlanChangeData=data||null;
+ sfRenderPlanChange();
+}
+async function sfSchedulePlanChange(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const next=String($('sfNextPlanSelect')?.value||'').trim(), date=String($('sfPlanChangeDate')?.value||'').trim();
+ if(!next){toast('Seleziona il prossimo piano');return}
+ if(!date){toast('Seleziona la data del cambio');return}
+ if(next===(sfManagedCompany.plan||'free')){toast('Il prossimo piano coincide con quello attuale');return}
+ try{
+   await sb.from('organization_plan_changes').update({status:'cancelled'}).eq('organization_id',sfManagedCompany.id).eq('status','scheduled');
+   const {data,error}=await sb.from('organization_plan_changes').insert({
+     organization_id:sfManagedCompany.id,
+     old_plan:sfManagedCompany.plan||'free',
+     new_plan:next,effective_on:date,status:'scheduled',created_by_user_id:cloudUser.id
+   }).select().single();
+   if(error)throw error;
+   sfPlanChangeData=data;sfRenderPlanChange();await sfLoadPlanHistory();
+ await sfLoadPayments();toast('Cambio piano programmato');
+ }catch(e){toast('Programmazione non riuscita: '+(e.message||e))}
+}
+async function sfApplyPlanNow(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const next=String($('sfNextPlanSelect')?.value||'').trim();
+ if(!next){toast('Seleziona il nuovo piano');return}
+ if(next===(sfManagedCompany.plan||'free')){toast('Il piano selezionato è già attivo');return}
+ try{
+   const oldPlan=sfManagedCompany.plan||'free';
+   const {error}=await sb.from('organizations').update({plan:next,updated_at:new Date().toISOString()}).eq('id',sfManagedCompany.id);
+   if(error)throw error;
+   await sb.from('organization_plan_changes').update({status:'cancelled'}).eq('organization_id',sfManagedCompany.id).eq('status','scheduled');
+   const {error:histErr}=await sb.from('organization_plan_changes').insert({
+     organization_id:sfManagedCompany.id,old_plan:oldPlan,new_plan:next,
+     effective_on:new Date().toISOString().slice(0,10),status:'applied',
+     applied_at:new Date().toISOString(),created_by_user_id:cloudUser.id
+   });
+   if(histErr)throw histErr;
+   sfManagedCompany.plan=next;
+   $('sfManagePlanSelect').value=next;$('sfManagePlan').textContent=next.toUpperCase();
+   sfRenderManagedPlanPrice();sfPlanChangeData=null;sfRenderPlanChange();
+   await sfLoadCompanies();await sfLoadPlanHistory();toast('Piano aggiornato');
+ }catch(e){toast('Cambio piano non riuscito: '+(e.message||e))}
+}
+
+
+let sfPlanHistory=[];
+function sfPlanChangeType(row){
+ if(!row)return 'Cambio';
+ const a=Number(SF_PLANS[row.old_plan]?.sort_order||0),b=Number(SF_PLANS[row.new_plan]?.sort_order||0);
+ return b>a?'Upgrade':(b<a?'Downgrade':'Cambio');
+}
+function sfPlanChangeStatusLabel(status){
+ return status==='applied'?'Applicato':status==='scheduled'?'Programmato':'Annullato';
+}
+function sfFormatDateIT(v){
+ if(!v)return '—';
+ const d=new Date(v.length===10?v+'T00:00:00':v);
+ return Number.isNaN(d.getTime())?v:d.toLocaleDateString('it-IT');
+}
+function sfRenderPlanHistory(){
+ const box=$('sfPlanHistoryList');if(!box)return;
+ if(!sfPlanHistory.length){
+   box.innerHTML='<div class="sf-empty">Nessun movimento registrato.</div>';return;
+ }
+ box.innerHTML=sfPlanHistory.map(r=>{
+   const type=sfPlanChangeType(r), status=sfPlanChangeStatusLabel(r.status);
+   const when=r.status==='applied'?(r.applied_at||r.effective_on):r.effective_on;
+   return `<div class="sf-plan-history-row">
+    <div class="sf-plan-history-icon">${type==='Upgrade'?'↑':type==='Downgrade'?'↓':'↔'}</div>
+    <div class="sf-plan-history-main">
+      <div class="sf-plan-history-title"><b>${type}</b> · ${sfPlanLabel(r.old_plan)} → ${sfPlanLabel(r.new_plan)}</div>
+      <div class="muted">${status} · ${sfFormatDateIT(when)}</div>
+    </div>
+    <span class="sf-plan-history-badge sf-ph-${r.status}">${status}</span>
+   </div>`;
+ }).join('');
+}
+async function sfLoadPlanHistory(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ try{
+  const {data,error}=await sb.from('organization_plan_changes')
+    .select('id,organization_id,old_plan,new_plan,effective_on,status,created_at,applied_at')
+    .eq('organization_id',sfManagedCompany.id)
+    .order('created_at',{ascending:false})
+    .limit(50);
+  if(error)throw error;
+  sfPlanHistory=data||[];sfRenderPlanHistory();
+ }catch(e){
+  console.warn('Plan history V41:',e);sfPlanHistory=[];sfRenderPlanHistory();
+ }
+}
+
+
+let sfPayments=[];
+function sfMoney(v){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(Number(v)||0)}
+function sfPaymentStatusLabel(v){return v==='paid'?'Pagato':v==='overdue'?'Scaduto':v==='cancelled'?'Annullato':'Da pagare'}
+function sfRenderPayments(){
+ const box=$('sfPaymentsList');if(!box)return;
+ const active=sfPayments.filter(x=>x.status!=='cancelled');
+ const paid=active.filter(x=>x.status==='paid').reduce((a,x)=>a+Number(x.amount||0),0);
+ const pending=active.filter(x=>x.status!=='paid').reduce((a,x)=>a+Number(x.amount||0),0);
+ $('sfPaymentsTotal').textContent=sfMoney(active.reduce((a,x)=>a+Number(x.amount||0),0));
+ $('sfPaymentsPaid').textContent=sfMoney(paid);$('sfPaymentsPending').textContent=sfMoney(pending);
+ if(!sfPayments.length){box.innerHTML='<div class="sf-empty">Nessun movimento registrato.</div>';return}
+ box.innerHTML=sfPayments.map(r=>`<div class="sf-payment-row">
+   <div class="sf-payment-main">
+    <div class="sf-payment-title"><b>${esc(r.description||'Movimento')}</b> · ${sfMoney(r.amount)}</div>
+    <div class="muted">${r.due_on?'Scadenza '+sfFormatDateIT(r.due_on):'Nessuna scadenza'}${r.paid_at?' · Pagato '+sfFormatDateIT(r.paid_at):''}</div>
+   </div>
+   <span class="sf-payment-badge sf-pay-${r.status}">${sfPaymentStatusLabel(r.status)}</span>
+   ${r.status!=='paid'&&r.status!=='cancelled'?`<button class="secondary sf-mark-paid" type="button" data-id="${r.id}">Segna pagato</button>`:''}
+ </div>`).join('');
+ box.querySelectorAll('.sf-mark-paid').forEach(b=>b.onclick=()=>sfMarkPaymentPaid(b.dataset.id));
+}
+
+function sfPaymentIsPastDue(r){
+ if(!r?.due_on||r.status==='paid'||r.status==='cancelled')return false;
+ const today=new Date();today.setHours(0,0,0,0);
+ const due=new Date(r.due_on+'T00:00:00');
+ return due<today;
+}
+async function sfRefreshOverduePayments(orgId=null){
+ if(!sfIsSuperAdmin)return;
+ try{
+   const today=new Date().toISOString().slice(0,10);
+   let q=sb.from('organization_payments').update({status:'overdue',updated_at:new Date().toISOString()})
+     .eq('status','pending').lt('due_on',today);
+   if(orgId)q=q.eq('organization_id',orgId);
+   const {error}=await q;if(error)throw error;
+ }catch(e){console.warn('Overdue refresh V43:',e)}
+}
+async function sfLoadGlobalPaymentKpis(){
+ if(!sfIsSuperAdmin)return;
+ try{
+   await sfRefreshOverduePayments();
+   const {data,error}=await sb.from('organization_payments')
+     .select('amount,status,due_on').in('status',['pending','overdue']);
+   if(error)throw error;
+   const rows=data||[];
+   const pending=rows.reduce((a,x)=>a+Number(x.amount||0),0);
+   const overdueRows=rows.filter(x=>x.status==='overdue'||sfPaymentIsPastDue(x));
+   const overdue=overdueRows.reduce((a,x)=>a+Number(x.amount||0),0);
+   if($('sfGlobalPendingAmount'))$('sfGlobalPendingAmount').textContent=sfMoney(pending);
+   if($('sfGlobalOverdueAmount'))$('sfGlobalOverdueAmount').textContent=sfMoney(overdue);
+   if($('sfGlobalOverdueCount'))$('sfGlobalOverdueCount').textContent=`${overdueRows.length} ${overdueRows.length===1?'insoluto':'insoluti'}`;
+ }catch(e){console.warn('Global payment KPI V43:',e)}
+}
+
+async function sfLoadPayments(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ try{
+  await sfRefreshOverduePayments(sfManagedCompany.id);
+  const {data,error}=await sb.from('organization_payments').select('*').eq('organization_id',sfManagedCompany.id).order('created_at',{ascending:false}).limit(100);
+  if(error)throw error;sfPayments=data||[];sfRenderPayments();
+ }catch(e){console.warn('Payments V42:',e);sfPayments=[];sfRenderPayments()}
+}
+async function sfAddPayment(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const description=($('sfPaymentDescription').value||'').trim();
+ const amount=Number($('sfPaymentAmount').value||0);
+ if(!description){toast('Inserisci una descrizione');return}
+ if(!(amount>0)){toast('Inserisci un importo valido');return}
+ const status=$('sfPaymentStatus').value||'pending';
+ try{
+  const {error}=await sb.from('organization_payments').insert({
+   organization_id:sfManagedCompany.id,description,amount,currency:'EUR',
+   due_on:$('sfPaymentDueDate').value||null,status,
+   paid_at:status==='paid'?new Date().toISOString():null,
+   created_by_user_id:cloudUser.id
+  });
+  if(error)throw error;
+  $('sfPaymentDescription').value='';$('sfPaymentAmount').value='';$('sfPaymentDueDate').value='';$('sfPaymentStatus').value='pending';
+  await sfLoadPayments();await sfLoadGlobalPaymentKpis();toast('Movimento registrato');
+ }catch(e){toast('Registrazione non riuscita: '+(e.message||e))}
+}
+async function sfMarkPaymentPaid(id){
+ if(!id||!sfIsSuperAdmin)return;
+ try{
+  const {error}=await sb.from('organization_payments').update({status:'paid',paid_at:new Date().toISOString(),updated_at:new Date().toISOString()}).eq('id',id);
+  if(error)throw error;await sfLoadPayments();await sfLoadGlobalPaymentKpis();toast('Pagamento segnato come pagato');
+ }catch(e){toast('Aggiornamento non riuscito: '+(e.message||e))}
+}
+
+async function sfLoadBilling(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ try{
+  const {data,error}=await sb.from('organization_billing').select('*').eq('organization_id',sfManagedCompany.id).maybeSingle();
+  if(error)throw error;
+  sfBillingData=data||null;
+  $('sfBillingStatus').value=sfBillingData?.subscription_status||'trial';
+  $('sfBillingStart').value=sfBillingData?.started_on||'';
+  $('sfBillingRenewal').value=sfBillingData?.renews_on||'';
+  $('sfBillingNotes').value=sfBillingData?.admin_notes||'';
+  $('sfTrialDays').value=sfBillingData?.trial_days||window.sfTrialDefaultDays;
+  $('sfBillingCycle').value=sfBillingData?.billing_cycle||'monthly';
+  $('sfBillingAmount').value=sfBillingData?.agreed_amount??'';
+  sfRenderTrialStatus(sfBillingData||{subscription_status:'trial'});
+ }catch(e){
+  console.warn('Billing V33:',e);
+  $('sfBillingStatus').value='trial';$('sfBillingStart').value='';$('sfBillingRenewal').value='';$('sfBillingNotes').value='';$('sfTrialDays').value=window.sfTrialDefaultDays;$('sfBillingCycle').value='monthly';$('sfBillingAmount').value='';sfRenderTrialStatus({subscription_status:'trial'});
+ }
+}
+async function sfSaveBilling(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const row={
+  organization_id:sfManagedCompany.id,
+  subscription_status:$('sfBillingStatus').value||'trial',
+  started_on:$('sfBillingStart').value||null,
+  renews_on:$('sfBillingRenewal').value||null,
+  admin_notes:($('sfBillingNotes').value||'').trim(),
+  trial_days:Math.max(1,parseInt($('sfTrialDays').value||window.sfTrialDefaultDays,10)||window.sfTrialDefaultDays),
+  billing_cycle:$('sfBillingCycle').value||'monthly',
+  agreed_amount:$('sfBillingAmount').value===''?null:Number($('sfBillingAmount').value),
+  updated_at:new Date().toISOString()
+ };
+ if(row.subscription_status==='trial'&&row.started_on&&!row.renews_on){
+   const d=new Date(row.started_on+'T00:00:00');d.setDate(d.getDate()+row.trial_days);
+   row.renews_on=d.toISOString().slice(0,10);$('sfBillingRenewal').value=row.renews_on;
+ }
+
+ try{
+  const {error}=await sb.from('organization_billing').upsert(row,{onConflict:'organization_id'});
+  if(error)throw error;
+  sfBillingData=row;sfRenderTrialStatus(row);toast('Dati commerciali salvati');
+ }catch(e){toast('Salvataggio non riuscito: '+(e.message||e))}
+}
+
+async function sfManageCompany(orgId){
+ sfManagedTeamSearch='';if($('sfManagedTeamSearch'))$('sfManagedTeamSearch').value='';
+
+ if(!sfIsSuperAdmin)return;
+ sfManagedCompany=sfCompanies.find(x=>x.id===orgId)||null;
+ if(!sfManagedCompany){toast('Azienda non trovata');return}
+ $('sfManageCompanyTitle').textContent=sfManagedCompany.name||'Gestione azienda';
+ $('sfManageCompanySubtitle').textContent='ID workspace: '+sfManagedCompany.id;
+ $('sfManageName').value=sfManagedCompany.name||'';
+ $('sfManagePlanSelect').value=sfManagedCompany.plan||'free';sfRenderManagedPlanPrice();
+ $('sfManageStatusSelect').value=sfManagedCompany.status||'active';
+ $('sfManagePlan').textContent=(sfManagedCompany.plan||'free').toUpperCase();
+ $('sfManageStatus').textContent=sfManagedCompany.status==='active'?'ATTIVA':(sfManagedCompany.status||'—').toUpperCase();
+ sfShow('companymanage');
+ await sfLoadManagedTeam();
+ await sfLoadBilling();
+ await sfLoadPlanChange();
+ await sfLoadPlanHistory();
+}
+
+function sfRenderManagedTeam(){
+ const box=$('sfManagedTeamList');if(!box)return;
+ const q=(sfManagedTeamSearch||'').trim().toLowerCase();
+ const visible=sfManagedTeam.filter(m=>!q||String(m.member_email||m.user_id||'').toLowerCase().includes(q)||String(m.role||'').toLowerCase().includes(q));
+ if(!visible.length){
+   box.innerHTML='<div class="sf-empty">'+(sfManagedTeam.length?'Nessun utente corrisponde alla ricerca.':'Nessun utente assegnato. Usa “Assegna / cambia Admin” oppure aggiungi un membro.')+'</div>';
+   return;
+ }
+ box.innerHTML=visible.map(m=>{
+   const isAdmin=m.role==='admin';
+   const joined=m.created_at?new Date(m.created_at).toLocaleDateString('it-IT'):'—';
+   return `<div class="sf-managed-member">
+     <div class="sf-managed-user">
+       <div class="sf-managed-avatar">${esc((m.member_email||'U').slice(0,1).toUpperCase())}</div>
+       <div><b>${esc(m.member_email||m.user_id)}</b><div class="muted">${isAdmin?'Responsabile della workspace':'Utente operativo'}</div></div>
+     </div>
+     <div class="sf-managed-role"><small>Ruolo</small><span class="sf-team-badge">${isAdmin?'Admin Azienda':'Membro'}</span></div>
+     <div class="sf-managed-status"><small>Stato</small><span class="sf-user-active">● Attivo</span><span class="muted">Dal ${esc(joined)}</span></div>
+     <div class="sf-managed-actions">
+       ${isAdmin?'<span class="sf-team-ok">✓ Admin principale</span>':`
+         <button class="secondary sfPromoteManagedMember" data-user="${esc(m.user_id)}" data-email="${esc(m.member_email||'')}">Rendi Admin</button>
+         <button class="secondary sfRemoveManagedMember" data-user="${esc(m.user_id)}">Rimuovi</button>`}
+     </div>
+   </div>`;
+ }).join('');
+ document.querySelectorAll('.sfRemoveManagedMember').forEach(b=>b.onclick=()=>sfRemoveManagedMember(b.dataset.user));
+ document.querySelectorAll('.sfPromoteManagedMember').forEach(b=>b.onclick=()=>sfPromoteManagedMember(b.dataset.user,b.dataset.email));
+}
+async function sfLoadManagedTeam(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const box=$('sfManagedTeamList');
+ try{
+  const {data,error}=await sb.from('organization_members').select('user_id,member_email,role,created_at').eq('organization_id',sfManagedCompany.id).order('created_at',{ascending:true});
+  if(error)throw error;
+  sfManagedTeam=data||[];
+  $('sfManageTeamCount').textContent=sfManagedTeam.length;
+  sfRenderManagedTeam();
+ }catch(e){box.innerHTML='<div class="sf-empty">Errore team: '+esc(e.message||e)+'</div>'}
+}
+
+async function sfAddManagedMember(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const email=($('sfManagedMemberEmail')?.value||'').trim().toLowerCase();
+ if(!email){toast('Inserisci l’email del membro');return}
+ const plan=SF_PLANS[sfManagedCompany.plan||'free']||SF_PLANS.free;
+ if(Number.isFinite(plan.members)&&sfManagedTeam.length>=plan.members){
+   toast(`Limite membri raggiunto per il piano ${plan.label}.`);return;
+ }
+ try{
+   const {error}=await sb.rpc('add_sendflow_company_member',{org_id:sfManagedCompany.id,target_email:email});
+   if(error)throw error;
+   $('sfManagedMemberEmail').value='';
+   await sfLoadManagedTeam();
+   toast('Membro aggiunto al team');
+ }catch(e){toast('Aggiunta non riuscita: '+(e.message||e))}
+}
+
+async function sfPromoteManagedMember(userId,email){
+ if(!sfManagedCompany?.id||!email)return;
+ try{
+   const {error}=await sb.rpc('set_sendflow_company_admin',{org_id:sfManagedCompany.id,target_email:email});
+   if(error)throw error;
+   await sfLoadManagedTeam();
+   toast('Admin aziendale aggiornato');
+ }catch(e){toast('Cambio Admin non riuscito: '+(e.message||e))}
+}
+
+
+function sfRenderManagedPlanPrice(){
+ const el=$('sfManagePlanPrice');if(!el)return;
+ const plan=SF_PLANS[$('sfManagePlanSelect')?.value||'free']||SF_PLANS.free;
+ el.innerHTML=`<span>Prezzo piano</span><strong>${plan.price===0?'Gratis':`€${plan.price} / mese`}</strong>`;
+}
+async function sfSaveManagedCompany(){
+ if(!sfManagedCompany?.id||!sfIsSuperAdmin)return;
+ const name=($('sfManageName').value||'').trim(),plan=$('sfManagePlanSelect').value,status=$('sfManageStatusSelect').value;
+ if(!name){toast('Inserisci il nome azienda');return}
+ try{
+  const {error}=await sb.from('organizations').update({name,plan,status,updated_at:new Date().toISOString()}).eq('id',sfManagedCompany.id);
+  if(error)throw error;
+  await sfLoadCompanies();
+  sfManagedCompany=sfCompanies.find(x=>x.id===sfManagedCompany.id);
+  $('sfManageCompanyTitle').textContent=sfManagedCompany.name;
+  $('sfManagePlan').textContent=sfManagedCompany.plan.toUpperCase();
+  $('sfManageStatus').textContent=sfManagedCompany.status==='active'?'ATTIVA':sfManagedCompany.status.toUpperCase();
+  toast('Azienda aggiornata');
+ }catch(e){toast('Aggiornamento non riuscito: '+(e.message||e))}
+}
+
+async function sfAssignManagedAdmin(){
+ if(!sfManagedCompany)return;
+ await sfPromptCompanyAdmin(sfManagedCompany.id);
+ await sfLoadManagedTeam();
+}
+
+async function sfRemoveManagedMember(userId){
+ if(!sfManagedCompany?.id)return;
+ const member=sfManagedTeam.find(x=>x.user_id===userId);
+ if(!member)return;
+ if(!confirm('Rimuovere '+(member.member_email||'questo membro')+' dal team?'))return;
+ try{
+  const {error}=await sb.rpc('remove_sendflow_company_member',{org_id:sfManagedCompany.id,target_user_id:userId});
+  if(error)throw error;
+  await sfLoadManagedTeam();toast('Membro rimosso');
+ }catch(e){toast('Rimozione non riuscita: '+(e.message||e))}
+}
+
+async function sfCreateCompany(){
+ if(!sfIsSuperAdmin){toast('Accesso Super Admin richiesto');return}
+ const name=($('sfNewCompanyName')?.value||'').trim();
+ const email=($('sfNewCompanyAdmin')?.value||'').trim().toLowerCase();
+ const plan=$('sfNewCompanyPlan')?.value||'free';
+ if(!name){toast('Inserisci il nome azienda');return}
+ const btn=$('sfCreateCompanyBtn');if(btn){btn.disabled=true;btn.textContent='Creazione…'}
+ try{
+   const {error}=await sb.rpc('create_sendflow_company',{
+     company_name:name,
+     admin_email:email||null,
+     company_plan:plan
+   });
+   if(error)throw error;
+   $('sfNewCompanyName').value='';$('sfNewCompanyAdmin').value='';$('sfNewCompanyPlan').value='free';
+   await sfLoadCompanies();
+   toast('Azienda creata');
+ }catch(e){console.error(e);toast('Creazione non riuscita: '+(e.message||e))}
+ finally{if(btn){btn.disabled=false;btn.textContent='＋ Crea azienda'}}
+}
+
+async function sfPromptCompanyAdmin(orgId){
+ if(!sfIsSuperAdmin)return;
+ const c=sfCompanies.find(x=>x.id===orgId);
+ const email=prompt('Email del nuovo Admin aziendale per '+(c?.name||'questa azienda')+':');
+ if(!email)return;
+ try{
+   const {error}=await sb.rpc('set_sendflow_company_admin',{org_id:orgId,target_email:email.trim().toLowerCase()});
+   if(error)throw error;
+   await sfLoadCompanies();
+   toast('Admin aziendale assegnato');
+ }catch(e){console.error(e);toast('Assegnazione non riuscita: '+(e.message||e))}
+}
+
+async function sfPromptCompanyPlan(orgId){
+ const c=sfCompanies.find(x=>x.id===orgId);if(!c)return;
+ const plan=prompt('Piano: free, starter, pro o business',c.plan||'free');
+ if(!plan)return;
+ const p=plan.trim().toLowerCase();
+ if(!['free','starter','pro','business'].includes(p)){toast('Piano non valido');return}
+ try{
+   const {error}=await sb.from('organizations').update({plan:p,updated_at:new Date().toISOString()}).eq('id',orgId);
+   if(error)throw error;
+   await sfLoadCompanies();toast('Piano aggiornato');
+ }catch(e){toast('Aggiornamento non riuscito: '+(e.message||e))}
+}
+
+async function sfToggleCompanyStatus(orgId){
+ const c=sfCompanies.find(x=>x.id===orgId);if(!c)return;
+ const next=c.status==='active'?'suspended':'active';
+ if(!confirm(`${next==='suspended'?'Sospendere':'Riattivare'} ${c.name}?`))return;
+ try{
+   const {error}=await sb.from('organizations').update({status:next,updated_at:new Date().toISOString()}).eq('id',orgId);
+   if(error)throw error;
+   await sfLoadCompanies();toast(next==='active'?'Azienda riattivata':'Azienda sospesa');
+ }catch(e){toast('Aggiornamento non riuscito: '+(e.message||e))}
+}
+
+async function sfLoadOrgCloud(){
+ if(!cloudReady||!cloudUser||!sb)return;
+ try{
+  const {data,error}=await sb.from('organization_members').select('organization_id,role,organizations(id,name,owner_user_id,status,plan,created_at)').eq('user_id',cloudUser.id).limit(1);
+  if(error)throw error;
+  sfOrgMembership=data?.[0]||null; sfOrg=sfOrgMembership?.organizations||null;
+  if(sfOrg?.id){
+   const r=await sb.from('organization_members').select('user_id,role,member_email,created_at').eq('organization_id',sfOrg.id).order('created_at',{ascending:true});
+   if(r.error)throw r.error; sfTeamMembers=r.data||[];
+  }else sfTeamMembers=[];
+ }catch(e){console.warn('Team V19:',e);sfOrg=null;sfOrgMembership=null;sfTeamMembers=[]}
+ sfRenderOrg();
+}
+function sfRenderOrg(){
+ if($('sfOrgNameView'))$('sfOrgNameView').textContent=sfOrg?.name||'Nessuna azienda';
+ if($('sfOrgInfo'))$('sfOrgInfo').textContent=sfOrg?`Workspace attiva · ruolo: ${sfOrgMembership?.role==='admin'?'Admin Azienda':'Membro'}`:'Crea la prima azienda per attivare il team.';
+ if($('sfOrgNameInput'))$('sfOrgNameInput').value=sfOrg?.name||'';
+ if($('sfCreateOrgBtn'))$('sfCreateOrgBtn').style.display=sfOrg?'none':'inline-flex';
+ if($('sfTeamCount'))$('sfTeamCount').textContent=sfTeamMembers.length?`(${sfTeamMembers.length})`:'';
+ if($('sfTeamWorkspaceStatus'))$('sfTeamWorkspaceStatus').textContent=sfOrg?'Workspace attiva':'Workspace da creare';
+ const b=$('sfTeamList');if(b)b.innerHTML=sfTeamMembers.length?sfTeamMembers.map(m=>`<div class="sf-team-member"><div><b>${esc(m.member_email||m.user_id)}</b><div class="muted">${m.user_id===cloudUser?.id?'Sei tu':'Collaboratore'}</div></div><div><span class="sf-team-badge">${esc(m.role==='admin'?'Admin Azienda':'Membro')}</span></div><div class="sf-team-ok">✓ Attivo</div></div>`).join(''):'<div class="sf-empty">Nessun team configurato.</div>';
+ sfRenderTeamBrand();
+}
+function sfRenderTeamBrand(){
+ const b=$('sfTeamBrandPreview');if(!b)return;
+ const logo=sfBrand?.logo?`<img src="${esc(sfBrand.logo)}" alt="Logo">`:`<div class="fallback" style="width:58px;height:58px;border-radius:12px;background:linear-gradient(145deg,var(--sf-accent),var(--sf-accent2));display:grid;place-items:center;color:#fff;font-size:28px;font-weight:900">S</div>`;
+ b.innerHTML=`${logo}<div><b style="font-size:16px">${esc(sfBrand?.name||sfOrg?.name||'SendFlow')}</b><div class="muted" style="margin-top:3px">Colore principale <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${esc(sfBrand?.color||'#111111')}"></span></div></div>`;
+}
+async function sfSaveOrg(){
+ if(!sfAssertWorkspaceWritable())return;
+ const name=($('sfOrgNameInput')?.value||'').trim();if(!name){toast('Inserisci il nome azienda');return}
+ try{
+  if(sfOrg?.id){
+   const r=await sb.from('organizations').update({name,updated_at:new Date().toISOString()}).eq('id',sfOrg.id);if(r.error)throw r.error;
+  }else{
+   const r=await sb.rpc('create_sendflow_organization',{org_name:name});if(r.error)throw r.error;
+  }
+  await sfLoadOrgCloud();
+  if(sfOrg?.id)await sb.from('workspace_branding').update({organization_id:sfOrg.id}).eq('user_id',cloudUser.id);
+  await sfLoadBrandCloud();toast('Azienda salvata');
+ }catch(e){console.error(e);toast('Errore azienda: '+(e.message||e))}
+}
+if($('sfCreateOrgBtn'))$('sfCreateOrgBtn').onclick=()=>$('sfOrgNameInput')?.focus();
+if($('sfSaveOrgBtn'))$('sfSaveOrgBtn').onclick=sfSaveOrg;
+if($('sfInviteBtn'))$('sfInviteBtn').onclick=async()=>{
+ if(!sfOrg?.id){toast('Crea prima l’azienda');return}
+ if(sfLimitReached('members',sfTeamMembers.length)){toast(`Limite membri raggiunto per il piano ${sfPlan().label}.`);return}
+ const email=($('sfInviteEmail')?.value||'').trim().toLowerCase(),role=$('sfInviteRole')?.value||'member';
+ if(!email){toast('Inserisci una email');return}
+ try{const r=await sb.rpc('add_sendflow_org_member',{target_email:email,target_role:role});if(r.error)throw r.error;$('sfInviteEmail').value='';await sfLoadOrgCloud();toast('Collaboratore aggiunto')}
+ catch(e){console.error(e);toast('Aggiunta non riuscita: '+(e.message||e))}
+};
+
+
+if($('sfBrandColor'))$('sfBrandColor').addEventListener('input',()=>{
+ sfBrand.color=$('sfBrandColor').value||'#111111';
+ sfApplyBrand();
+});
+
+
+if($('sfCreateCompanyBtn'))$('sfCreateCompanyBtn').onclick=sfCreateCompany;
+if($('sfRefreshCompaniesBtn'))$('sfRefreshCompaniesBtn').onclick=sfLoadCompanies;
+
+
+if($('sfBackCompaniesBtn'))$('sfBackCompaniesBtn').onclick=()=>sfShow('superadmin');
+if($('sfSaveManagedCompanyBtn'))$('sfSaveManagedCompanyBtn').onclick=sfSaveManagedCompany;
+if($('sfAssignManagedAdminBtn'))$('sfAssignManagedAdminBtn').onclick=sfAssignManagedAdmin;
+
+if($('sfSaveBillingBtn'))$('sfSaveBillingBtn').onclick=sfSaveBilling;
+if($('sfSchedulePlanBtn'))$('sfSchedulePlanBtn').onclick=sfSchedulePlanChange;
+if($('sfApplyPlanNowBtn'))$('sfApplyPlanNowBtn').onclick=sfApplyPlanNow;
+if($('sfRefreshPlanHistoryBtn'))$('sfRefreshPlanHistoryBtn').onclick=sfLoadPlanHistory;
+if($('sfRefreshPaymentsBtn'))$('sfRefreshPaymentsBtn').onclick=sfLoadPayments;
+if($('sfAddPaymentBtn'))$('sfAddPaymentBtn').onclick=sfAddPayment;
+if($('sfManagePlanSelect'))$('sfManagePlanSelect').onchange=sfRenderManagedPlanPrice;
+
+if($('sfNextPlanSelect'))$('sfNextPlanSelect').onchange=function(){
+ const v=this.value, info=$('sfPlanChangeInfo');
+ if(v && sfManagedCompany){
+   const d=$('sfPlanChangeDate')?.value||'seleziona una data';
+   info.innerHTML=`Nuovo cambio da programmare: <b>${sfPlanLabel(sfManagedCompany.plan||'free')} → ${sfPlanLabel(v)}</b> · ${d}`;
+ }else if(!sfPlanChangeData && info) info.textContent='Nessun cambio piano programmato.';
+};
+if($('sfPlanChangeDate'))$('sfPlanChangeDate').onchange=function(){
+ const v=$('sfNextPlanSelect')?.value, info=$('sfPlanChangeInfo');
+ if(v && info && sfManagedCompany) info.innerHTML=`Nuovo cambio da programmare: <b>${sfPlanLabel(sfManagedCompany.plan||'free')} → ${sfPlanLabel(v)}</b> · ${this.value||'—'}`;
+};
+
+
+const sfRefreshTrialPreview=()=>sfRenderTrialStatus({
+ subscription_status:$('sfBillingStatus')?.value||'trial',
+ started_on:$('sfBillingStart')?.value||null,
+ renews_on:$('sfBillingRenewal')?.value||null,
+ trial_days:parseInt($('sfTrialDays')?.value||14,10)
+});
+if($('sfBillingStatus'))$('sfBillingStatus').onchange=sfRefreshTrialPreview;
+['sfBillingStart','sfBillingRenewal','sfTrialDays'].forEach(id=>{if($(id))$(id).oninput=sfRefreshTrialPreview;});
+
+if($('sfBlockedLogoutBtn'))$('sfBlockedLogoutBtn').onclick=logoutApp;
+
+if($('sfAddManagedMemberBtn'))$('sfAddManagedMemberBtn').onclick=sfAddManagedMember;
+if($('sfManagedTeamSearch'))$('sfManagedTeamSearch').oninput=e=>{sfManagedTeamSearch=e.target.value||'';sfRenderManagedTeam();};
+if($('sfManagedMemberEmail'))$('sfManagedMemberEmail').onkeydown=e=>{if(e.key==='Enter')sfAddManagedMember();};
+
+if($('sfAddPlan'))$('sfAddPlan').onclick=sfAddPlan;
+if($('sfSavePlans'))$('sfSavePlans').onclick=sfSavePlanCatalog;
+sfLoadBrand();
+setTimeout(()=>{sfNormalizePages();sfRenderRecent();sfApplyBrand();},350);
+
 </script>
 </body>
 </html>
