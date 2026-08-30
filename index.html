@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WhatsApp Campaign V12</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js">
+if($('logoutBtn'))$('logoutBtn').onclick=logoutApp;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6f7f9;color:#171a1f}.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#111315;color:#fff;padding:24px 13px;display:flex;flex-direction:column}.brand{font-weight:800;font-size:22px;padding:0 16px 28px}.brand b{color:#ff7600}.brand small{display:block;color:#ff7600;font-size:12px;letter-spacing:1.5px;margin-top:3px}
+.nav button{width:100%;border:0;background:none;color:#ddd;text-align:left;padding:14px 16px;border-radius:9px;font-size:15px;cursor:pointer;margin-bottom:3px}.nav button.active,.nav button:hover{background:#ff7600;color:#fff}.plan{margin-top:auto;border:1px solid #393c40;background:#1b1d1f;border-radius:12px;padding:16px}.plan small{color:#aaa}.plan strong{font-size:25px;display:block;margin:8px 0}.plan button{width:100%;border:0;background:#ff7600;color:white;border-radius:8px;padding:10px;font-weight:700}
+main{flex:1;padding:28px 32px;overflow:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.top h1{margin:0;font-size:28px}.top p{color:#697180;margin:6px 0}.primary,.send{background:#ff7600;color:#fff;border:0;border-radius:8px;padding:12px 18px;font-weight:700;cursor:pointer}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.stat,.card{background:#fff;border:1px solid #e5e8ec;border-radius:12px;box-shadow:0 2px 7px #00000008}.stat{padding:18px}.stat small{color:#737b87}.stat strong{display:block;font-size:27px;margin:7px 0}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{padding:20px}.card h2{font-size:18px;margin:0 0 5px}.muted{font-size:13px;color:#747d89}.drop{border:2px dashed #d6dbe1;border-radius:10px;padding:27px;text-align:center;margin-top:15px}.drop .icon{font-size:32px;color:#ff7600}.drop label{display:inline-block;margin-top:10px}.tabletools{display:flex;gap:10px;align-items:center;margin:18px 0 10px}.search{flex:1;padding:11px 12px;border:1px solid #d8dde3;border-radius:8px;font:inherit}.table-wrap{border:1px solid #e1e5e9;border-radius:9px;overflow:auto;max-height:410px}.table-wrap table{border-collapse:collapse;width:100%;font-size:13px}.table-wrap th,.table-wrap td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}.table-wrap th{background:#fafafa;position:sticky;top:0}.message{width:100%;height:170px;resize:vertical;border:1px solid #d8dde3;border-radius:9px;padding:14px;font:inherit}.vars{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.var{border:0;background:#fff1e6;color:#e96900;border-radius:6px;padding:7px 9px;cursor:pointer}.preview{white-space:pre-wrap;background:#f7f8fa;border:1px solid #e2e5e9;border-radius:9px;padding:15px;margin-top:14px;min-height:110px}.actions{display:flex;gap:9px;margin-top:12px}.secondary{background:#fff;border:1px solid #d5dae0;border-radius:8px;padding:10px 14px;cursor:pointer}.send{flex:1}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modalbox{background:#fff;width:min(600px,96vw);max-height:90vh;overflow:auto;border-radius:14px;padding:22px}.modalbox h2{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formgrid input{padding:10px;border:1px solid #d8dde3;border-radius:7px;font:inherit}.modalfoot{display:flex;gap:9px;justify-content:flex-end;margin-top:18px}.toast{position:fixed;right:20px;bottom:20px;background:#17191c;color:white;padding:12px 16px;border-radius:9px;display:none;z-index:50}
+.dup-summary{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}.dup-chip{background:#f6f7f9;border:1px solid #e2e5e9;border-radius:999px;padding:7px 10px;font-size:13px}.dup-list{border:1px solid #e2e5e9;border-radius:10px;overflow:auto;max-height:360px}.dup-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef0f2}.dup-row:last-child{border-bottom:0}.dup-name{font-weight:700}.dup-phone{font-size:13px;color:#747d89;margin-top:3px}.dup-action{display:flex;align-items:center;gap:8px}.dup-action label{font-size:13px;font-weight:700;cursor:pointer}.dup-note{background:#fff7ed;border:1px solid #fed7aa;border-radius:9px;padding:11px 12px;font-size:13px;color:#7c2d12;margin-top:12px}
+@media(max-width:650px){.dup-row{grid-template-columns:1fr}.dup-action{justify-content:flex-start}}
+
+
+.accountbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.accountmail{font-size:13px;color:#697180;background:#fff;border:1px solid #e5e8ec;border-radius:999px;padding:8px 11px}.danger{background:#fff;border:1px solid #efcaca;color:#b42318;border-radius:8px;padding:10px 14px;cursor:pointer}.statuspill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.statuspill.active{background:#fff3e8;color:#c85f00}.statuspill.done{background:#ecfdf3;color:#027a48}.campaignrow{display:grid;grid-template-columns:minmax(0,1.4fr) auto auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #eee}.campaignrow:last-child{border-bottom:0}.campaignmeta{font-size:12px;color:#747d89;margin-top:4px}.campaignactions{display:flex;gap:7px;flex-wrap:wrap}.mini{padding:7px 10px;font-size:12px}.progressline{height:7px;background:#eceff2;border-radius:99px;overflow:hidden;margin-top:8px}.progressline>div{height:100%;background:#ff7600}.contact-actions{display:flex;gap:6px}.empty{padding:24px;text-align:center;color:#747d89}.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:center}.sectionhead .muted{margin-top:4px}
+@media(max-width:950px){.sidebar{width:205px}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{display:none}main{padding:18px}.stats{grid-template-columns:1fr 1fr}.top h1{font-size:23px}.top .primary{padding:9px 12px}.formgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="authScreen" style="display:flex;position:fixed;inset:0;background:#f6f7f9;z-index:100;align-items:center;justify-content:center;padding:20px">
+  <div class="card" style="width:min(430px,100%);padding:28px">
+    <div style="font-weight:800;font-size:22px;margin-bottom:4px">WhatsApp <span style="color:#ff7600">Campaign</span></div>
+    <div class="muted" style="margin-bottom:20px">Accedi al tuo account</div>
+    <input id="authEmail" type="email" placeholder="Email" style="width:100%;padding:12px;border:1px solid #d8dde3;border-radius:8px;font:inherit;margin-bottom:10px">
+    <input id="authPassword" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid #d8dde3;border-radius:8px;font:inherit;margin-bottom:10px">
+    <button id="loginBtn" class="primary" style="width:100%">Accedi</button>
+    <button id="signupBtn" class="secondary" style="width:100%;margin-top:8px">Crea account</button>
+    <div id="authMsg" class="muted" style="margin-top:12px"></div>
+  </div>
+</div>
+<div class="app">
+<aside class="sidebar">
+<div class="brand">◯ <b>WhatsApp</b><small>CAMPAIGN</small></div>
+<div class="nav">
+<button class="active" data-section="dashboard">⌂ &nbsp; Dashboard</button>
+<button data-section="contacts">♙ &nbsp; Contatti</button>
+<button data-section="campaigns">➤ &nbsp; Campagne</button>
+<button data-section="saved">▣ &nbsp; Messaggi salvati</button>
+<button data-section="variables">{ } &nbsp; Variabili</button>
+<button id="settingsBtn">⚙ &nbsp; Impostazioni</button><button id="logoutBtn">↪ &nbsp; Esci</button><button>❔ &nbsp; Guida</button>
+</div>
+<div class="plan"><small>Piano: Free</small><div>Messaggi disponibili</div><strong id="remaining">—</strong><button>Aggiorna Piano</button></div>
+</aside>
+<main>
+<div class="top"><div><h1>Ciao 👋</h1><p>Crea e invia messaggi WhatsApp personalizzati ai tuoi contatti.</p><div class="muted" style="margin-top:8px"><span id="cloudStatus">Modalità locale</span></div></div><button class="primary" id="newCampaign">＋ Nuova campagna</button></div>
+
+<section class="stats">
+<div class="stat"><small>Contatti totali</small><strong id="total">0</strong><small>In rubrica</small></div>
+<div class="stat"><small>Campagne</small><strong id="campaignCount">0</strong><small>Salvate</small></div>
+<div class="stat"><small>Messaggi inviati</small><strong id="sentCount">0</strong><small>Totali</small></div>
+<div class="stat"><small>Messaggi oggi</small><strong id="todayCount">0</strong><small>Limite demo</small></div>
+</section>
+
+<section class="grid">
+<div class="card">
+<h2>1. Rubrica contatti</h2><div class="muted">Importa il template Excel oppure aggiungi contatti manualmente.</div>
+<div class="drop"><div class="icon">⇧</div><b>Trascina qui Excel o CSV</b><br><span class="muted">oppure</span><br>
+<label for="file" class="primary">Seleziona file</label><input id="file" type="file" accept=".xlsx,.xls,.csv"></div>
+<div class="tabletools">
+<input class="search" id="search" placeholder="🔎 Cerca nome, telefono, azienda...">
+<button class="secondary" id="selectVisible">☑ Seleziona visibili</button>
+<button class="secondary" id="clearSelection">Deseleziona</button>
+<button class="secondary" id="addContact">＋ Aggiungi</button>
+</div>
+<div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+</div>
+
+<div class="card">
+<h2>2. Messaggio personalizzato</h2><div class="muted">Scrivi una volta e personalizzalo automaticamente per ogni contatto. Il telefono serve solo per aprire la chat WhatsApp.</div>
+<textarea class="message" id="message"></textarea>
+<div class="vars">
+<button class="var" data-v="{{Nome}}">{{Nome}}</button><button class="var" data-v="{{Cognome}}">{{Cognome}}</button><button class="var" data-v="{{Azienda}}">{{Azienda}}</button><button class="var" data-v="{{Data}}">{{Data}}</button><button class="var" data-v="{{Ora}}">{{Ora}}</button><button class="var" data-v="{{Email}}">{{Email}}</button><button class="var" data-v="{{Note}}">{{Note}}</button>
+</div>
+<div style="margin-top:18px"><b>Anteprima</b><div class="preview" id="preview"></div></div>
+<div class="actions"><button class="secondary" id="saveMsg">💾 Salva messaggio</button><button class="send" id="send">➤ Invia ai selezionati <span id="selectionCount"></span></button></div>
+</div>
+</section>
+<section class="card" style="margin-top:18px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<div><h2>3. Storico campagne</h2><div class="muted">Campagne create e stato degli invii.</div></div>
+<button class="secondary" id="manageCampaigns">Gestisci campagne</button>
+</div>
+<div id="campaignList" style="margin-top:14px"></div>
+</section>
+</main>
+</div>
+
+<div class="modal" id="duplicateModal"><div class="modalbox" style="width:min(760px,96vw)">
+<h2>Contatti già presenti</h2>
+<p class="muted">Ho trovato contatti con un numero già presente nella rubrica. Non vengono duplicati nel database: puoi ignorarli oppure selezionare il contatto già esistente per usarlo subito nella campagna.</p>
+<div class="dup-summary">
+  <span class="dup-chip" id="dupCount">0 duplicati</span>
+  <span class="dup-chip" id="dupImported">0 nuovi importati</span>
+  <span class="dup-chip" id="dupInvalid">0 senza telefono</span>
+</div>
+<div class="dup-list" id="duplicateList"></div>
+<div class="dup-note">“Seleziona comunque” non crea un doppione: seleziona la scheda già esistente con quel numero.</div>
+<div class="modalfoot" style="flex-wrap:wrap">
+  <button class="secondary" id="dupIgnoreAll">Ignora tutti</button>
+  <button class="secondary" id="dupSelectAll">Seleziona tutti</button>
+  <button class="primary" id="dupConfirm">Conferma</button>
+</div>
+</div></div>
+
+<div class="modal" id="sendModal"><div class="modalbox"><h2>Invio WhatsApp</h2><p class="muted">Verrà aperto WhatsApp Web con il testo già compilato. L'invio viene confermato manualmente su WhatsApp.</p><div id="sendProgress" style="margin:12px 0 8px;font-weight:700"></div>
+<div style="height:8px;background:#eceff2;border-radius:99px;overflow:hidden"><div id="sendBar" style="height:100%;width:0;background:#ff7600;transition:width .25s"></div></div>
+<div id="sendInfo" class="preview"></div><div class="modalfoot"><button class="secondary" id="closeSend">Chiudi</button><button class="send" id="nextSend">▶ Apri WhatsApp</button></div></div></div>
+
+<div class="modal" id="contactModal"><div class="modalbox"><h2 id="contactTitle">Nuovo contatto</h2><div class="formgrid">
+<input id="fNome" placeholder="Nome"><input id="fCognome" placeholder="Cognome"><input id="fTelefono" placeholder="Telefono (es. 393331234567)"><input id="fAzienda" placeholder="Azienda"><input id="fData" placeholder="Data"><input id="fOra" placeholder="Ora"><input id="fEmail" placeholder="Email"><input id="fNote" placeholder="Note">
+</div><div class="modalfoot"><button class="danger" id="deleteContact" style="margin-right:auto;display:none">Elimina</button><button class="secondary" id="cancelContact">Annulla</button><button class="primary" id="saveContact">Salva</button></div></div></div>
+<div class="modal" id="savedModal"><div class="modalbox"><h2>Messaggi salvati</h2><div id="savedList"></div><div class="modalfoot"><button class="secondary" onclick="document.getElementById('savedModal').style.display='none'">Chiudi</button></div></div></div>
+<div class="modal" id="campaignModal"><div class="modalbox">
+<h2>Nuova campagna</h2>
+<input id="campName" placeholder="Nome campagna" value="Promemoria" style="width:100%;padding:11px;border:1px solid #d8dde3;border-radius:8px;font:inherit">
+<div id="campCount" class="preview" style="min-height:0">0 destinatari</div>
+<div id="campMessage" class="preview"></div>
+<div class="modalfoot"><button class="secondary" id="cancelCampaign">Annulla</button><button class="primary" id="startCampaign">Avvia campagna</button></div>
+</div></div>
+
+<div class="modal" id="managerModal"><div class="modalbox" style="width:min(820px,96vw)">
+<h2>Gestione campagne</h2>
+<div class="muted">Apri, riprendi o elimina una campagna salvata.</div>
+<div id="managerList" style="margin-top:16px"></div>
+<div class="modalfoot"><button class="secondary" id="closeManager">Chiudi</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='wa_campaign_contacts_v12_cloud', MSG='wa_campaign_saved_v12_cloud', CAM='wa_campaign_campaigns_v12_cloud';
+let contacts=JSON.parse(localStorage.getItem(KEY)||'[]'), saved=JSON.parse(localStorage.getItem(MSG)||'[]'), campaigns=JSON.parse(localStorage.getItem(CAM)||'[]');
+let selected=[], sendPos=0, editing=-1, activeCampaignId=null;
+let currentSendQueue=[];
+const $=id=>document.getElementById(id), message=$('message'), preview=$('preview');
+
+function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
+
+let pendingDuplicates=[];
+let lastImportSummary={fresh:0,invalid:0};
+
+function duplicateContactIndex(phone){
+ const normalized=normalizePhone(phone);
+ return contacts.findIndex(c=>normalizePhone(c.Telefono)===normalized);
+}
+
+function renderDuplicateReview(){
+ $('dupCount').textContent=`${pendingDuplicates.length} duplicati`;
+ $('dupImported').textContent=`${lastImportSummary.fresh} nuovi importati`;
+ $('dupInvalid').textContent=`${lastImportSummary.invalid} senza telefono`;
+ $('duplicateList').innerHTML=pendingDuplicates.map((d,i)=>{
+   const existingIdx=duplicateContactIndex(d.Telefono);
+   const existing=existingIdx>=0?contacts[existingIdx]:null;
+   const displayName=[d.Nome,d.Cognome].filter(Boolean).join(' ')||'Contatto senza nome';
+   const existingName=existing?[existing.Nome,existing.Cognome].filter(Boolean).join(' '):'contatto esistente';
+   return `<div class="dup-row">
+      <div>
+        <div class="dup-name">${esc(displayName)}</div>
+        <div class="dup-phone">${esc(d.Telefono)} · già presente come ${esc(existingName||'contatto esistente')}</div>
+      </div>
+      <div class="dup-action">
+        <input type="checkbox" class="dupPick" id="dupPick${i}" data-phone="${esc(d.Telefono)}">
+        <label for="dupPick${i}">Seleziona comunque</label>
+      </div>
+   </div>`;
+ }).join('');
+}
+
+function openDuplicateReview(dups,freshCount,invalidCount){
+ pendingDuplicates=dups||[];
+ lastImportSummary={fresh:freshCount||0,invalid:invalidCount||0};
+ renderDuplicateReview();
+ $('duplicateModal').style.display='flex';
+}
+
+function closeDuplicateReview(){
+ $('duplicateModal').style.display='none';
+ pendingDuplicates=[];
+}
+
+$('dupIgnoreAll').onclick=()=>{
+ document.querySelectorAll('.dupPick').forEach(x=>x.checked=false);
+};
+$('dupSelectAll').onclick=()=>{
+ document.querySelectorAll('.dupPick').forEach(x=>x.checked=true);
+};
+$('dupConfirm').onclick=()=>{
+ const phones=[...document.querySelectorAll('.dupPick:checked')].map(x=>normalizePhone(x.dataset.phone));
+ let added=0;
+ phones.forEach(phone=>{
+   const idx=duplicateContactIndex(phone);
+   if(idx>=0&&!selected.includes(idx)){selected.push(idx);added++;}
+ });
+ closeDuplicateReview();
+ render();
+ toast(added?`${added} contatti esistenti selezionati`:'Duplicati ignorati');
+};
+
+
+let sb=null;
+let cloudUser=null;
+let cloudReady=false;
+
+function setAuthMsg(t){const el=document.getElementById('authMsg');if(el)el.textContent=t||'';}
+function showAuth(show){const el=document.getElementById('authScreen');if(el)el.style.display=show?'flex':'none';}
+function cloudStatus(t){
+ const el=document.getElementById('cloudStatus');if(el)el.textContent=t;
+ const ae=document.getElementById('accountEmail');
+ if(ae)ae.textContent=cloudUser?.email||'Non connesso';
+}
+
+async function initCloud(){
+ try{
+  showAuth(true);
+
+  if(!window.APP_CONFIG || !APP_CONFIG.SUPABASE_URL || !APP_CONFIG.SUPABASE_PUBLISHABLE_KEY){
+   cloudStatus('Supabase non configurato');
+   setAuthMsg('Configura config.js per attivare il cloud.');
+   return;
+  }
+
+  if(!window.supabase || !window.supabase.createClient){
+   cloudStatus('Errore caricamento Supabase');
+   setAuthMsg('Supabase non è stato caricato. Apri l’app tramite Vercel o un server web.');
+   return;
+  }
+
+  sb=window.supabase.createClient(
+    APP_CONFIG.SUPABASE_URL,
+    APP_CONFIG.SUPABASE_PUBLISHABLE_KEY,
+    {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}
+  );
+
+  const {data,error}=await sb.auth.getSession();
+  if(error) throw error;
+
+  if(data.session){
+    cloudUser=data.session.user;
+    cloudReady=true;
+    showAuth(false);
+    cloudStatus('☁ Cloud connesso · '+cloudUser.email);
+    await loadCloudData();
+  }else{
+    cloudUser=null;
+    cloudReady=false;
+    showAuth(true);
+    cloudStatus('Accesso richiesto');
+    setAuthMsg('');
+  }
+
+  sb.auth.onAuthStateChange(async (_event,session)=>{
+    cloudUser=session?.user||null;
+
+    if(cloudUser){
+      cloudReady=true;
+      showAuth(false);
+      cloudStatus('☁ Cloud connesso · '+cloudUser.email);
+      await loadCloudData();
+    }else{
+      cloudReady=false;
+      showAuth(true);
+      cloudStatus('Accesso richiesto');
+    }
+  });
+
+ }catch(e){
+   console.error('Supabase init error:',e);
+   cloudReady=false;
+   showAuth(true);
+   cloudStatus('Errore Supabase');
+   setAuthMsg('Errore di collegamento a Supabase: '+(e.message||e));
+ }
+}
+
+async function login(){
+ if(!sb){setAuthMsg('Configura prima config.js con i dati del progetto Supabase.');return;}
+ const email=$('authEmail').value.trim(),password=$('authPassword').value;
+ if(!email||!password){setAuthMsg('Inserisci email e password.');return;}
+ setAuthMsg('Accesso in corso...');
+ const {error}=await sb.auth.signInWithPassword({email,password});
+ setAuthMsg(error?error.message:'');
+}
+async function signup(){
+ if(!sb){setAuthMsg('Configura prima config.js con i dati del progetto Supabase.');return;}
+ const email=$('authEmail').value.trim(),password=$('authPassword').value;
+ if(!email||!password){setAuthMsg('Inserisci email e password.');return;}
+ setAuthMsg('Creazione account...');
+ const {data,error}=await sb.auth.signUp({email,password});
+ setAuthMsg(error?error.message:(data.session?'Account creato.':'Controlla la tua email per confermare l’account.'));
+}
+
+async function logoutApp(){
+ if(!sb)return;
+ const {error}=await sb.auth.signOut();
+ if(error){toast('Errore logout: '+error.message);return;}
+ cloudUser=null;cloudReady=false;contacts=[];saved=[];campaigns=[];selected=[];
+ render();renderCampaigns();updateStats();
+ showAuth(true);cloudStatus('Accesso richiesto');
+}
+
+async function loadCloudData(){
+ if(!cloudReady||!cloudUser)return;
+ try{
+  const [cr,sr,pr]=await Promise.all([
+   sb.from('contacts').select('*').order('created_at',{ascending:true}),
+   sb.from('saved_messages').select('*').order('created_at',{ascending:true}),
+   sb.from('campaigns').select('*').order('created_at',{ascending:true})
+  ]);
+  if(cr.error||sr.error||pr.error){console.warn(cr.error||sr.error||pr.error);return;}
+  contacts=(cr.data||[]).map(x=>({id:x.id,Nome:x.nome||'',Cognome:x.cognome||'',Telefono:x.telefono||'',Azienda:x.azienda||'',Data:x.data||'',Ora:x.ora||'',Email:x.email||'',Note:x.note||''}));
+  saved=(sr.data||[]).map(x=>({id:x.id,name:x.name,text:x.text}));
+  campaigns=(pr.data||[]).map(x=>({id:x.id,name:x.name,date:x.date,sent:x.sent||0,total:x.total||0,status:x.status||'In corso',message:x.message||'',recipients:x.recipients||[]}));
+  render();renderCampaigns();renderManager?.();updateStats();
+ }catch(e){console.warn(e);}
+}
+
+async function saveContactCloud(c){
+ if(!cloudReady||!cloudUser)return;
+ const row={user_id:cloudUser.id,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''};
+ const {error}=await sb.from('contacts').insert(row);if(error)throw error;
+}
+async function updateContactCloud(id,c){
+ if(!cloudReady||!cloudUser||!id)return;
+ const row={nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''};
+ const {error}=await sb.from('contacts').update(row).eq('id',id);if(error)throw error;
+}
+
+async function deleteContactCloud(id){
+ if(!cloudReady||!cloudUser||!id)return;
+ const {error}=await sb.from('contacts').delete().eq('id',id);
+ if(error)throw error;
+}
+
+async function saveMessageCloud(s){
+ if(!cloudReady||!cloudUser)return;
+ const {error}=await sb.from('saved_messages').insert({user_id:cloudUser.id,name:s.name,text:s.text});if(error)throw error;
+}
+async function saveCampaignCloud(c){
+ if(!cloudReady||!cloudUser)return;
+ const row={id:c.id,user_id:cloudUser.id,name:c.name,date:c.date,sent:c.sent||0,total:c.total||0,status:c.status||'In corso',message:c.message||'',recipients:c.recipients||[]};
+ const {error}=await sb.from('campaigns').insert(row);if(error)throw error;
+}
+async function updateCampaignCloud(c){
+ if(!cloudReady||!cloudUser||!c?.id)return;
+ const row={sent:c.sent||0,total:c.total||0,status:c.status||'In corso',message:c.message||'',recipients:c.recipients||[]};
+ const {error}=await sb.from('campaigns').update(row).eq('id',c.id);if(error)throw error;
+}
+async function deleteCampaignCloud(id){
+ if(!cloudReady||!cloudUser||!id)return;
+ const {error}=await sb.from('campaigns').delete().eq('id',id);if(error)throw error;
+}
+function campaignRecipientRefs(){
+ return selected.map(i=>contacts[i]?.id || ('idx:'+i));
+}
+function resolveCampaignRecipients(refs){
+ const out=[];
+ (refs||[]).forEach(ref=>{
+   if(typeof ref==='string' && ref.startsWith('idx:')){const i=Number(ref.slice(4));if(contacts[i])out.push(i);return;}
+   const i=contacts.findIndex(c=>String(c.id||'')===String(ref));
+   if(i>=0){out.push(i);return;}
+   if(Number.isInteger(ref) && contacts[ref]) out.push(ref); // compatibilità campagne precedenti
+ });
+ return out;
+}
+
+function normalizePhone(v){return String(v??'').trim().replace(/[^0-9]/g,'')}
+function persist(){localStorage.setItem(KEY,JSON.stringify(contacts));localStorage.setItem(MSG,JSON.stringify(saved));localStorage.setItem(CAM,JSON.stringify(campaigns));updateStats()}
+function updateStats(){$('total').textContent=contacts.length;$('campaignCount').textContent=campaigns.length;$('sentCount').textContent=campaigns.reduce((a,c)=>a+(c.sent||0),0);$('todayCount').textContent=campaigns.filter(c=>c.date===new Date().toISOString().slice(0,10)).reduce((a,c)=>a+(c.sent||0),0)}
+function personal(c){return message.value.replace(/\{\{([^}]+)\}\}/g,(m,k)=>c[k.trim()]??m)}
+function showPreview(){preview.textContent=contacts[0]&&message.value?personal(contacts[0]):(message.value||'');}
+function updateSelectionCount(){const el=document.getElementById('selectionCount');if(el)el.textContent=selected.length?`(${selected.length})`:''}
+function render(){
+ const q=$('search').value.toLowerCase();
+ const list=contacts.map((c,i)=>({...c,_i:i})).filter(c=>Object.values(c).join(' ').toLowerCase().includes(q));
+ $('thead').innerHTML='<tr><th><input id="all" type="checkbox"></th><th>Nome</th><th>Cognome</th><th>Telefono</th><th>Azienda</th><th>Data</th><th></th></tr>';
+ $('tbody').innerHTML=list.map(c=>`<tr><td><input type="checkbox" class="pick" data-i="${c._i}" ${selected.includes(c._i)?'checked':''}></td><td>${esc(c.Nome)}</td><td>${esc(c.Cognome)}</td><td>${esc(c.Telefono)}</td><td>${esc(c.Azienda)}</td><td>${esc(c.Data)}</td><td><div class="contact-actions"><button class="secondary mini edit" data-i="${c._i}">✏ Modifica</button><button class="danger mini quickdel" data-i="${c._i}">Elimina</button></div></td></tr>`).join('');
+ $('all').onchange=e=>{
+ document.querySelectorAll('.pick').forEach(x=>{
+   const i=Number(x.dataset.i);
+   x.checked=e.target.checked;
+   if(e.target.checked && !selected.includes(i)) selected.push(i);
+   if(!e.target.checked) selected=selected.filter(v=>v!==i);
+ });
+};
+ document.querySelectorAll('.pick').forEach(x=>x.onchange=()=>{let i=Number(x.dataset.i);if(x.checked&&!selected.includes(i))selected.push(i);else selected=selected.filter(v=>v!==i); updateSelectionCount()});
+ document.querySelectorAll('.edit').forEach(x=>x.onclick=()=>openContact(Number(x.dataset.i)));
+ document.querySelectorAll('.quickdel').forEach(x=>x.onclick=async()=>{
+   const i=Number(x.dataset.i),c=contacts[i];if(!c)return;
+   const label=[c.Nome,c.Cognome].filter(Boolean).join(' ')||c.Telefono||'questo contatto';
+   if(!confirm(`Eliminare ${label}?`))return;
+   try{
+     if(cloudReady&&c.id){await deleteContactCloud(c.id);await loadCloudData();}
+     else{contacts.splice(i,1);selected=selected.filter(v=>v!==i).map(v=>v>i?v-1:v);persist();render();}
+     toast('Contatto eliminato');
+   }catch(e){console.error(e);toast('Impossibile eliminare il contatto');}
+ });
+ updateStats(); showPreview(); updateSelectionCount();
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]))}
+
+$('selectVisible').onclick=()=>{
+ const q=$('search').value.toLowerCase();
+ contacts.forEach((c,i)=>{
+   if(Object.values(c).join(' ').toLowerCase().includes(q) && !selected.includes(i)) selected.push(i);
+ });
+ render(); toast('Contatti visibili selezionati');
+};
+$('clearSelection').onclick=()=>{selected=[];render();toast('Selezione cancellata')};
+
+
+$('deleteContact').onclick=async()=>{
+ if(editing<0||!contacts[editing])return;
+ const c=contacts[editing];
+ const label=[c.Nome,c.Cognome].filter(Boolean).join(' ')||c.Telefono||'questo contatto';
+ if(!confirm(`Eliminare ${label}?`))return;
+ try{
+   if(cloudReady&&c.id){
+     await deleteContactCloud(c.id);
+     await loadCloudData();
+   }else{
+     contacts.splice(editing,1);
+     selected=selected.filter(i=>i!==editing).map(i=>i>editing?i-1:i);
+     persist();render();
+   }
+   $('contactModal').style.display='none';
+   editing=-1;
+   toast('Contatto eliminato');
+ }catch(e){
+   console.error(e);
+   toast('Impossibile eliminare il contatto');
+ }
+};
+
+$('search').oninput=render;
+$('file').onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=async ev=>{
+  try{
+   const wb=XLSX.read(ev.target.result,{type:'array'});
+   const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
+   const mapped=rows.map(r=>{
+    let o={};
+    Object.keys(r).forEach(k=>{
+     let n=k.trim(),v=r[k],l=n.toLowerCase();
+     if(l==='nome')o.Nome=v;
+     if(l==='cognome')o.Cognome=v;
+     if(['telefono','tel','cellulare'].includes(l))o.Telefono=v;
+     if(l==='azienda')o.Azienda=v;
+     if(l==='data')o.Data=v;
+     if(l==='ora')o.Ora=v;
+     if(l==='email')o.Email=v;
+     if(l==='note')o.Note=v;
+    });
+    return o;
+   });
+
+   const existing=new Set(contacts.map(c=>normalizePhone(c.Telefono)).filter(Boolean));
+   const fresh=[];
+   const duplicates=[];
+   let invalid=0;
+   mapped.forEach(c=>{
+    const phone=normalizePhone(c.Telefono);
+    if(!phone){invalid++;return;}
+    c.Telefono=phone;
+    if(existing.has(phone)){duplicates.push(c);return;}
+    fresh.push(c);existing.add(phone);
+   });
+
+   if(cloudReady){
+    if(fresh.length){
+     const payload=fresh.map(c=>({
+      user_id:cloudUser.id,nome:c.Nome||'',cognome:c.Cognome||'',telefono:c.Telefono||'',
+      azienda:c.Azienda||'',data:c.Data||'',ora:c.Ora||'',email:c.Email||'',note:c.Note||''
+     }));
+     const {error}=await sb.from('contacts').insert(payload);
+     if(error)throw error;
+    }
+    await loadCloudData();
+   }else{
+    contacts.push(...fresh);persist();render();
+   }
+
+   if(duplicates.length){
+     openDuplicateReview(duplicates,fresh.length,invalid);
+   }else{
+     toast(`${fresh.length} importati · ${invalid} senza telefono`);
+   }
+  }catch(err){
+   console.error(err);
+   toast('Errore nella lettura/importazione del file');
+  }
+ };
+ r.readAsArrayBuffer(f);
+};
+document.querySelectorAll('.var').forEach(b=>b.onclick=()=>{message.setRangeText(b.dataset.v,message.selectionStart,message.selectionEnd,'end');message.focus();showPreview()});
+message.oninput=showPreview;
+
+function clearForm(){['Nome','Cognome','Telefono','Azienda','Data','Ora','Email','Note'].forEach(k=>$('f'+k).value='')}
+function openContact(i=-1){editing=i;clearForm();$('contactTitle').textContent=i<0?'Nuovo contatto':'Modifica contatto';if(i>=0){let c=contacts[i];['Nome','Cognome','Telefono','Azienda','Data','Ora','Email','Note'].forEach(k=>$('f'+k).value=c[k]||'')} $('contactModal').style.display='flex'}
+$('addContact').onclick=()=>openContact(-1);
+$('cancelContact').onclick=()=>$('contactModal').style.display='none';
+$('saveContact').onclick=async()=>{let c={};['Nome','Cognome','Telefono','Azienda','Data','Ora','Email','Note'].forEach(k=>c[k]=$('f'+k).value.trim());c.Telefono=normalizePhone(c.Telefono);if(!c.Telefono){toast('Inserisci il telefono');return}
+ const dup=contacts.findIndex((x,i)=>i!==editing && normalizePhone(x.Telefono)===c.Telefono);
+ if(dup>=0){toast('Numero già presente in rubrica');return;}
+ try{
+  if(editing>=0){const old=contacts[editing];contacts[editing]={...old,...c};if(cloudReady)await updateContactCloud(old.id,c);}
+  else {if(cloudReady){await saveContactCloud(c);await loadCloudData();}else contacts.push(c);}
+  $('contactModal').style.display='none';persist();render();toast('Contatto salvato');
+ }catch(e){toast('Errore salvataggio cloud')}
+};
+
+$('saveMsg').onclick=async()=>{let name=prompt('Nome del messaggio:','Promemoria');if(!name)return;const item={name,text:message.value};saved.push(item);persist();if(cloudReady){await saveMessageCloud(item);await loadCloudData();}toast('Messaggio salvato')};
+function openSaved(){let box=$('savedList');box.innerHTML=saved.length?saved.map((s,i)=>`<div style="border:1px solid #e2e5e9;border-radius:9px;padding:12px;margin-bottom:9px"><b>${esc(s.name)}</b><div class="muted" style="white-space:pre-wrap;margin:7px 0">${esc(s.text)}</div><button class="primary" onclick="loadSaved(${i})">Usa questo</button></div>`).join(''):'<p class="muted">Nessun messaggio salvato.</p>';$('savedModal').style.display='flex'}
+window.loadSaved=i=>{message.value=saved[i].text;showPreview();$('savedModal').style.display='none';toast('Messaggio caricato')};
+
+$('send').onclick=()=>{
+ selected=[...document.querySelectorAll('.pick:checked')].map(x=>Number(x.dataset.i));
+ if(!selected.length){toast('Seleziona almeno un contatto');return}
+ $('campCount').textContent=selected.length+' destinatari selezionati';
+ $('campMessage').textContent=personal(contacts[selected[0]]);
+ $('campaignModal').style.display='flex';
+};
+function updateSendInfo(){
+ const total=selected.length;
+ const done=sendPos;
+ $('sendProgress').textContent=total?`Contatto ${Math.min(done+1,total)} di ${total}`:'';
+ $('sendBar').style.width=(total?Math.min(done/total*100,100):0)+'%';
+ if(sendPos>=total){
+  $('sendProgress').textContent=`Campagna completata · ${total} di ${total}`;
+  $('sendBar').style.width='100%';
+  $('sendInfo').innerHTML='<b>✅ Campagna completata</b><br><br>Tutti i contatti selezionati sono stati elaborati.';
+  $('nextSend').textContent='Chiudi';
+  $('nextSend').onclick=()=>{$('sendModal').style.display='none';renderCampaigns()};
+  return;
+ }
+ const c=contacts[selected[sendPos]];
+ const text=personal(c);
+ $('sendInfo').innerHTML='<b>'+esc((c.Nome||'')+' '+(c.Cognome||''))+'</b><br><span class="muted">Destinazione WhatsApp: '+esc(c.Telefono||'')+'</span><hr style="border:0;border-top:1px solid #e2e5e9;margin:12px 0"><div style="white-space:pre-wrap">'+esc(text)+'</div>';
+ $('nextSend').textContent='▶ Apri WhatsApp ('+(sendPos+1)+'/'+total+')';
+ $('nextSend').onclick=()=>{
+   const phone=String(c.Telefono||'').replace(/\D/g,'');
+   if(!phone){toast('Questo contatto non ha un numero valido');sendPos++;updateSendInfo();return;}
+   window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(text),'_blank');
+   const last=campaigns.find(x=>x.id===activeCampaignId) || campaigns[campaigns.length-1];
+   if(last){last.sent=(last.sent||0)+1;last.status=last.sent>=last.total?'Completata':'In corso';}
+   persist();
+   if(last&&cloudReady){updateCampaignCloud(last).catch(e=>console.warn('Aggiornamento campagna cloud',e));}
+   sendPos++;
+   updateSendInfo();
+   renderCampaigns();
+ };
+}
+
+$('closeSend').onclick=()=>$('sendModal').style.display='none';
+$('cancelCampaign').onclick=()=>$('campaignModal').style.display='none';
+$('startCampaign').onclick=async()=>{
+ const name=$('campName').value.trim()||'Campagna senza nome';
+ const cid=Date.now(); campaigns.push({id:cid,name,date:new Date().toISOString().slice(0,10),sent:0,total:selected.length,status:'In corso',message:message.value,recipients:campaignRecipientRefs()}); activeCampaignId=cid;
+ persist();if(cloudReady){try{await saveCampaignCloud(campaigns[campaigns.length-1]);}catch(e){console.error(e);toast('Errore salvataggio campagna cloud');return;}}$('campaignModal').style.display='none';sendPos=0;$('sendModal').style.display='flex';updateSendInfo();
+};
+$('newCampaign').onclick=()=>{message.value='Ciao {{Nome}},\\n\\n';showPreview();message.focus()};
+document.getElementById('logoutBtn').onclick=async()=>{if(sb&&cloudReady)await sb.auth.signOut();};
+document.getElementById('settingsBtn').onclick=()=>{
+ if(confirm('Vuoi svuotare completamente questa workspace? Verranno rimossi solo i dati di questa versione.')){
+  contacts=[];saved=[];campaigns=[];selected=[];persist();render();renderCampaigns();toast('Workspace svuotata');
+ }
+};
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');let s=b.dataset.section;if(s==='contacts'){$('search').focus();toast('Sezione Contatti: usa la rubrica qui a sinistra')}if(s==='campaigns')toast(`Campagne salvate: ${campaigns.length}`);if(s==='saved')openSaved();if(s==='variables')toast('Variabili: '+['Nome','Cognome','Azienda','Data','Ora','Email','Note'].map(x=>'{{'+x+'}}').join(' '))});
+function resumeCampaign(id){
+ const c=campaigns.find(x=>String(x.id)===String(id));if(!c)return;
+ message.value=c.message||'';
+ activeCampaignId=c.id;
+ const ids=Array.isArray(c.recipients)?c.recipients:[];
+ selected=[];
+ ids.forEach(ref=>{
+   let idx=-1;
+   if(typeof ref==='string')idx=contacts.findIndex(x=>String(x.id)===String(ref));
+   else if(Number.isInteger(ref)&&contacts[ref])idx=ref;
+   if(idx>=0&&!selected.includes(idx))selected.push(idx);
+ });
+ sendPos=Math.min(Number(c.sent)||0,selected.length);
+ render();showPreview();
+ if(selected.length){
+   $('sendModal').style.display='flex';
+   updateSendInfo();
+   toast(sendPos?`Campagna ripresa da ${sendPos+1}/${selected.length}`:'Campagna pronta');
+ }else toast('I destinatari della campagna non sono più disponibili');
+}
+function renderCampaigns(){
+ const box=$('campaignList');if(!box)return;
+ if(!campaigns.length){box.innerHTML='<div class="empty">Nessuna campagna ancora.</div>';return;}
+ const sorted=[...campaigns].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+ box.innerHTML=sorted.map(c=>{
+   const total=Number(c.total)||0,sent=Number(c.sent)||0,pct=total?Math.min(100,Math.round(sent/total*100)):0;
+   const done=c.status==='Completata'||(total>0&&sent>=total);
+   return `<div class="campaignrow">
+     <div>
+       <div style="font-weight:800">${esc(c.name||'Campagna')}</div>
+       <div class="campaignmeta">${esc(c.date||'')} · ${sent}/${total} inviati</div>
+       <div class="progressline"><div style="width:${pct}%"></div></div>
+     </div>
+     <span class="statuspill ${done?'done':'active'}">${done?'Completata':'In corso'}</span>
+     <div class="campaignactions">
+       <button class="secondary mini resumeCamp" data-id="${c.id}">${done?'Apri':'Riprendi'}</button>
+     </div>
+   </div>`;
+ }).join('');
+ document.querySelectorAll('.resumeCamp').forEach(b=>b.onclick=()=>resumeCampaign(String(b.dataset.id)));
+}
+function renderManager(){
+ const box=$('managerList');
+ if(!campaigns.length){box.innerHTML='<p class="muted">Non ci sono campagne salvate.</p>';return;}
+ box.innerHTML=campaigns.slice().reverse().map((c,rev)=>{
+   const idx=campaigns.length-1-rev;
+   const remaining=Math.max((c.total||0)-(c.sent||0),0);
+   return `<div style="border:1px solid #e2e5e9;border-radius:10px;padding:14px;margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;gap:12px"><b>${esc(c.name)}</b><span>${esc(c.status||'In corso')}</span></div>
+    <div class="muted" style="margin:6px 0 12px">${esc(c.date)} · ${c.sent||0}/${c.total||0} inviati · ${remaining} rimanenti</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="primary resumeCamp" data-i="${idx}">${remaining?'▶ Riprendi':'↻ Riapri'}</button>
+      <button class="secondary loadCamp" data-i="${idx}">✏ Carica messaggio</button>
+      <button class="secondary deleteCamp" data-i="${idx}">🗑 Elimina</button>
+    </div>
+   </div>`;
+ }).join('');
+ document.querySelectorAll('.resumeCamp').forEach(b=>b.onclick=()=>{
+   const c=campaigns[Number(b.dataset.i)];
+   if(!c){return}
+   if(c.recipients && c.recipients.length){
+     selected=resolveCampaignRecipients(c.recipients);
+     activeCampaignId=c.id;
+     if(!selected.length){toast('I destinatari di questa campagna non sono più presenti in rubrica');return;}
+   }else{
+     toast('Questa campagna è della versione precedente: può essere riaperto il messaggio.');
+     message.value=c.message||message.value;showPreview();$('managerModal').style.display='none';return;
+   }
+   message.value=c.message||message.value;showPreview();
+   sendPos=Math.min(c.sent||0,selected.length);
+   $('managerModal').style.display='none';$('sendModal').style.display='flex';updateSendInfo();
+ });
+ document.querySelectorAll('.loadCamp').forEach(b=>b.onclick=()=>{
+   const c=campaigns[Number(b.dataset.i)];
+   if(c){message.value=c.message||'';showPreview();$('managerModal').style.display='none';toast('Messaggio della campagna caricato');}
+ });
+ document.querySelectorAll('.deleteCamp').forEach(b=>b.onclick=()=>{
+   const i=Number(b.dataset.i);
+   if(confirm('Eliminare questa campagna dallo storico?')){const doomed=campaigns[i];campaigns.splice(i,1);persist();if(cloudReady&&doomed?.id)deleteCampaignCloud(doomed.id).catch(e=>console.warn(e));renderCampaigns();renderManager();toast('Campagna eliminata');}
+ });
+}
+$('manageCampaigns').onclick=()=>{$('managerModal').style.display='flex';renderManager()};
+$('closeManager').onclick=()=>$('managerModal').style.display='none';
+
+// Login / registrazione Supabase
+$('loginBtn').onclick=login;
+$('signupBtn').onclick=signup;
+$('authPassword').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+
+updateStats();render();renderCampaigns();initCloud();
+</script>
+</body>
+</html>
