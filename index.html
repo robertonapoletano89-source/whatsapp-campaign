@@ -1001,6 +1001,16 @@ body.sf-superadmin-mode main>.sfpage:not(#sf-superadmin):not(#sf-plansadmin):not
  #sf-superadmin .sf-company-inline-report{grid-template-columns:1fr 1fr!important}
 }
 
+
+/* V47 — account security */
+.sf-auth-link{display:block;width:100%;border:0;background:transparent;color:#5267ff;font-weight:800;font-size:12px;padding:12px 4px 2px;cursor:pointer}
+.sf-auth-link:hover{text-decoration:underline}
+.sf-password-panel{margin-top:20px;padding-top:18px;border-top:1px solid #e7eaf0;display:grid;gap:9px}
+.sf-password-panel h3{margin:0;font-size:18px}
+.sf-password-panel input{width:100%;padding:11px 12px;border:1px solid #d8dde3;border-radius:9px;font:inherit}
+.sf-password-panel button{width:max-content;margin-top:2px}
+#sfPasswordMsg{min-height:18px}
+
 </style>
 </head>
 <body>
@@ -1023,6 +1033,7 @@ body.sf-superadmin-mode main>.sfpage:not(#sf-superadmin):not(#sf-plansadmin):not
     <input id="authPassword" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid #d8dde3;border-radius:8px;font:inherit;margin-bottom:10px">
     <button id="loginBtn" class="primary" style="width:100%">Accedi</button>
     <button id="signupBtn" class="secondary" style="width:100%;margin-top:8px">Crea account</button>
+    <button id="forgotPasswordBtn" class="sf-auth-link" type="button">Password dimenticata?</button>
     <div id="authMsg" class="muted" style="margin-top:12px"></div>
   </div>
 </div>
@@ -1427,6 +1438,15 @@ body.sf-superadmin-mode main>.sfpage:not(#sf-superadmin):not(#sf-plansadmin):not
 <div class="sf-page-grid">
   <div class="sf-page-card">
     <h2>Account</h2><div class="muted">Accesso cloud tramite Supabase.</div><div id="v15Account" style="margin-top:14px;font-weight:700">—</div>
+    <div class="sf-password-panel">
+      <div class="sf-kicker">Sicurezza</div>
+      <h3>Cambia password</h3>
+      <div class="muted">Aggiorna la password del tuo account SendFlow.</div>
+      <input id="sfNewPassword" type="password" autocomplete="new-password" placeholder="Nuova password">
+      <input id="sfConfirmPassword" type="password" autocomplete="new-password" placeholder="Conferma nuova password">
+      <button id="sfChangePasswordBtn" class="primary" type="button">Aggiorna password</button>
+      <div id="sfPasswordMsg" class="muted"></div>
+    </div>
   </div>
   <div class="sf-page-card">
     <div class="sf-kicker">White-label</div>
@@ -1935,6 +1955,44 @@ async function signup(){
  setAuthMsg('Creazione account...');
  const {data,error}=await sb.auth.signUp({email,password});
  setAuthMsg(error?error.message:(data.session?'Account creato.':'Controlla la tua email per confermare l’account.'));
+}
+
+
+async function sfForgotPassword(){
+ if(!sb){setAuthMsg('Servizio non disponibile.');return;}
+ const email=$('authEmail')?.value.trim();
+ if(!email){setAuthMsg('Inserisci prima la tua email.');$('authEmail')?.focus();return;}
+ setAuthMsg('Invio link di recupero...');
+ try{
+   const redirectTo=window.location.origin+window.location.pathname;
+   const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo});
+   if(error)throw error;
+   setAuthMsg('Link di recupero inviato. Controlla la tua email.');
+ }catch(e){
+   console.error('Password reset error',e);
+   setAuthMsg('Impossibile inviare il link: '+(e.message||e));
+ }
+}
+
+async function sfChangePassword(){
+ const msg=$('sfPasswordMsg'), p1=$('sfNewPassword')?.value||'', p2=$('sfConfirmPassword')?.value||'';
+ if(msg)msg.textContent='';
+ if(!sb||!cloudUser){if(msg)msg.textContent='Devi essere autenticato.';return;}
+ if(p1.length<8){if(msg)msg.textContent='La password deve contenere almeno 8 caratteri.';return;}
+ if(p1!==p2){if(msg)msg.textContent='Le password non coincidono.';return;}
+ const btn=$('sfChangePasswordBtn');
+ if(btn){btn.disabled=true;btn.textContent='Aggiornamento...';}
+ try{
+   const {error}=await sb.auth.updateUser({password:p1});
+   if(error)throw error;
+   $('sfNewPassword').value='';$('sfConfirmPassword').value='';
+   if(msg)msg.textContent='Password aggiornata correttamente.';
+ }catch(e){
+   console.error('Password update error',e);
+   if(msg)msg.textContent='Errore: '+(e.message||e);
+ }finally{
+   if(btn){btn.disabled=false;btn.textContent='Aggiorna password';}
+ }
 }
 
 async function logoutApp(){
@@ -3373,5 +3431,15 @@ sfLoadBrand();
 setTimeout(()=>{sfNormalizePages();sfRenderRecent();sfApplyBrand();},350);
 
 </script>
+
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+ const forgot=document.getElementById('forgotPasswordBtn');
+ if(forgot)forgot.addEventListener('click',sfForgotPassword);
+ const change=document.getElementById('sfChangePasswordBtn');
+ if(change)change.addEventListener('click',sfChangePassword);
+});
+</script>
+
 </body>
 </html>
